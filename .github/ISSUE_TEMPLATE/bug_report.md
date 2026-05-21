@@ -1,11 +1,10 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: "[FIX] "
+title: '[FIX] '
 labels: "\U0001F41E BugFix"
 assignees: hdg0116
 type: Bug
-
 ---
 
 ## 어떤 버그인가요?
