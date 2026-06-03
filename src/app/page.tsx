@@ -6,9 +6,9 @@ export default function HomePage() {
       <h1>Home</h1>
 
       <nav>
-        <Link href="/login">Login</Link>
-        <Link href="/dashboard">Dashboard</Link>
-        <Link href="/users">Users</Link>
+        <Link href='/login'>Login</Link>
+        <Link href='/dashboard'>Dashboard</Link>
+        <Link href='/users'>Users</Link>
       </nav>
     </main>
   );

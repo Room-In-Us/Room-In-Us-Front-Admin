@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
 const users = [
-  { id: 1, name: '사용자 1' },
-  { id: 2, name: '사용자 2' },
+  {id: 1, name: '사용자 1'},
+  {id: 2, name: '사용자 2'},
 ];
 
 export default function UsersPage() {
