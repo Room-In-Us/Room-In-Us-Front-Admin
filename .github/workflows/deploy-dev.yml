@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: room-in-us/room-in-us-front-admin    # ← admin
+  IMAGE_NAME: room-in-us/room-in-us-front-admin # ← admin
 
 jobs:
   build-and-push:
@@ -58,7 +58,7 @@ jobs:
           host: ${{ secrets.OCI_HOST }}
           username: ${{ secrets.OCI_USER }}
           key: ${{ secrets.OCI_SSH_KEY }}
-          command_timeout: 10m       # ← 추가 (기본 10분이지만 명시)
+          command_timeout: 10m # ← 추가 (기본 10분이지만 명시)
           script: |
             cd ~/deploy
             docker compose pull --quiet admin-app
