@@ -51,8 +51,9 @@ Apply Roominus Admin conventions consistently while keeping them compatible with
 
 - Production branch: `main`
 - Development branch: `develop`
-- Work branches: `<type>/#<issue-number>-<english-slug>`
-  - Example: `feature/#3-login-layout`
+- Work branches: `<type>/<issue-number>-<english-slug>`
+  - Example: `feature/3-login-layout`
+- Branch names must not include `#`.
 - Branch names must use English lowercase letters, numbers, and hyphens only after the issue number.
 - Do not use Korean, spaces, underscores, or camelCase in branch names.
 - Use lowercase branch types such as `feature`, `fix`, `refactor`, `docs`, `style`, `test`, `setting`, `chore`.

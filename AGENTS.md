@@ -71,7 +71,8 @@ Do not add Jira, Turbo generator, monorepo, design-system package, PR monitoring
 
 - Main branch: `main`
 - Development branch: `develop`
-- Work branch: `<type>/#<issue-number>-<english-slug>`, for example `feature/#3-login-layout`
+- Work branch: `<type>/<issue-number>-<english-slug>`, for example `feature/3-login-layout`
+- Branch names must not include `#`.
 - Branch names must use English lowercase letters, numbers, and hyphens only after the issue number. Do not use Korean or spaces in branch names.
 - Commit format: `Type: 한글 변경 요약 (#issue)`, for example `Feat: 카카오 로그인 기능 구현 (#9)`
 - Commit types: `Feat`, `Fix`, `Remove`, `Chore`, `Test`, `Refactor`, `Docs`, `Style`, `Setting`
