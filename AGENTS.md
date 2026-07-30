@@ -1,7 +1,89 @@
+# Roominus Admin Agent Guide
+
 <!-- BEGIN:nextjs-agent-rules -->
 
-# This is NOT the Next.js you know
+## This Is Not The Next.js You Know
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+This project uses Next.js 16. APIs, conventions, and file structure may differ from older Next.js knowledge. Before changing Next-specific code, read the relevant guide in `node_modules/next/dist/docs/` and follow deprecation notices.
+
+Useful local docs:
+
+- `node_modules/next/dist/docs/01-app/01-getting-started/02-project-structure.md`
+- `node_modules/next/dist/docs/01-app/01-getting-started/03-layouts-and-pages.md`
+- `node_modules/next/dist/docs/01-app/01-getting-started/05-server-and-client-components.md`
+- `node_modules/next/dist/docs/01-app/03-api-reference/03-file-conventions/page.md`
+- `node_modules/next/dist/docs/01-app/03-api-reference/03-file-conventions/layout.md`
 
 <!-- END:nextjs-agent-rules -->
+
+## Project Shape
+
+- Product: Roominus Admin
+- Framework: Next.js App Router under `src/app`
+- Runtime scripts: `package.json`
+- Package manager source of truth: existing lockfile and scripts. This repo currently uses `pnpm-lock.yaml`.
+- UI stack: React 19, Tailwind CSS 4, shadcn/Radix-style primitives, lucide icons, `class-variance-authority`, `tailwind-merge`
+- Data stack: `axios`, `@tanstack/react-query`
+- Path alias: `@/*` maps to project root.
+
+## Agent Skill Set
+
+This repo intentionally keeps agent setup light. Use only the skills below unless a task clearly needs a new one.
+
+| Task Type | Skill |
+| --- | --- |
+| Decide work type and scope | `.agents/skills/frontend-task-orchestrator/SKILL.md` |
+| Apply project code, branch, and commit conventions | `.agents/skills/project-conventions-workflow/SKILL.md` |
+| Add or change App Router pages | `.agents/skills/page-feature-workflow/SKILL.md` |
+| Add API helpers or React Query hooks | `.agents/skills/api-integration-workflow/SKILL.md` |
+| Draft or refine GitHub issues | `.agents/skills/issue-workflow/SKILL.md` |
+| Prepare pull request content | `.agents/skills/pr-prep-workflow/SKILL.md` |
+| Verify frontend changes | `.agents/skills/frontend-quality-verification/SKILL.md` |
+
+Do not add Jira, Turbo generator, monorepo, design-system package, PR monitoring, browser review, or performance skills until the repo actually needs them.
+
+## Working Rules
+
+- Prefer existing project structure over introducing new folders.
+- Keep `src/app` focused on routing. Put reusable UI and utilities under `src/shared`, and domain-specific work under `src/features` when the feature has enough substance to justify it.
+- Use PascalCase for project-owned page/component modules, but keep required Next route files as `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx`, and `route.ts`.
+- Use camelCase for icon/image asset filenames.
+- Use SVG for icons and PNG for raster images unless a concrete need says otherwise.
+- Prefer `em`, `%`, or relative units for scalable layout and sizing; use `px` for border width, border radius, hairlines, and small fixed formatting details.
+- Pages and layouts are Server Components by default. Add `'use client'` only to components that need state, event handlers, effects, browser APIs, or client hooks.
+- In Next 16 App Router pages, treat `params` and `searchParams` as promises.
+- Keep route-specific components close to the route until reuse is real.
+- For API work, keep request/response types near the API boundary and include response-changing inputs in React Query keys.
+- Use `rg` or `rg --files` first when searching.
+- Use `apply_patch` for manual file edits.
+- Do not broaden refactors beyond the requested change.
+
+## Issue And PR Rules
+
+- Use `.github/ISSUE_TEMPLATE/*` and `.github/pull_request_template.md` as the source of truth.
+- Keep issue and PR text concise, concrete, and tied to observable behavior.
+- Prefer these title prefixes so `.github/labeler.yml` can apply labels: `[FEAT]`, `[FIX]`, `[REFACTOR]`, `[API]`, `[DOCS]`, `[STYLE]`, `[TEST]`, `[SETTING]`, `[DEVELOP]`, `[CROSSBROWSING]`.
+- Link related issues in the PR `ISSUE` section when one exists.
+- Fill the PR test checklist with commands or manual checks actually performed or still required.
+- Do not claim screenshots, tests, deployments, or CI results exist unless they were actually produced or checked.
+
+## Branch And Commit Rules
+
+- Main branch: `main`
+- Development branch: `develop`
+- Work branch: `<type>/#<issue-number>-<english-slug>`, for example `feature/#3-login-layout`
+- Branch names must use English lowercase letters, numbers, and hyphens only after the issue number. Do not use Korean or spaces in branch names.
+- Commit format: `Type: 한글 변경 요약 (#issue)`, for example `Feat: 카카오 로그인 기능 구현 (#9)`
+- Commit types: `Feat`, `Fix`, `Remove`, `Chore`, `Test`, `Refactor`, `Docs`, `Style`, `Setting`
+- Add a blank line before a commit body. In the body, explain what changed and why.
+
+## Verification
+
+Choose the lightest check that proves the change:
+
+- Docs or agent-only changes: `git diff --check`
+- Formatting-sensitive changes: `pnpm format:check`
+- Code changes: `pnpm lint`
+- Next or type-sensitive changes: `pnpm build`
+
+If a command cannot be run, report why and note the remaining risk.

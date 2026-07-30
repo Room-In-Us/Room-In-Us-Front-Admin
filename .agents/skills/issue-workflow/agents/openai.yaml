@@ -1,0 +1,6 @@
+interface:
+  display_name: "Issue Workflow"
+  short_description: "Draft GitHub issues with repo templates and labels."
+  default_prompt: "$issue-workflow Draft a Roominus Admin GitHub issue using the current templates and label conventions."
+policy:
+  allow_implicit_invocation: true
