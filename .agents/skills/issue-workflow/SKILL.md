@@ -18,16 +18,16 @@ Create concise GitHub issues that match this repo's templates and are ready to i
 
 ## Template Selection
 
-| Issue Type | Template | Title Prefix |
-| --- | --- | --- |
-| New feature | `.github/ISSUE_TEMPLATE/feature_request.md` | `[FEAT]` |
-| Bug fix | `.github/ISSUE_TEMPLATE/bug_report.md` | `[FIX]` |
-| API work | `.github/ISSUE_TEMPLATE/custom.md` | `[API]` |
-| Refactor | `.github/ISSUE_TEMPLATE/custom.md` | `[REFACTOR]` |
-| Docs | `.github/ISSUE_TEMPLATE/custom.md` | `[DOCS]` |
-| Style/UI-only polish | `.github/ISSUE_TEMPLATE/custom.md` | `[STYLE]` |
-| Test work | `.github/ISSUE_TEMPLATE/custom.md` | `[TEST]` |
-| Config/setup | `.github/ISSUE_TEMPLATE/custom.md` | `[SETTING]` |
+| Issue Type           | Template                                    | Title Prefix |
+| -------------------- | ------------------------------------------- | ------------ |
+| New feature          | `.github/ISSUE_TEMPLATE/feature_request.md` | `[FEAT]`     |
+| Bug fix              | `.github/ISSUE_TEMPLATE/bug_report.md`      | `[FIX]`      |
+| API work             | `.github/ISSUE_TEMPLATE/custom.md`          | `[API]`      |
+| Refactor             | `.github/ISSUE_TEMPLATE/custom.md`          | `[REFACTOR]` |
+| Docs                 | `.github/ISSUE_TEMPLATE/custom.md`          | `[DOCS]`     |
+| Style/UI-only polish | `.github/ISSUE_TEMPLATE/custom.md`          | `[STYLE]`    |
+| Test work            | `.github/ISSUE_TEMPLATE/custom.md`          | `[TEST]`     |
+| Config/setup         | `.github/ISSUE_TEMPLATE/custom.md`          | `[SETTING]`  |
 
 Use another labeler prefix from `.github/labeler.yml` only when it clearly fits better.
 

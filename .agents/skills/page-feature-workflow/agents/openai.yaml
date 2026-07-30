@@ -1,6 +1,6 @@
 interface:
-  display_name: "Page Feature Workflow"
-  short_description: "Add or change Next App Router pages."
-  default_prompt: "$page-feature-workflow로 Roominus Admin 페이지 또는 라우트 UI를 구현해줘."
+  display_name: 'Page Feature Workflow'
+  short_description: 'Add or change Next App Router pages.'
+  default_prompt: '$page-feature-workflow로 Roominus Admin 페이지 또는 라우트 UI를 구현해줘.'
 policy:
   allow_implicit_invocation: true

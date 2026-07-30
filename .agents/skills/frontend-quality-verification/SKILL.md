@@ -16,12 +16,12 @@ Pick checks that match the actual change. Keep verification light, but do enough
 
 ## Verification Ladder
 
-| Change Type | Checks |
-| --- | --- |
-| Docs or agent files only | `git diff --check` |
-| Formatting-sensitive docs or code | `pnpm format:check` |
-| TypeScript, React, or shared UI changes | `pnpm lint` |
-| Next route, config, build, or Server/Client Component boundary changes | `pnpm build` |
+| Change Type                                                            | Checks              |
+| ---------------------------------------------------------------------- | ------------------- |
+| Docs or agent files only                                               | `git diff --check`  |
+| Formatting-sensitive docs or code                                      | `pnpm format:check` |
+| TypeScript, React, or shared UI changes                                | `pnpm lint`         |
+| Next route, config, build, or Server/Client Component boundary changes | `pnpm build`        |
 
 Use `npm run ...` only if pnpm is not available in the environment.
 
@@ -36,6 +36,7 @@ Use `npm run ...` only if pnpm is not available in the environment.
 
 ```markdown
 Verification:
+
 - `command`: pass/fail/not run
 - Notes:
 ```

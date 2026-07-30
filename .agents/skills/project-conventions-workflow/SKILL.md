@@ -75,17 +75,17 @@ Feat: 카카오 로그인 기능 구현 (#9)
 
 Allowed commit types:
 
-| Type | Meaning |
-| --- | --- |
-| `Feat` | New feature |
-| `Fix` | Bug fix |
-| `Remove` | File, code, or feature removal |
-| `Chore` | Build or maintenance changes |
-| `Test` | Test changes |
-| `Refactor` | Refactoring |
-| `Docs` | Documentation |
-| `Style` | Style or formatting without behavior changes |
-| `Setting` | Environment/config setup |
+| Type       | Meaning                                      |
+| ---------- | -------------------------------------------- |
+| `Feat`     | New feature                                  |
+| `Fix`      | Bug fix                                      |
+| `Remove`   | File, code, or feature removal               |
+| `Chore`    | Build or maintenance changes                 |
+| `Test`     | Test changes                                 |
+| `Refactor` | Refactoring                                  |
+| `Docs`     | Documentation                                |
+| `Style`    | Style or formatting without behavior changes |
+| `Setting`  | Environment/config setup                     |
 
 Rules:
 

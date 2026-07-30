@@ -17,14 +17,14 @@ Use this before non-trivial frontend work. Decide the task type, gather only the
 
 ## Task Routing
 
-| Work Type | Use |
-| --- | --- |
-| Naming, assets, styling units, branch names, commit messages | `project-conventions-workflow` |
-| New or changed App Router page, layout, route-local UI | `page-feature-workflow` |
-| API helper, request/response type, query key, query/mutation hook | `api-integration-workflow` |
-| GitHub issue drafting, issue refinement, issue breakdown | `issue-workflow` |
-| Pull request summary, checklist, issue link, review-ready description | `pr-prep-workflow` |
-| Verification after docs or code changes | `frontend-quality-verification` |
+| Work Type                                                             | Use                             |
+| --------------------------------------------------------------------- | ------------------------------- |
+| Naming, assets, styling units, branch names, commit messages          | `project-conventions-workflow`  |
+| New or changed App Router page, layout, route-local UI                | `page-feature-workflow`         |
+| API helper, request/response type, query key, query/mutation hook     | `api-integration-workflow`      |
+| GitHub issue drafting, issue refinement, issue breakdown              | `issue-workflow`                |
+| Pull request summary, checklist, issue link, review-ready description | `pr-prep-workflow`              |
+| Verification after docs or code changes                               | `frontend-quality-verification` |
 
 Do not invoke heavier workflows for Jira, Turbo, monorepos, design-system packages, PR monitoring, or browser PR review unless they are explicitly introduced to this repo.
 

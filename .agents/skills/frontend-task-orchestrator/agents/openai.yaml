@@ -1,6 +1,6 @@
 interface:
-  display_name: "Frontend Task Orchestrator"
-  short_description: "Classify frontend work and choose the light workflow."
-  default_prompt: "$frontend-task-orchestrator로 이 프론트엔드 작업의 범위와 진행 순서를 정리해줘."
+  display_name: 'Frontend Task Orchestrator'
+  short_description: 'Classify frontend work and choose the light workflow.'
+  default_prompt: '$frontend-task-orchestrator로 이 프론트엔드 작업의 범위와 진행 순서를 정리해줘.'
 policy:
   allow_implicit_invocation: true
