@@ -1,0 +1,6 @@
+interface:
+  display_name: 'Server Client Boundary Workflow'
+  short_description: 'Decide durable Next Server and Client Component boundaries.'
+  default_prompt: '$server-client-boundary-workflow로 서버/클라이언트 컴포넌트 경계를 장기적으로 안전하게 판단해줘.'
+policy:
+  allow_implicit_invocation: true

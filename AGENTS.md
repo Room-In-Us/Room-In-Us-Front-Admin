@@ -30,15 +30,19 @@ Useful local docs:
 
 This repo intentionally keeps agent setup light. Use only the skills below unless a task clearly needs a new one.
 
-| Task Type                                          | Skill                                                   |
-| -------------------------------------------------- | ------------------------------------------------------- |
-| Decide work type and scope                         | `.agents/skills/frontend-task-orchestrator/SKILL.md`    |
-| Apply project code, branch, and commit conventions | `.agents/skills/project-conventions-workflow/SKILL.md`  |
-| Add or change App Router pages                     | `.agents/skills/page-feature-workflow/SKILL.md`         |
-| Add API helpers or React Query hooks               | `.agents/skills/api-integration-workflow/SKILL.md`      |
-| Draft or refine GitHub issues                      | `.agents/skills/issue-workflow/SKILL.md`                |
-| Prepare pull request content                       | `.agents/skills/pr-prep-workflow/SKILL.md`              |
-| Verify frontend changes                            | `.agents/skills/frontend-quality-verification/SKILL.md` |
+| Task Type                                          | Skill                                                     |
+| -------------------------------------------------- | --------------------------------------------------------- |
+| Decide work type and scope                         | `.agents/skills/frontend-task-orchestrator/SKILL.md`      |
+| Apply project code, branch, and commit conventions | `.agents/skills/project-conventions-workflow/SKILL.md`    |
+| Add or change App Router pages                     | `.agents/skills/page-feature-workflow/SKILL.md`           |
+| Decide Server/Client Component boundaries          | `.agents/skills/server-client-boundary-workflow/SKILL.md` |
+| Add or change reusable shared UI components        | `.agents/skills/shared-component-workflow/SKILL.md`       |
+| Add form validation and submit flows               | `.agents/skills/form-flow-workflow/SKILL.md`              |
+| Add API helpers or React Query hooks               | `.agents/skills/api-integration-workflow/SKILL.md`        |
+| Review non-trivial frontend diffs                  | `.agents/skills/frontend-fundamentals-review/SKILL.md`    |
+| Draft or refine GitHub issues                      | `.agents/skills/issue-workflow/SKILL.md`                  |
+| Prepare pull request content                       | `.agents/skills/pr-prep-workflow/SKILL.md`                |
+| Verify frontend changes                            | `.agents/skills/frontend-quality-verification/SKILL.md`   |
 
 Do not add Jira, Turbo generator, monorepo, design-system package, PR monitoring, browser review, or performance skills until the repo actually needs them.
 
@@ -51,6 +55,7 @@ Do not add Jira, Turbo generator, monorepo, design-system package, PR monitoring
 - Use SVG for icons and PNG for raster images unless a concrete need says otherwise.
 - Prefer `em`, `%`, or relative units for scalable layout and sizing; use `px` for border width, border radius, hairlines, and small fixed formatting details.
 - Pages and layouts are Server Components by default. Add `'use client'` only to components that need state, event handlers, effects, browser APIs, or client hooks.
+- Keep `'use client'` at the smallest practical boundary so static shells and server-fetched data stay server-rendered.
 - In Next 16 App Router pages, treat `params` and `searchParams` as promises.
 - Keep route-specific components close to the route until reuse is real.
 - For API work, keep request/response types near the API boundary and include response-changing inputs in React Query keys.

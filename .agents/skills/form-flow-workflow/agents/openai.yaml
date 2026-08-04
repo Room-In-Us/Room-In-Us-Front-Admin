@@ -1,0 +1,6 @@
+interface:
+  display_name: 'Form Flow Workflow'
+  short_description: 'Implement validation and submit state for forms.'
+  default_prompt: '$form-flow-workflow로 Roominus Admin 폼 흐름을 구현해줘.'
+policy:
+  allow_implicit_invocation: true
