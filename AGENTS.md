@@ -76,15 +76,7 @@ Do not add Jira, Turbo generator, monorepo, design-system package, PR monitoring
 
 ## Branch And Commit Rules
 
-- Main branch: `main`
-- Development branch: `develop`
-- Work branch: `<type>/<issue-number>-<english-slug>`, for example `feature/3-login-layout`.
-- Branch names must never include `#`, Korean characters, spaces, underscores, or camelCase.
-- The issue number segment is digits only, without `#`; use `feature/5-login-layout`, not `feature/#5-login-layout`.
-- The slug after the issue number must use only English lowercase letters, numbers, and hyphens.
-- Commit format: `Type: 한글 변경 요약 (#issue)`, for example `Feat: 카카오 로그인 기능 구현 (#9)`
-- Commit types: `Feat`, `Fix`, `Remove`, `Chore`, `Test`, `Refactor`, `Docs`, `Style`, `Setting`
-- Add a blank line before a commit body. In the body, explain what changed and why.
+- Use `.agents/skills/project-conventions-workflow/SKILL.md` as the single detailed source of truth for branch names, commit formats, commit types, character restrictions, and commit body rules.
 
 ## Verification
 
