@@ -1,0 +1,6 @@
+interface:
+  display_name: 'Frontend Fundamentals Review'
+  short_description: 'Review frontend diffs for maintainability risks.'
+  default_prompt: '$frontend-fundamentals-review로 현재 프론트엔드 변경사항을 리뷰해줘.'
+policy:
+  allow_implicit_invocation: true

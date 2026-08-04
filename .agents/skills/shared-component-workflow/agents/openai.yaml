@@ -1,0 +1,6 @@
+interface:
+  display_name: 'Shared Component Workflow'
+  short_description: 'Add or change reusable shared UI components.'
+  default_prompt: '$shared-component-workflow로 Roominus Admin 공용 컴포넌트 작업을 진행해줘.'
+policy:
+  allow_implicit_invocation: true

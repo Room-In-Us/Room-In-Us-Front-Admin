@@ -1,0 +1,6 @@
+interface:
+  display_name: 'Frontend Quality Verification'
+  short_description: 'Choose and run the right frontend checks.'
+  default_prompt: '$frontend-quality-verification으로 이번 변경에 맞는 검증을 해줘.'
+policy:
+  allow_implicit_invocation: true
