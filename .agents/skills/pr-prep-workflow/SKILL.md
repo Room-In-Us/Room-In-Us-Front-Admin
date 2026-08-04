@@ -36,8 +36,9 @@ Prefer the same prefixes used by the labeler:
 ## Branch And Commit Conventions
 
 - Work branch: `<type>/<issue-number>-<english-slug>`, for example `feature/3-login-layout`.
-- Branch names must not include `#`.
-- Branch names must use English lowercase letters, numbers, and hyphens only after the issue number.
+- Branch names must never include `#`, Korean characters, spaces, underscores, or camelCase.
+- The issue number segment is digits only, without `#`; use `feature/5-login-layout`, not `feature/#5-login-layout`.
+- The slug after the issue number must use only English lowercase letters, numbers, and hyphens.
 - Commit format: `Type: 한글 변경 요약 (#issue)`.
 - Commit example: `Feat: 카카오 로그인 기능 구현 (#9)`.
 - Commit types: `Feat`, `Fix`, `Remove`, `Chore`, `Test`, `Refactor`, `Docs`, `Style`, `Setting`.

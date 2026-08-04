@@ -53,9 +53,9 @@ Apply Roominus Admin conventions consistently while keeping them compatible with
 - Development branch: `develop`
 - Work branches: `<type>/<issue-number>-<english-slug>`
   - Example: `feature/3-login-layout`
-- Branch names must not include `#`.
-- Branch names must use English lowercase letters, numbers, and hyphens only after the issue number.
-- Do not use Korean, spaces, underscores, or camelCase in branch names.
+- Branch names must never include `#`, Korean characters, spaces, underscores, or camelCase.
+- The issue number segment is digits only, without `#`; use `feature/5-login-layout`, not `feature/#5-login-layout`.
+- The slug after the issue number must use only English lowercase letters, numbers, and hyphens.
 - Use lowercase branch types such as `feature`, `fix`, `refactor`, `docs`, `style`, `test`, `setting`, `chore`.
 - When no issue number exists, ask whether to create/link one or use a short English no-issue branch name.
 
@@ -115,5 +115,5 @@ Rules:
 - New code follows naming and asset conventions.
 - Next.js required file names are not renamed to PascalCase.
 - Styling unit choices follow the relative-unit preference while preserving practical `px` use.
-- Branch suggestions use English-only slugs and match the repo format.
+- Branch suggestions omit `#`, Korean characters, spaces, underscores, and camelCase.
 - Any deviation is intentional and explained.
