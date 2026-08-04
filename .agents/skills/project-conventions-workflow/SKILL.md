@@ -57,7 +57,7 @@ Apply Roominus Admin conventions consistently while keeping them compatible with
 - The issue number segment is digits only, without `#`; use `feature/5-login-layout`, not `feature/#5-login-layout`.
 - The slug after the issue number must use only English lowercase letters, numbers, and hyphens.
 - Use lowercase branch types such as `feature`, `fix`, `refactor`, `docs`, `style`, `test`, `setting`, `chore`.
-- When no issue number exists, ask whether to create/link one or use a short English no-issue branch name.
+- When no issue number exists, ask the user to create or link an issue before proposing a work branch.
 
 ## Commit Messages
 

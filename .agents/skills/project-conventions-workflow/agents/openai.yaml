@@ -2,3 +2,5 @@ interface:
   display_name: 'Project Conventions Workflow'
   short_description: 'Apply Roominus Admin code, branch, and commit conventions.'
   default_prompt: '$project-conventions-workflow Apply the Roominus Admin code, branch, and commit conventions.'
+policy:
+  allow_implicit_invocation: true

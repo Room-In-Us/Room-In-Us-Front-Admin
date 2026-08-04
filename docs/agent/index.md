@@ -10,18 +10,22 @@ The setup is intentionally small:
 
 ## Included Skills
 
-| Skill                           | Purpose                                                                    |
-| ------------------------------- | -------------------------------------------------------------------------- |
-| `frontend-task-orchestrator`    | Classify a frontend task and choose the right workflow.                    |
-| `project-conventions-workflow`  | Apply code naming, asset, style unit, branch, and commit conventions.      |
-| `page-feature-workflow`         | Add or change pages, layouts, and route-local UI in `src/app`.             |
-| `api-integration-workflow`      | Add API helpers, TanStack Query hooks, query keys, and cache behavior.     |
-| `issue-workflow`                | Draft or refine GitHub issues using the repo templates and label prefixes. |
-| `pr-prep-workflow`              | Prepare PR summaries, issue links, screenshots notes, and test checklists. |
-| `frontend-quality-verification` | Pick and run the smallest useful verification set.                         |
+| Skill                             | Purpose                                                                    |
+| --------------------------------- | -------------------------------------------------------------------------- |
+| `frontend-task-orchestrator`      | Classify a frontend task and choose the right workflow.                    |
+| `project-conventions-workflow`    | Apply code naming, asset, style unit, branch, and commit conventions.      |
+| `page-feature-workflow`           | Add or change pages, layouts, and route-local UI in `src/app`.             |
+| `server-client-boundary-workflow` | Decide durable Next Server and Client Component boundaries.                |
+| `shared-component-workflow`       | Add or change reusable shared UI components.                               |
+| `form-flow-workflow`              | Implement validation and submit state for forms.                           |
+| `api-integration-workflow`        | Add API helpers, TanStack Query hooks, query keys, and cache behavior.     |
+| `frontend-fundamentals-review`    | Review frontend diffs for maintainability risks.                           |
+| `issue-workflow`                  | Draft or refine GitHub issues using the repo templates and label prefixes. |
+| `pr-prep-workflow`                | Prepare PR summaries, issue links, screenshots notes, and test checklists. |
+| `frontend-quality-verification`   | Pick and run the smallest useful verification set.                         |
 
 ## Excluded From The Light Setup
 
-The DONGCHIMI-CLIENT reference repo includes useful but heavier workflows for Jira, Figma, Turbo generators, monorepos, design-system packages, performance budgets, project monitoring, and browser PR review. They are not copied here because this repo is currently a single Next admin app.
+Jira, Figma, Turbo generator, monorepo, design-system package, performance budget, project monitoring, and browser PR review workflows are intentionally not included because this repository is currently a single Next.js Admin app.
 
 Add those only when the matching workflow becomes part of everyday work.

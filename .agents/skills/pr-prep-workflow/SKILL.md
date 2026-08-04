@@ -12,7 +12,7 @@ Prepare PR text that follows this repo's template and accurately reflects the lo
 ## Read First
 
 - `AGENTS.md`
-- `.agents/skills/project-conventions-workflow/SKILL.md` for branch and commit conventions
+- `.agents/skills/project-conventions-workflow/SKILL.md` as the single source of truth for branch and commit conventions
 - `.github/pull_request_template.md`
 - `.github/labeler.yml` when choosing a title prefix
 - `package.json` and `.github/workflows/ci.yml` when choosing verification
@@ -35,14 +35,7 @@ Prefer the same prefixes used by the labeler:
 
 ## Branch And Commit Conventions
 
-- Work branch: `<type>/<issue-number>-<english-slug>`, for example `feature/3-login-layout`.
-- Branch names must never include `#`, Korean characters, spaces, underscores, or camelCase.
-- The issue number segment is digits only, without `#`; use `feature/5-login-layout`, not `feature/#5-login-layout`.
-- The slug after the issue number must use only English lowercase letters, numbers, and hyphens.
-- Commit format: `Type: 한글 변경 요약 (#issue)`.
-- Commit example: `Feat: 카카오 로그인 기능 구현 (#9)`.
-- Commit types: `Feat`, `Fix`, `Remove`, `Chore`, `Test`, `Refactor`, `Docs`, `Style`, `Setting`.
-- If suggesting a commit body, separate it from the subject with a blank line and explain what changed and why.
+Use `.agents/skills/project-conventions-workflow/SKILL.md` for branch names, commit formats, examples, commit types, and commit body rules. Do not restate those rules here.
 
 ## PR Body Rules
 
