@@ -53,6 +53,8 @@ Prefer the same prefixes used by the labeler:
 - Fill `Test Checklist` with actual checks, such as `pnpm format:check`, `pnpm lint`, `pnpm build`, or manual route checks.
 - Mark unchecked items for checks that still need to be run.
 - Do not claim CI, deployment, screenshots, or tests passed without evidence.
+- If CodeRabbit, Copilot, or teammate review already covered a finding, do not repeat the same comment; summarize only unresolved review risk or the PR point reviewers should focus on.
+- For non-trivial frontend PRs, include a short reviewer focus such as Server/Client Component boundary, query key/cache behavior, shared component ownership, or verification gap.
 
 ## Suggested Body
 
@@ -91,10 +93,13 @@ Use `frontend-quality-verification` after code changes. CI currently runs:
 
 For docs-only PRs, `git diff --check` is usually enough locally unless the user wants CI parity.
 
+CodeRabbit is configured by `.coderabbit.yaml` to review `develop` and `main` PRs, skip draft PRs, and use `AGENTS.md` plus `.agents/skills/**/SKILL.md` as code guidelines. Treat its output as review input, not as proof that local verification passed.
+
 ## Done Criteria
 
 - PR title and body match the actual change.
 - Related issue is linked when known.
 - Screenshot section is honest.
 - Test checklist distinguishes completed and pending checks.
+- CodeRabbit or teammate review comments are not duplicated without new evidence.
 - Residual risk is stated when verification is incomplete.

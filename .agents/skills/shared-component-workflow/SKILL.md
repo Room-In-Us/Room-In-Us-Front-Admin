@@ -35,6 +35,8 @@ If the reuse case is unclear, keep the component local until another real usage 
 - Prefer composition over boolean props when variants would multiply quickly.
 - Use lucide icons for generic UI actions when available.
 - Preserve existing shadcn/Radix-style primitives and Tailwind patterns.
+- Use `cva` for repeated variant, size, or state class sets, and `cn`/`tailwind-merge` when merging caller-provided `className`.
+- Do not introduce Vanilla Extract or `*.css.ts`; this project uses Tailwind CSS 4, shadcn/Radix-style primitives, and global CSS only where needed.
 - Avoid nested cards and layout abstractions that hide page structure.
 
 ## Implementation Flow

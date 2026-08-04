@@ -53,6 +53,7 @@ Do not add Jira, Turbo generator, monorepo, design-system package, PR monitoring
 - Use PascalCase for project-owned page/component modules, but keep required Next route files as `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx`, and `route.ts`.
 - Use camelCase for icon/image asset filenames.
 - Use SVG for icons and PNG for raster images unless a concrete need says otherwise.
+- Use Tailwind CSS 4 with existing shadcn/Radix-style primitives, `class-variance-authority`, `tailwind-merge`, and `src/app/globals.css`; do not introduce Vanilla Extract or `*.css.ts`.
 - Prefer `em`, `%`, or relative units for scalable layout and sizing; use `px` for border width, border radius, hairlines, and small fixed formatting details.
 - Pages and layouts are Server Components by default. Add `'use client'` only to components that need state, event handlers, effects, browser APIs, or client hooks.
 - Keep `'use client'` at the smallest practical boundary so static shells and server-fetched data stay server-rendered.
@@ -71,6 +72,7 @@ Do not add Jira, Turbo generator, monorepo, design-system package, PR monitoring
 - Link related issues in the PR `ISSUE` section when one exists.
 - Fill the PR test checklist with commands or manual checks actually performed or still required.
 - Do not claim screenshots, tests, deployments, or CI results exist unless they were actually produced or checked.
+- CodeRabbit review behavior is configured in `.coderabbit.yaml`; treat its comments as review input, not as a substitute for local verification.
 
 ## Branch And Commit Rules
 

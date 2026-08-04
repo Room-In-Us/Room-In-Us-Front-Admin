@@ -36,6 +36,7 @@ Implement page, layout, and route-local UI changes in this Next.js App Router pr
 - Use lucide icons for icon buttons when available.
 - Use camelCase for local asset filenames, SVG for icons, and PNG for raster images.
 - Prefer `em` and `%` for scalable sizing, with `px` allowed for border width, border radius, and small fixed formatting details.
+- Use Tailwind CSS 4 utilities and existing shadcn/Radix/cva patterns; do not introduce Vanilla Extract or route-specific global CSS.
 - Keep admin UI dense, clear, and task-focused.
 
 ## Implementation Flow
