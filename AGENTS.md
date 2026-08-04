@@ -21,7 +21,7 @@ Useful local docs:
 - Product: Roominus Admin
 - Framework: Next.js App Router under `src/app`
 - Runtime scripts: `package.json`
-- Package manager source of truth: existing lockfile and scripts. This repo currently uses `pnpm-lock.yaml`.
+- Package manager source of truth: `package.json` `packageManager` (`pnpm@10.33.0`), existing lockfile, and scripts. This repo currently uses `pnpm-lock.yaml`.
 - UI stack: React 19, Tailwind CSS 4, shadcn/Radix-style primitives, lucide icons, `class-variance-authority`, `tailwind-merge`
 - Data stack: `axios`, `@tanstack/react-query`
 - Path alias: `@/*` maps to project root.
