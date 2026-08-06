@@ -1,7 +1,8 @@
 :root {
   --font-family-pretendard:
-    var(--font-pretendard), 'Apple SD Gothic Neo', 'Noto Sans KR', Arial, sans-serif;
-  
+    var(--font-pretendard), 'Apple SD Gothic Neo', 'Noto Sans KR', Arial,
+    sans-serif;
+
   /* RIU typography tokens from Figma */
   --riu-type-h1-font-size: 1.5rem;
   --riu-type-h1-line-height: 2rem;
@@ -189,7 +190,6 @@
   --text-caption3--line-height: var(--riu-type-caption3-line-height);
   --text-caption3--font-weight: var(--riu-type-caption3-font-weight);
   --text-caption3--letter-spacing: var(--riu-type-caption3-letter-spacing);
-
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
