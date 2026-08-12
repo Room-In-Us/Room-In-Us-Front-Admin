@@ -1,37 +1,44 @@
-# enable labeler on issues, prs, or both.
 enable:
   issues: true
   prs: true
 
-# 레이블 규칙
 labels:
   '✨ Feature':
     include:
-      - '\bFEAT\b'
-  '🐞 BUG':
+      - '(?i)^\[FEAT\]'
+
+  '🐞 BugFix':
     include:
-      - '\bFIX\b'
+      - '(?i)^\[FIX\]'
+
   '🔨 Refactor':
     include:
-      - '\bREFACTOR\b'
+      - '(?i)^\[REFACTOR\]'
+
   '📬 API':
     include:
-      - '\bAPI\b'
+      - '(?i)^\[API\]'
+
   '📃 Docs':
     include:
-      - '\bDOCS\b'
+      - '(?i)^\[DOCS\]'
+
   '🌏 Deploy':
     include:
-      - '\bDEVELOP\b'
+      - '(?i)^\[DEVELOP\]'
+
   '🎨 Style':
     include:
-      - '\bSTYLE\b'
+      - '(?i)^\[STYLE\]'
+
   '💻 CrossBrowsing':
     include:
-      - '\bCROSSBROWSING\b'
+      - '(?i)^\[CROSSBROWSING\]'
+
   '✅ Test':
     include:
-      - '\bTEST\b'
+      - '(?i)^\[TEST\]'
+
   '⚙ Setting':
     include:
-      - '\bSETTING\b'
+      - '(?i)^\[SETTING\]'
