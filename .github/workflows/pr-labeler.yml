@@ -2,9 +2,9 @@ name: PR labeler
 
 on:
   issues:
-    types: [opened, edited]
+    types: [opened]
   pull_request_target:
-    types: [opened, edited, reopened]
+    types: [opened, reopened]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.issue.number || github.event.pull_request.number }}
@@ -20,9 +20,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
       - name: Check Labels
         id: labeler
-        uses: jimschubert/labeler-action@e6fb93f2d64d8b0b78d208456f349e9e00698a5d # v2
+        uses: ./.github/actions/labeler
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:

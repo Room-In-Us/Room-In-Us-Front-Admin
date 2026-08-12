@@ -1,0 +1,16 @@
+name: Auto Labeler
+author: Jim Schubert
+description: Automatically label issues and pull requests via configuration
+
+inputs:
+  GITHUB_TOKEN:
+    description: GitHub token for the repository
+    required: false
+  config_path:
+    description: Configuration path to labeler config, relative to repository root
+    required: false
+    default: .github/labeler.yml
+
+runs:
+  using: docker
+  image: docker://jimschubert/labeler-action@sha256:19862087fca3e5a5752b120abb1f18c6502604c2fb28f505be682d5c7806bfb4
