@@ -14,7 +14,6 @@ Create concise GitHub issues that match this repo's templates and are ready to i
 - `AGENTS.md`
 - Matching template under `.github/ISSUE_TEMPLATE/`
 - `.github/labeler.yml` when choosing a title prefix
-- `.agents/skills/project-conventions-workflow/SKILL.md`
 - Nearby source files only when issue scope depends on current implementation
 
 ## Template Selection
