@@ -58,12 +58,16 @@ function PageSizeSelect({
   const [internalValue, setInternalValue] = React.useState(
     String(defaultValue)
   );
+  const [activeValue, setActiveValue] = React.useState(String(defaultValue));
   const rootRef = React.useRef<HTMLDivElement>(null);
   const selectedValue = isControlled ? String(value) : internalValue;
   const selectedOption =
     options.find((option) => option.value === selectedValue) ??
     options[0] ??
     fallbackPageSizeOption;
+  const activeOption =
+    options.find((option) => option.value === activeValue) ?? selectedOption;
+  const activeOptionId = `${listboxId}-${activeOption.value}`;
 
   React.useEffect(() => {
     if (!isOpen) {
@@ -92,19 +96,43 @@ function PageSizeSelect({
     setIsOpen(false);
   }
 
-  function moveSelection(direction: 1 | -1) {
-    if (options.length === 0) {
+  function openMenu() {
+    setActiveValue(selectedOption.value);
+    setIsOpen(true);
+  }
+
+  function toggleMenu() {
+    if (isOpen) {
+      setIsOpen(false);
       return;
     }
 
+    openMenu();
+  }
+
+  function getNextOptionValue(currentValue: string, direction: 1 | -1) {
+    if (options.length === 0) {
+      return currentValue;
+    }
+
     const selectedIndex = Math.max(
-      options.findIndex((option) => option.value === selectedValue),
+      options.findIndex((option) => option.value === currentValue),
       0
     );
     const nextIndex =
       (selectedIndex + direction + options.length) % options.length;
 
-    selectValue(options[nextIndex].value);
+    return options[nextIndex].value;
+  }
+
+  function moveSelection(direction: 1 | -1) {
+    selectValue(getNextOptionValue(selectedValue, direction));
+  }
+
+  function moveActiveOption(direction: 1 | -1) {
+    setActiveValue((currentValue) =>
+      getNextOptionValue(currentValue, direction)
+    );
   }
 
   function handleTriggerClick(event: React.MouseEvent<HTMLButtonElement>) {
@@ -114,7 +142,7 @@ function PageSizeSelect({
       return;
     }
 
-    setIsOpen((current) => !current);
+    toggleMenu();
   }
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLButtonElement>) {
@@ -131,18 +159,33 @@ function PageSizeSelect({
 
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
-      setIsOpen((current) => !current);
+      if (isOpen) {
+        selectValue(activeOption.value);
+        return;
+      }
+
+      toggleMenu();
       return;
     }
 
     if (event.key === 'ArrowDown') {
       event.preventDefault();
+      if (isOpen) {
+        moveActiveOption(1);
+        return;
+      }
+
       moveSelection(1);
       return;
     }
 
     if (event.key === 'ArrowUp') {
       event.preventDefault();
+      if (isOpen) {
+        moveActiveOption(-1);
+        return;
+      }
+
       moveSelection(-1);
     }
   }
@@ -165,6 +208,7 @@ function PageSizeSelect({
           type='button'
           role='combobox'
           aria-controls={listboxId}
+          aria-activedescendant={isOpen ? activeOptionId : undefined}
           aria-expanded={isOpen}
           aria-haspopup='listbox'
           disabled={disabled}
@@ -201,10 +245,12 @@ function PageSizeSelect({
             )}>
             {options.map((option) => {
               const isSelected = option.value === selectedOption.value;
+              const isActive = option.value === activeOption.value;
 
               return (
                 <button
                   key={option.value}
+                  id={`${listboxId}-${option.value}`}
                   type='button'
                   role='option'
                   aria-selected={isSelected}
@@ -212,7 +258,7 @@ function PageSizeSelect({
                   className={cn(
                     'text-body3 flex h-7 w-full items-center rounded-lg p-1 text-left transition-colors outline-none',
                     'text-riu-monochrome-200 hover:bg-riu-monochrome-10 hover:text-riu-monochrome-1000 focus-visible:bg-riu-monochrome-10 focus-visible:text-riu-monochrome-1000',
-                    isSelected &&
+                    (isSelected || isActive) &&
                       'bg-riu-monochrome-10 text-riu-monochrome-1000'
                   )}>
                   <span className='min-w-0 truncate'>{option.label}</span>
