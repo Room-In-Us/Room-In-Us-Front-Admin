@@ -64,6 +64,7 @@
   --riu-monochrome-20: #f0f0f4;
   --riu-monochrome-30: #e7e8ed;
   --riu-monochrome-50: #d6d6df;
+  --riu-monochrome-70: #b3b6c3;
   --riu-monochrome-100: #818496;
   --riu-monochrome-200: #717486;
   --riu-monochrome-300: #696c7e;
@@ -246,6 +247,7 @@
   --color-riu-monochrome-20: var(--riu-monochrome-20);
   --color-riu-monochrome-30: var(--riu-monochrome-30);
   --color-riu-monochrome-50: var(--riu-monochrome-50);
+  --color-riu-monochrome-70: var(--riu-monochrome-70);
   --color-riu-monochrome-100: var(--riu-monochrome-100);
   --color-riu-monochrome-200: var(--riu-monochrome-200);
   --color-riu-monochrome-300: var(--riu-monochrome-300);
