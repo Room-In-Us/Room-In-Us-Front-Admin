@@ -59,12 +59,14 @@ function PageSizeSelect({
     String(defaultValue)
   );
   const [activeValue, setActiveValue] = React.useState(String(defaultValue));
+  const triggerRef = React.useRef<HTMLButtonElement>(null);
   const rootRef = React.useRef<HTMLDivElement>(null);
-  const selectedValue = isControlled ? String(value) : internalValue;
+  const requestedValue = isControlled ? String(value) : internalValue;
   const selectedOption =
-    options.find((option) => option.value === selectedValue) ??
+    options.find((option) => option.value === requestedValue) ??
     options[0] ??
     fallbackPageSizeOption;
+  const selectedValue = selectedOption.value;
   const activeOption =
     options.find((option) => option.value === activeValue) ?? selectedOption;
   const activeOptionId = `${listboxId}-${activeOption.value}`;
@@ -94,6 +96,7 @@ function PageSizeSelect({
 
     onValueChange?.(nextValue);
     setIsOpen(false);
+    triggerRef.current?.focus();
   }
 
   function openMenu() {
@@ -204,6 +207,7 @@ function PageSizeSelect({
         ) : null}
 
         <button
+          ref={triggerRef}
           id={buttonId}
           type='button'
           role='combobox'
@@ -253,6 +257,7 @@ function PageSizeSelect({
                   id={`${listboxId}-${option.value}`}
                   type='button'
                   role='option'
+                  tabIndex={-1}
                   aria-selected={isSelected}
                   onClick={() => selectValue(option.value)}
                   className={cn(

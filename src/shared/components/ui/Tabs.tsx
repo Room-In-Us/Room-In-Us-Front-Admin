@@ -34,8 +34,11 @@ function Tabs({
   'aria-label': ariaLabel = 'tabs',
 }: TabsProps) {
   const firstEnabledValue = items.find((item) => !item.disabled)?.value;
+  const defaultEnabledValue = items.find(
+    (item) => item.value === defaultValue && !item.disabled
+  )?.value;
   const [internalValue, setInternalValue] = React.useState(
-    defaultValue ?? value ?? firstEnabledValue
+    value ?? defaultEnabledValue ?? firstEnabledValue
   );
   const selectedValue = value ?? internalValue;
 
