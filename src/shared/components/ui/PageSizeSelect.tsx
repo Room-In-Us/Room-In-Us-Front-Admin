@@ -53,7 +53,9 @@ function PageSizeSelect({
   const listboxId = `${buttonId}-listbox`;
   const isControlled = value !== undefined;
   const [isOpen, setIsOpen] = React.useState(false);
-  const [internalValue, setInternalValue] = React.useState(String(defaultValue));
+  const [internalValue, setInternalValue] = React.useState(
+    String(defaultValue)
+  );
   const rootRef = React.useRef<HTMLDivElement>(null);
   const selectedValue = isControlled ? String(value) : internalValue;
   const selectedOption =
@@ -97,7 +99,8 @@ function PageSizeSelect({
       options.findIndex((option) => option.value === selectedValue),
       0
     );
-    const nextIndex = (selectedIndex + direction + options.length) % options.length;
+    const nextIndex =
+      (selectedIndex + direction + options.length) % options.length;
 
     selectValue(options[nextIndex].value);
   }
@@ -130,13 +133,14 @@ function PageSizeSelect({
     <div ref={rootRef} className={cn('flex items-start gap-2', className)}>
       <label
         htmlFor={buttonId}
-        className='flex h-9 shrink-0 items-center text-body3 text-riu-monochrome-800'
-      >
+        className='text-body3 text-riu-monochrome-800 flex h-9 shrink-0 items-center'>
         {label}
       </label>
 
       <div className='relative w-24 shrink-0'>
-        {name ? <input type='hidden' name={name} value={selectedOption.value} /> : null}
+        {name ? (
+          <input type='hidden' name={name} value={selectedOption.value} />
+        ) : null}
 
         <button
           id={buttonId}
@@ -149,13 +153,12 @@ function PageSizeSelect({
           onClick={() => setIsOpen((current) => !current)}
           onKeyDown={handleKeyDown}
           className={cn(
-            'flex h-9 w-full items-center justify-between rounded-lg border border-transparent bg-riu-monochrome-20 py-1.5 pr-3 pl-3.5 text-body3 text-riu-monochrome-1000 outline-none transition-colors',
-            'focus-visible:ring-3 focus-visible:ring-ring/50',
+            'bg-riu-monochrome-20 text-body3 text-riu-monochrome-1000 flex h-9 w-full items-center justify-between rounded-lg border border-transparent py-1.5 pr-3 pl-3.5 transition-colors outline-none',
+            'focus-visible:ring-ring/50 focus-visible:ring-3',
             'disabled:cursor-not-allowed disabled:opacity-50',
             triggerClassName
           )}
-          {...props}
-        >
+          {...props}>
           <span className='min-w-0 truncate'>{selectedOption.label}</span>
 
           <IconSlot
@@ -164,8 +167,7 @@ function PageSizeSelect({
             className={cn(
               'text-riu-monochrome-1000 transition-transform',
               isOpen && 'rotate-180'
-            )}
-          >
+            )}>
             <IcChevronDown />
           </IconSlot>
         </button>
@@ -176,10 +178,9 @@ function PageSizeSelect({
             role='listbox'
             aria-labelledby={buttonId}
             className={cn(
-              'absolute top-11 left-0 z-20 flex w-full flex-col gap-1 rounded-lg bg-riu-monochrome-20 p-2',
+              'bg-riu-monochrome-20 absolute top-11 left-0 z-20 flex w-full flex-col gap-1 rounded-lg p-2',
               menuClassName
-            )}
-          >
+            )}>
             {options.map((option) => {
               const isSelected = option.value === selectedOption.value;
 
@@ -191,11 +192,11 @@ function PageSizeSelect({
                   aria-selected={isSelected}
                   onClick={() => selectValue(option.value)}
                   className={cn(
-                    'flex h-7 w-full items-center rounded-lg p-1 text-left text-body3 outline-none transition-colors',
+                    'text-body3 flex h-7 w-full items-center rounded-lg p-1 text-left transition-colors outline-none',
                     'text-riu-monochrome-200 hover:bg-riu-monochrome-10 hover:text-riu-monochrome-1000 focus-visible:bg-riu-monochrome-10 focus-visible:text-riu-monochrome-1000',
-                    isSelected && 'bg-riu-monochrome-10 text-riu-monochrome-1000'
-                  )}
-                >
+                    isSelected &&
+                      'bg-riu-monochrome-10 text-riu-monochrome-1000'
+                  )}>
                   <span className='min-w-0 truncate'>{option.label}</span>
                 </button>
               );

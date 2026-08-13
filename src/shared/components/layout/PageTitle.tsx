@@ -19,12 +19,11 @@ function PageTitle({title, subtitle, action, className}: PageTitleProps) {
         'flex w-full items-start justify-between gap-4',
         !action && 'flex-col justify-start gap-1',
         className
-      )}
-    >
+      )}>
       <div className='flex min-w-0 flex-col items-start justify-center gap-1'>
-        <h1 className='min-w-0 text-h1 text-riu-monochrome-1000'>{title}</h1>
+        <h1 className='text-h1 text-riu-monochrome-1000 min-w-0'>{title}</h1>
         {subtitle ? (
-          <p className='min-w-0 text-caption2 text-riu-monochrome-300'>
+          <p className='text-caption2 text-riu-monochrome-300 min-w-0'>
             {subtitle}
           </p>
         ) : null}
@@ -47,11 +46,10 @@ function PageTitleActionButton({
     <Button
       type='button'
       className={cn(
-        'h-9 gap-3.5 rounded-lg bg-riu-monochrome-800 px-3 py-2 text-button2 text-riu-monochrome-10 hover:bg-riu-monochrome-700 hover:text-riu-monochrome-10',
+        'bg-riu-monochrome-800 text-button2 text-riu-monochrome-10 hover:bg-riu-monochrome-700 hover:text-riu-monochrome-10 h-9 gap-3.5 rounded-lg px-3 py-2',
         className
       )}
-      {...props}
-    >
+      {...props}>
       <IconSlot size={iconSize}>
         <IcPlus aria-hidden='true' />
       </IconSlot>

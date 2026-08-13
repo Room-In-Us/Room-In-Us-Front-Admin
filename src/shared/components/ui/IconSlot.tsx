@@ -22,7 +22,13 @@ const iconSlotSizeValue = {
   lg: 24,
 };
 
-function IconSlot({children, className, size = 'sm', style, ...props}: IconSlotProps) {
+function IconSlot({
+  children,
+  className,
+  size = 'sm',
+  style,
+  ...props
+}: IconSlotProps) {
   const sizeValue = typeof size === 'number' ? size : iconSlotSizeValue[size];
   const icon = isValidElement<SVGProps<SVGSVGElement>>(children)
     ? cloneElement(children, {
@@ -41,11 +47,12 @@ function IconSlot({children, className, size = 'sm', style, ...props}: IconSlotP
     <span
       className={cn(
         'flex shrink-0 items-center justify-center overflow-hidden',
-        className,
+        className
       )}
-      style={{height: sizeValue, width: sizeValue, ...style} satisfies CSSProperties}
-      {...props}
-    >
+      style={
+        {height: sizeValue, width: sizeValue, ...style} satisfies CSSProperties
+      }
+      {...props}>
       {icon}
     </span>
   );

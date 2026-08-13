@@ -1,6 +1,6 @@
 /* global console, process */
 
-import { readFile, writeFile } from 'node:fs/promises';
+import {readFile, writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {
   collectIconSvgEntries,
@@ -15,7 +15,7 @@ const svgEntries = await collectIconSvgEntries(svgRoot);
 const errors = [];
 let convertedCount = 0;
 
-for (const { filePath } of svgEntries) {
+for (const {filePath} of svgEntries) {
   const source = await readFile(filePath, 'utf8');
   errors.push(...validateSvgContent(filePath, source, projectRoot));
 
@@ -36,5 +36,7 @@ if (errors.length > 0) {
   console.error(errors.map((error) => `- ${error}`).join('\n'));
   process.exitCode = 1;
 } else {
-  console.log(`Converted ${convertedCount} of ${svgEntries.length} icon SVG files.`);
+  console.log(
+    `Converted ${convertedCount} of ${svgEntries.length} icon SVG files.`
+  );
 }

@@ -24,8 +24,7 @@ function SearchInputArea({
     <div className={cn('flex items-center gap-2', wrapperClassName)}>
       <label
         htmlFor={inputId}
-        className='shrink-0 text-body3 text-riu-monochrome-800'
-      >
+        className='text-body3 text-riu-monochrome-800 shrink-0'>
         {label}
       </label>
 

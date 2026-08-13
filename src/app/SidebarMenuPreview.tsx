@@ -2,7 +2,12 @@
 
 import {useState} from 'react';
 
-import {IcHistory, IcKeyRound, IcMessageSquare, IcStore} from '@/src/assets/icons';
+import {
+  IcHistory,
+  IcKeyRound,
+  IcMessageSquare,
+  IcStore,
+} from '@/src/assets/icons';
 import {IconSlot} from '@/src/shared/components/ui/IconSlot';
 import {cn} from '@/src/shared/lib/utils';
 
@@ -25,8 +30,8 @@ function SidebarMenuPreview() {
   const [activeMenu, setActiveMenu] = useState(sidebarMenuItems[0].value);
 
   return (
-    <section className='mt-10 w-fit bg-riu-monochrome-30 p-5'>
-      <h2 className='mb-5 text-title2 text-riu-monochrome-700'>
+    <section className='bg-riu-monochrome-30 mt-10 w-fit p-5'>
+      <h2 className='text-title2 text-riu-monochrome-700 mb-5'>
         Sidebar Menu Preview
       </h2>
 
@@ -42,19 +47,17 @@ function SidebarMenuPreview() {
                 aria-current={isActive ? 'page' : undefined}
                 onClick={() => setActiveMenu(value)}
                 className={cn(
-                  'flex h-12 w-full items-center gap-3 rounded-[10px] px-4 text-left text-body2 text-riu-monochrome-600 transition-colors',
-                  isActive && 'bg-riu-primary-0 text-riu-primary-300',
-                )}
-              >
+                  'text-body2 text-riu-monochrome-600 flex h-12 w-full items-center gap-3 rounded-[10px] px-4 text-left transition-colors',
+                  isActive && 'bg-riu-primary-0 text-riu-primary-300'
+                )}>
                 <IconSlot size='md'>
                   <Icon aria-hidden='true' />
                 </IconSlot>
                 <span
                   className={cn(
                     isActive &&
-                      'bg-linear-[125deg,var(--riu-primary-500),var(--riu-primary-300)] bg-clip-text text-transparent',
-                  )}
-                >
+                      'bg-linear-[125deg,var(--riu-primary-500),var(--riu-primary-300)] bg-clip-text text-transparent'
+                  )}>
                   {label}
                 </span>
               </button>

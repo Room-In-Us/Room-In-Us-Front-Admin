@@ -1,7 +1,7 @@
 /* global console, process */
 
-import { spawn } from 'node:child_process';
-import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+import {spawn} from 'node:child_process';
+import {mkdir, readFile, readdir, rm, writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {
   collectIconSvgEntries,
@@ -19,13 +19,17 @@ const indexPath = path.join(iconsRoot, 'index.ts');
 const manifestPath = path.join(generatedRoot, iconManifestFileName);
 
 const cleanGeneratedFiles = async () => {
-  await mkdir(generatedRoot, { recursive: true });
+  await mkdir(generatedRoot, {recursive: true});
 
-  const entries = await readdir(generatedRoot, { withFileTypes: true });
+  const entries = await readdir(generatedRoot, {withFileTypes: true});
   await Promise.all(
     entries
-      .filter((entry) => entry.isFile() && (entry.name.endsWith('.ts') || entry.name.endsWith('.tsx')))
-      .map((entry) => rm(path.join(generatedRoot, entry.name))),
+      .filter(
+        (entry) =>
+          entry.isFile() &&
+          (entry.name.endsWith('.ts') || entry.name.endsWith('.tsx'))
+      )
+      .map((entry) => rm(path.join(generatedRoot, entry.name)))
   );
 };
 
@@ -73,7 +77,7 @@ const runPrettier = async () => {
 };
 
 const normalizeGeneratedIcons = async () => {
-  const entries = await readdir(generatedRoot, { withFileTypes: true });
+  const entries = await readdir(generatedRoot, {withFileTypes: true});
 
   await Promise.all(
     entries
@@ -86,12 +90,12 @@ const normalizeGeneratedIcons = async () => {
             .replace('import * as React from "react";\n', '')
             .replace(
               'import type { SVGProps } from "react";\nimport { Ref, forwardRef, memo } from "react";',
-              "import { forwardRef, memo, type Ref, type SVGProps } from 'react';",
-            ),
+              "import { forwardRef, memo, type Ref, type SVGProps } from 'react';"
+            )
         );
 
         await writeFile(filePath, normalizedSource, 'utf8');
-      }),
+      })
   );
 };
 
@@ -103,21 +107,21 @@ const writeIconManifest = async (svgEntries) => {
   await writeFile(
     manifestPath,
     `${JSON.stringify(
-      svgEntries.map(({ componentName, fileName }) => ({
+      svgEntries.map(({componentName, fileName}) => ({
         componentName,
         generatedFileName: `${componentName}.tsx`,
         sourceFileName: fileName,
       })),
       null,
-      2,
+      2
     )}\n`,
-    'utf8',
+    'utf8'
   );
 };
 
 const svgEntries = await collectIconSvgEntries(svgRoot);
-const validationErrors = svgEntries.flatMap(({ filePath, source }) =>
-  validateSvgContent(filePath, source, projectRoot),
+const validationErrors = svgEntries.flatMap(({filePath, source}) =>
+  validateSvgContent(filePath, source, projectRoot)
 );
 
 if (validationErrors.length > 0) {
@@ -137,4 +141,6 @@ await writeIconIndex(svgEntries);
 await writeIconManifest(svgEntries);
 await runPrettier();
 
-console.log(`Generated ${svgEntries.length} icon${svgEntries.length === 1 ? '' : 's'}.`);
+console.log(
+  `Generated ${svgEntries.length} icon${svgEntries.length === 1 ? '' : 's'}.`
+);

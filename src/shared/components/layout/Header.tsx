@@ -29,10 +29,9 @@ function Header({
   return (
     <header
       className={cn(
-        'flex h-16 w-full items-center justify-between border-b border-riu-monochrome-30 bg-surface px-6 py-4',
+        'border-riu-monochrome-30 bg-surface flex h-16 w-full items-center justify-between border-b px-6 py-4',
         className
-      )}
-    >
+      )}>
       <h1 className='text-h2 text-riu-monochrome-1000'>{title}</h1>
 
       <div className='flex items-center gap-2'>
@@ -54,13 +53,16 @@ function Header({
   );
 }
 
-function HeaderActionButton({className, ...props}: ComponentProps<typeof Button>) {
+function HeaderActionButton({
+  className,
+  ...props
+}: ComponentProps<typeof Button>) {
   return (
     <Button
       type='button'
       variant='outline'
       className={cn(
-        'h-8 gap-3.5 border-riu-monochrome-30 bg-surface px-3.5 py-1.5 text-button2 text-riu-monochrome-1000 hover:bg-riu-monochrome-10 hover:text-riu-monochrome-1000',
+        'border-riu-monochrome-30 bg-surface text-button2 text-riu-monochrome-1000 hover:bg-riu-monochrome-10 hover:text-riu-monochrome-1000 h-8 gap-3.5 px-3.5 py-1.5',
         className
       )}
       {...props}

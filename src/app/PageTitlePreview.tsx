@@ -5,8 +5,8 @@ import {
 
 function PageTitlePreview() {
   return (
-    <section className='mt-10 w-full max-w-[56.2rem] bg-background p-5'>
-      <h2 className='mb-5 text-title2 text-riu-monochrome-700'>
+    <section className='bg-background mt-10 w-full max-w-[56.2rem] p-5'>
+      <h2 className='text-title2 text-riu-monochrome-700 mb-5'>
         PageTitle Preview
       </h2>
 

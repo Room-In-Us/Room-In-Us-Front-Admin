@@ -5,8 +5,8 @@ import {Tabs} from '@/src/shared/components/ui/Tabs';
 
 function TabsPreview() {
   return (
-    <section className='mt-10 w-fit bg-background p-5'>
-      <h2 className='mb-5 text-title2 text-riu-monochrome-700'>Tabs Preview</h2>
+    <section className='bg-background mt-10 w-fit p-5'>
+      <h2 className='text-title2 text-riu-monochrome-700 mb-5'>Tabs Preview</h2>
 
       <Tabs
         aria-label='테스트용 탭 프리뷰'

@@ -1,4 +1,4 @@
-import { readFile, readdir } from 'node:fs/promises';
+import {readFile, readdir} from 'node:fs/promises';
 import path from 'node:path';
 
 export const iconFileNamePattern = /^ic-[a-z0-9]+(?:-[a-z0-9]+)*\.svg$/;
@@ -8,7 +8,7 @@ export const collectSvgFiles = async (directory) => {
   let entries = [];
 
   try {
-    entries = await readdir(directory, { withFileTypes: true });
+    entries = await readdir(directory, {withFileTypes: true});
   } catch (error) {
     if (error.code === 'ENOENT') {
       return [];
@@ -25,8 +25,10 @@ export const collectSvgFiles = async (directory) => {
         return collectSvgFiles(entryPath);
       }
 
-      return entry.isFile() && entry.name.toLowerCase().endsWith('.svg') ? [entryPath] : [];
-    }),
+      return entry.isFile() && entry.name.toLowerCase().endsWith('.svg')
+        ? [entryPath]
+        : [];
+    })
   );
 
   return files.flat().sort();
@@ -40,11 +42,11 @@ export const collectIconSvgEntries = async (directory) => {
       fileName: path.basename(filePath),
       filePath,
       source: await readFile(filePath, 'utf8'),
-    })),
+    }))
   );
 
   return entries.sort((firstEntry, secondEntry) =>
-    firstEntry.fileName.localeCompare(secondEntry.fileName),
+    firstEntry.fileName.localeCompare(secondEntry.fileName)
   );
 };
 
@@ -52,7 +54,7 @@ export const collectGeneratedIconFileNames = async (directory) => {
   let entries = [];
 
   try {
-    entries = await readdir(directory, { withFileTypes: true });
+    entries = await readdir(directory, {withFileTypes: true});
   } catch (error) {
     if (error.code === 'ENOENT') {
       return [];
@@ -79,8 +81,8 @@ export const getIconComponentName = (filePath) => {
 
 export const createIconIndexSource = (svgEntries) => {
   const exportLines = svgEntries.map(
-    ({ componentName }) =>
-      `export {default as ${componentName}} from './generated/${componentName}';`,
+    ({componentName}) =>
+      `export {default as ${componentName}} from './generated/${componentName}';`
   );
 
   return [
@@ -92,7 +94,10 @@ export const createIconIndexSource = (svgEntries) => {
 };
 
 const neutralIconColorValuePattern = String.raw`(?:#000(?:000)?|#191f28|#1a1e27|black|var\(\s*--(?:fill|stroke)-0\s*,\s*(?:#000(?:000)?|#191f28|#1a1e27|black)\s*\))`;
-const neutralIconColorValueRegExp = new RegExp(`^${neutralIconColorValuePattern}$`, 'i');
+const neutralIconColorValueRegExp = new RegExp(
+  `^${neutralIconColorValuePattern}$`,
+  'i'
+);
 
 const normalizeCurrentColorValue = (value) =>
   neutralIconColorValueRegExp.test(value.trim()) ? 'currentColor' : value;
@@ -101,21 +106,22 @@ export const normalizeCurrentColorAttributes = (source) => {
   return source
     .replace(
       /\b(fill|stroke)\s*=\s*(["'])([^"']+)\2/gi,
-      (match, name, quote, value) => `${name}=${quote}${normalizeCurrentColorValue(value)}${quote}`,
+      (match, name, quote, value) =>
+        `${name}=${quote}${normalizeCurrentColorValue(value)}${quote}`
     )
     .replace(
       /\b(fill|stroke)\s*=\s*{\s*(["'])([^"']+)\2\s*}/gi,
       (match, name, quote, value) =>
-        `${name}={${quote}${normalizeCurrentColorValue(value)}${quote}}`,
+        `${name}={${quote}${normalizeCurrentColorValue(value)}${quote}}`
     )
     .replace(
       /\b(fill|stroke):\s*(["'])([^"']+)\2/gi,
       (match, name, quote, value) =>
-        `${name}: ${quote}${normalizeCurrentColorValue(value)}${quote}`,
+        `${name}: ${quote}${normalizeCurrentColorValue(value)}${quote}`
     )
     .replace(
       /\b(fill|stroke):\s*([^;}"'\s][^;}"'\n]*)(?=[;}"'\n]|$)/gi,
-      (match, name, value) => `${name}: ${normalizeCurrentColorValue(value)}`,
+      (match, name, value) => `${name}: ${normalizeCurrentColorValue(value)}`
     );
 };
 
@@ -136,7 +142,12 @@ export const normalizeSvgRootSizeToViewBox = (source) => {
   const [, , viewBoxValue] = viewBoxMatch;
   const [, , width, height] = viewBoxValue.trim().split(/\s+/).map(Number);
 
-  if (!Number.isFinite(width) || !Number.isFinite(height) || width <= 0 || height <= 0) {
+  if (
+    !Number.isFinite(width) ||
+    !Number.isFinite(height) ||
+    width <= 0 ||
+    height <= 0
+  ) {
     return source;
   }
 
@@ -154,7 +165,10 @@ export const normalizeIconSvgSource = (source) => {
 export const validateSvgContent = (filePath, source, projectRoot) => {
   const errors = [];
   const fileName = path.basename(filePath);
-  const relativePath = path.relative(projectRoot, filePath).split(path.sep).join('/');
+  const relativePath = path
+    .relative(projectRoot, filePath)
+    .split(path.sep)
+    .join('/');
   const blockedTagPattern = /<\s*(script|foreignObject|iframe|object|embed)\b/i;
   const eventAttributePattern = /\s(on[a-z][\w:-]*)\s*=/i;
   const javascriptUrlPattern = /(?:href|xlink:href)\s*=\s*["']\s*javascript:/i;
@@ -165,7 +179,9 @@ export const validateSvgContent = (filePath, source, projectRoot) => {
   }
 
   if (blockedTagPattern.test(source)) {
-    errors.push('blocked element: script, foreignObject, iframe, object, or embed');
+    errors.push(
+      'blocked element: script, foreignObject, iframe, object, or embed'
+    );
   }
 
   if (eventAttributePattern.test(source)) {

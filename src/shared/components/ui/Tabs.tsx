@@ -52,8 +52,10 @@ function Tabs({
     <div
       role='tablist'
       aria-label={ariaLabel}
-      className={cn('flex items-center border-b border-riu-monochrome-20', className)}
-    >
+      className={cn(
+        'border-riu-monochrome-20 flex items-center border-b',
+        className
+      )}>
       {items.map((item) => {
         const Icon = item.icon;
         const isSelected = item.value === selectedValue;
@@ -67,15 +69,14 @@ function Tabs({
             disabled={item.disabled}
             onClick={() => selectTab(item)}
             className={cn(
-              'flex h-10 w-[108px] shrink-0 items-center justify-between px-4 py-2.5 text-button2 transition-colors outline-none',
-              'border-b border-transparent text-riu-monochrome-500',
+              'text-button2 flex h-10 w-[108px] shrink-0 items-center justify-between px-4 py-2.5 transition-colors outline-none',
+              'text-riu-monochrome-500 border-b border-transparent',
               'focus-visible:border-riu-primary-500 focus-visible:bg-riu-primary-0',
               'disabled:cursor-not-allowed disabled:opacity-50',
               isSelected &&
                 'border-riu-primary-300 bg-riu-primary-0 text-riu-primary-300',
               tabClassName
-            )}
-          >
+            )}>
             {Icon ? (
               <IconSlot size={item.iconSize ?? 'sm'}>
                 <Icon aria-hidden='true' />
@@ -89,10 +90,9 @@ function Tabs({
             {typeof item.count === 'number' ? (
               <span
                 className={cn(
-                  'flex size-[18px] shrink-0 items-center justify-center rounded-full bg-riu-monochrome-30 text-body4 text-riu-monochrome-500',
+                  'bg-riu-monochrome-30 text-body4 text-riu-monochrome-500 flex size-[18px] shrink-0 items-center justify-center rounded-full',
                   isSelected && 'bg-riu-primary-20 text-riu-primary-300'
-                )}
-              >
+                )}>
                 {item.count}
               </span>
             ) : (
