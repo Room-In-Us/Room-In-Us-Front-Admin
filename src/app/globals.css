@@ -27,12 +27,12 @@
     font: inherit;
   }
 
-  button:not(:disabled),
-  [role='button'],
-  [role='tab'],
-  a[href],
-  summary,
-  label[for] {
+  button:not(:disabled):not([aria-disabled='true']),
+  [role='button']:not([aria-disabled='true']),
+  [role='tab']:not([aria-disabled='true']),
+  a[href]:not([aria-disabled='true']),
+  summary:not([aria-disabled='true']),
+  label[for]:not([aria-disabled='true']) {
     cursor: pointer;
   }
 }

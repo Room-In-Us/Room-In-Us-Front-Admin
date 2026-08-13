@@ -32,7 +32,7 @@ function SearchInputArea({
         id={inputId}
         type={type}
         placeholder={placeholder}
-        className={cn('w-64 shrink-0', className)}
+        className={cn('min-w-0 flex-1', className)}
         {...props}
       />
     </div>

@@ -35,14 +35,14 @@ function Header({
       <h1 className='text-h2 text-riu-monochrome-1000'>{title}</h1>
 
       <div className='flex items-center gap-2'>
-        <HeaderActionButton onClick={onReset}>
+        <HeaderActionButton disabled={!onReset} onClick={onReset}>
           <IconSlot size={iconSize}>
             <IcRefreshCw aria-hidden='true' />
           </IconSlot>
           <span>{resetLabel}</span>
         </HeaderActionButton>
 
-        <HeaderActionButton onClick={onLogout}>
+        <HeaderActionButton disabled={!onLogout} onClick={onLogout}>
           <IconSlot size={iconSize}>
             <IcLogOut aria-hidden='true' />
           </IconSlot>

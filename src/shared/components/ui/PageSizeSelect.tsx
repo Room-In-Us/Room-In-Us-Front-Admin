@@ -46,6 +46,8 @@ function PageSizeSelect({
   name,
   triggerClassName,
   disabled,
+  onClick,
+  onKeyDown,
   ...props
 }: PageSizeSelectProps) {
   const generatedId = React.useId();
@@ -105,7 +107,23 @@ function PageSizeSelect({
     selectValue(options[nextIndex].value);
   }
 
+  function handleTriggerClick(event: React.MouseEvent<HTMLButtonElement>) {
+    onClick?.(event);
+
+    if (event.defaultPrevented) {
+      return;
+    }
+
+    setIsOpen((current) => !current);
+  }
+
   function handleKeyDown(event: React.KeyboardEvent<HTMLButtonElement>) {
+    onKeyDown?.(event);
+
+    if (event.defaultPrevented) {
+      return;
+    }
+
     if (event.key === 'Escape') {
       setIsOpen(false);
       return;
@@ -150,7 +168,7 @@ function PageSizeSelect({
           aria-expanded={isOpen}
           aria-haspopup='listbox'
           disabled={disabled}
-          onClick={() => setIsOpen((current) => !current)}
+          onClick={handleTriggerClick}
           onKeyDown={handleKeyDown}
           className={cn(
             'bg-riu-monochrome-20 text-body3 text-riu-monochrome-1000 flex h-9 w-full items-center justify-between rounded-lg border border-transparent py-1.5 pr-3 pl-3.5 transition-colors outline-none',

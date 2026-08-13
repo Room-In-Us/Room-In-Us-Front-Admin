@@ -50,7 +50,7 @@ function Tabs({
 
   return (
     <div
-      role='tablist'
+      role='group'
       aria-label={ariaLabel}
       className={cn(
         'border-riu-monochrome-20 flex items-center border-b',
@@ -64,8 +64,7 @@ function Tabs({
           <button
             key={item.value}
             type='button'
-            role='tab'
-            aria-selected={isSelected}
+            aria-pressed={isSelected}
             disabled={item.disabled}
             onClick={() => selectTab(item)}
             className={cn(
