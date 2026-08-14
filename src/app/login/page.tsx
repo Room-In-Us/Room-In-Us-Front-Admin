@@ -3,6 +3,8 @@ import LoginImage from '@/src/assets/images/login.svg';
 import {LoginForm} from './LoginForm';
 
 export default function LoginPage() {
+  const shouldShowTestAccount = process.env.NODE_ENV !== 'production';
+
   return (
     <main className='flex min-h-dvh items-center justify-center bg-[linear-gradient(108deg,#9fabf7_0.85%,#85bfb3_100%)] px-4 py-4'>
       <section
@@ -28,15 +30,17 @@ export default function LoginPage() {
         <div className='flex w-full flex-col gap-4'>
           <LoginForm />
 
-          <aside className='bg-riu-monochrome-10 flex w-full flex-col gap-1 rounded-sm p-3'>
-            <p className='text-title2 text-riu-monochrome-500'>테스트 계정</p>
-            <p className='text-caption3 text-riu-monochrome-500'>
-              아이디: admin
-            </p>
-            <p className='text-caption3 text-riu-monochrome-500'>
-              비밀번호: admin1234
-            </p>
-          </aside>
+          {shouldShowTestAccount ? (
+            <aside className='bg-riu-monochrome-10 flex w-full flex-col gap-1 rounded-sm p-3'>
+              <p className='text-title2 text-riu-monochrome-500'>테스트 계정</p>
+              <p className='text-caption3 text-riu-monochrome-500'>
+                아이디: admin
+              </p>
+              <p className='text-caption3 text-riu-monochrome-500'>
+                비밀번호: admin1234
+              </p>
+            </aside>
+          ) : null}
         </div>
       </section>
     </main>

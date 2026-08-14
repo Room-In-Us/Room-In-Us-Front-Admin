@@ -12,11 +12,8 @@ Guide structural decisions for Roominus Admin as it grows. Use DONGCHIMI client 
 ## Read First
 
 - `AGENTS.md`
-- `.agents/skills/frontend-task-orchestrator/SKILL.md`
-- `.agents/skills/page-feature-workflow/SKILL.md`
-- `.agents/skills/server-client-boundary-workflow/SKILL.md`
 - Nearby files in `src/app`, `src/features`, `src/shared`, and `src/assets`
-- When comparing against DONGCHIMI, inspect `C:\DONGCHIMI-CLIENT\apps\client\src\app`, `src\domains`, and `src\shared`
+- When the user explicitly provides a reference project path, inspect only the relevant route, domain or feature, and shared folders from that path.
 
 ## Current Baseline
 
@@ -41,6 +38,8 @@ Its main idea is:
 - `src/shared`: app-wide API clients, reusable UI, auth helpers, constants, query setup, hooks, utilities.
 
 Treat this as a growth target, not an immediate migration plan.
+
+Use the current repository's `src/app`, `src/features`, and `src/shared` as the default inputs for structure decisions. Compare with DONGCHIMI or any other reference project only when the user provides that reference path for the current task.
 
 ## When To Stay Route-Local
 
@@ -101,7 +100,7 @@ If this repo later standardizes on `src/domains`, update `AGENTS.md` and this sk
 3. Move only the code whose new owner is clear.
 4. Keep the route entry thin and Server Component compatible.
 5. Update imports without renaming public routes unless requested.
-6. Run the lightest useful verification, usually `pnpm lint`; use `pnpm build` for route, layout, or boundary changes.
+6. Run the lightest useful verification: use `git diff --check` for docs-only or agent-only changes, `pnpm lint` for applicable code changes, and `pnpm build` for route, layout, or boundary changes.
 
 ## Done Criteria
 
