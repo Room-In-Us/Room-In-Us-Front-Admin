@@ -3,7 +3,6 @@
 import type {FormEvent} from 'react';
 import {useRouter} from 'next/navigation';
 
-import {Button} from '@/src/shared/components/ui/button';
 import {Input} from '@/src/shared/components/ui/Input';
 
 function LoginForm() {
@@ -45,11 +44,11 @@ function LoginForm() {
         />
       </div>
 
-      <Button
+      <button
         type='submit'
-        className='bg-riu-primary-800 text-button2 hover:bg-riu-primary-800/90 h-9 w-full text-white'>
+        className='bg-riu-primary-800 text-button2 hover:bg-riu-primary-800/90 focus-visible:border-ring focus-visible:ring-ring/50 h-9 w-full rounded-lg border border-transparent text-white transition-all outline-none focus-visible:ring-3 active:translate-y-px'>
         로그인
-      </Button>
+      </button>
     </form>
   );
 }
