@@ -7,8 +7,7 @@ export default function LoginPage() {
     <main className='flex min-h-dvh items-center justify-center bg-[linear-gradient(108deg,#9fabf7_0.85%,#85bfb3_100%)] px-4 py-4'>
       <section
         aria-labelledby='login-title'
-        className='flex w-full max-w-[27.5rem] flex-col items-center gap-6 rounded-[14px] border border-black/10 bg-white p-[1.55rem]'
-      >
+        className='flex w-full max-w-[27.5rem] flex-col items-center gap-6 rounded-[14px] border border-black/10 bg-white p-[1.55rem]'>
         <div className='flex flex-col items-center justify-center gap-4'>
           <LoginImage
             aria-hidden

@@ -19,8 +19,7 @@ function LoginForm() {
       <div className='flex flex-col gap-2'>
         <label
           htmlFor='admin-id'
-          className='text-title2 text-riu-monochrome-700'
-        >
+          className='text-title2 text-riu-monochrome-700'>
           아이디
         </label>
         <Input
@@ -34,8 +33,7 @@ function LoginForm() {
       <div className='flex flex-col gap-2'>
         <label
           htmlFor='admin-password'
-          className='text-title2 text-riu-monochrome-700'
-        >
+          className='text-title2 text-riu-monochrome-700'>
           비밀번호
         </label>
         <Input
@@ -49,8 +47,7 @@ function LoginForm() {
 
       <Button
         type='submit'
-        className='bg-riu-primary-800 text-button2 h-9 w-full text-white hover:bg-riu-primary-800/90'
-      >
+        className='bg-riu-primary-800 text-button2 hover:bg-riu-primary-800/90 h-9 w-full text-white'>
         로그인
       </Button>
     </form>

@@ -30,20 +30,20 @@ Useful local docs:
 
 This repo intentionally keeps agent setup light. Use only the skills below unless a task clearly needs a new one.
 
-| Task Type                                          | Skill                                                     |
-| -------------------------------------------------- | --------------------------------------------------------- |
-| Decide work type and scope                         | `.agents/skills/frontend-task-orchestrator/SKILL.md`      |
-| Apply project code, branch, and commit conventions | `.agents/skills/project-conventions-workflow/SKILL.md`    |
+| Task Type                                          | Skill                                                      |
+| -------------------------------------------------- | ---------------------------------------------------------- |
+| Decide work type and scope                         | `.agents/skills/frontend-task-orchestrator/SKILL.md`       |
+| Apply project code, branch, and commit conventions | `.agents/skills/project-conventions-workflow/SKILL.md`     |
 | Evolve App Router/domain folder structure          | `.agents/skills/app-structure-evolution-workflow/SKILL.md` |
-| Add or change App Router pages                     | `.agents/skills/page-feature-workflow/SKILL.md`           |
-| Decide Server/Client Component boundaries          | `.agents/skills/server-client-boundary-workflow/SKILL.md` |
-| Add or change reusable shared UI components        | `.agents/skills/shared-component-workflow/SKILL.md`       |
-| Add form validation and submit flows               | `.agents/skills/form-flow-workflow/SKILL.md`              |
-| Add API helpers or React Query hooks               | `.agents/skills/api-integration-workflow/SKILL.md`        |
-| Review non-trivial frontend diffs                  | `.agents/skills/frontend-fundamentals-review/SKILL.md`    |
-| Draft or refine GitHub issues                      | `.agents/skills/issue-workflow/SKILL.md`                  |
-| Prepare pull request content                       | `.agents/skills/pr-prep-workflow/SKILL.md`                |
-| Verify frontend changes                            | `.agents/skills/frontend-quality-verification/SKILL.md`   |
+| Add or change App Router pages                     | `.agents/skills/page-feature-workflow/SKILL.md`            |
+| Decide Server/Client Component boundaries          | `.agents/skills/server-client-boundary-workflow/SKILL.md`  |
+| Add or change reusable shared UI components        | `.agents/skills/shared-component-workflow/SKILL.md`        |
+| Add form validation and submit flows               | `.agents/skills/form-flow-workflow/SKILL.md`               |
+| Add API helpers or React Query hooks               | `.agents/skills/api-integration-workflow/SKILL.md`         |
+| Review non-trivial frontend diffs                  | `.agents/skills/frontend-fundamentals-review/SKILL.md`     |
+| Draft or refine GitHub issues                      | `.agents/skills/issue-workflow/SKILL.md`                   |
+| Prepare pull request content                       | `.agents/skills/pr-prep-workflow/SKILL.md`                 |
+| Verify frontend changes                            | `.agents/skills/frontend-quality-verification/SKILL.md`    |
 
 Do not add Jira, Turbo generator, monorepo, design-system package, PR monitoring, browser review, or performance skills until the repo actually needs them.
 
