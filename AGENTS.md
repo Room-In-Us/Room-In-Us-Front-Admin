@@ -34,6 +34,7 @@ This repo intentionally keeps agent setup light. Use only the skills below unles
 | -------------------------------------------------- | --------------------------------------------------------- |
 | Decide work type and scope                         | `.agents/skills/frontend-task-orchestrator/SKILL.md`      |
 | Apply project code, branch, and commit conventions | `.agents/skills/project-conventions-workflow/SKILL.md`    |
+| Evolve App Router/domain folder structure          | `.agents/skills/app-structure-evolution-workflow/SKILL.md` |
 | Add or change App Router pages                     | `.agents/skills/page-feature-workflow/SKILL.md`           |
 | Decide Server/Client Component boundaries          | `.agents/skills/server-client-boundary-workflow/SKILL.md` |
 | Add or change reusable shared UI components        | `.agents/skills/shared-component-workflow/SKILL.md`       |
@@ -50,6 +51,7 @@ Do not add Jira, Turbo generator, monorepo, design-system package, PR monitoring
 
 - Prefer existing project structure over introducing new folders.
 - Keep `src/app` focused on routing. Put reusable UI and utilities under `src/shared`, and domain-specific work under `src/features` when the feature has enough substance to justify it.
+- Use `.agents/skills/app-structure-evolution-workflow/SKILL.md` before adopting DONGCHIMI-style route groups or domain-oriented folders.
 - Use PascalCase for project-owned page/component modules, but keep required Next route files as `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx`, and `route.ts`.
 - Use camelCase for icon/image asset filenames.
 - Use SVG for icons and PNG for raster images unless a concrete need says otherwise.

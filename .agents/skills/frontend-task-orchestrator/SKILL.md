@@ -20,6 +20,7 @@ Use this before non-trivial frontend work. Decide the task type, gather only the
 | Work Type                                                             | Use                               |
 | --------------------------------------------------------------------- | --------------------------------- |
 | Naming, assets, styling units, branch names, commit messages          | `project-conventions-workflow`    |
+| App Router/domain folder structure evolution                          | `app-structure-evolution-workflow` |
 | New or changed App Router page, layout, route-local UI                | `page-feature-workflow`           |
 | Next Server/Client Component boundary decision                        | `server-client-boundary-workflow` |
 | Reusable UI component under `src/shared/components`                   | `shared-component-workflow`       |
@@ -37,9 +38,10 @@ Do not invoke heavier workflows for Jira, Turbo, monorepos, design-system packag
 1. Identify the user-visible goal and success criteria.
 2. Confirm the affected route, feature, shared component, or API surface.
 3. Read nearby existing code before choosing structure.
-4. Apply `project-conventions-workflow` when naming files/components/assets, suggesting branches, or drafting commits.
-5. Keep route-local code local until reuse is real.
-6. Choose verification before finishing.
+4. Apply `app-structure-evolution-workflow` before adopting DONGCHIMI-style route groups or domain folders.
+5. Apply `project-conventions-workflow` when naming files/components/assets, suggesting branches, or drafting commits.
+6. Keep route-local code local until reuse is real.
+7. Choose verification before finishing.
 
 ## Output Shape
 
