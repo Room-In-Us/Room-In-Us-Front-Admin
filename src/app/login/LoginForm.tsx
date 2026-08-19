@@ -19,7 +19,7 @@ function LoginForm() {
         <label
           htmlFor='admin-id'
           className='text-title2 text-riu-monochrome-700'>
-          아이디
+          {'아이디'}
         </label>
         <Input
           id='admin-id'
@@ -33,7 +33,7 @@ function LoginForm() {
         <label
           htmlFor='admin-password'
           className='text-title2 text-riu-monochrome-700'>
-          비밀번호
+          {'비밀번호'}
         </label>
         <Input
           id='admin-password'
@@ -47,7 +47,7 @@ function LoginForm() {
       <button
         type='submit'
         className='bg-riu-primary-800 text-button2 hover:bg-riu-primary-800/90 focus-visible:border-ring focus-visible:ring-ring/50 h-9 w-full rounded-lg border border-transparent text-white transition-all outline-none focus-visible:ring-3 active:translate-y-px'>
-        로그인
+        {'로그인'}
       </button>
     </form>
   );

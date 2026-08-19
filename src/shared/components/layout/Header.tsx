@@ -1,5 +1,3 @@
-'use client';
-
 import type {ComponentProps} from 'react';
 
 import {IcLogOut, IcRefreshCw} from '@/src/assets/icons';
@@ -18,9 +16,9 @@ type HeaderProps = {
 };
 
 function Header({
-  title = '\uBC29\uD0C8\uCD9C \uC5B4\uB4DC\uBBFC',
-  resetLabel = '\uB370\uC774\uD130 \uCD08\uAE30\uD654',
-  logoutLabel = '\uB85C\uADF8\uC544\uC6C3',
+  title = '방탈출 어드민',
+  resetLabel = '데이터 초기화',
+  logoutLabel = '로그아웃',
   iconSize = 'sm',
   onReset,
   onLogout,

@@ -19,10 +19,10 @@ export default function LoginPage() {
 
           <div className='text-center'>
             <h1 id='login-title' className='text-h1 text-riu-monochrome-700'>
-              루미너스 어드민
+              {'루미너스 어드민'}
             </h1>
             <p className='text-caption1 text-riu-monochrome-200 mt-4'>
-              관리자 로그인
+              {'관리자 로그인'}
             </p>
           </div>
         </div>
@@ -32,12 +32,14 @@ export default function LoginPage() {
 
           {shouldShowTestAccount ? (
             <aside className='bg-riu-monochrome-10 flex w-full flex-col gap-1 rounded-sm p-3'>
-              <p className='text-title2 text-riu-monochrome-500'>테스트 계정</p>
-              <p className='text-caption3 text-riu-monochrome-500'>
-                아이디: admin
+              <p className='text-title2 text-riu-monochrome-500'>
+                {'테스트 계정'}
               </p>
               <p className='text-caption3 text-riu-monochrome-500'>
-                비밀번호: admin1234
+                {'아이디: admin'}
+              </p>
+              <p className='text-caption3 text-riu-monochrome-500'>
+                {'비밀번호: admin1234'}
               </p>
             </aside>
           ) : null}
