@@ -1,7 +1,5 @@
+import {StoreManagementPage} from '@/src/app/dashboard/StoreManagementPage';
+
 export default function DashboardPage() {
-  return (
-    <main>
-      <h1>Dashboard</h1>
-    </main>
-  );
+  return <StoreManagementPage />;
 }

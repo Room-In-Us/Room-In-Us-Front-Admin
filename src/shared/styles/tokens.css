@@ -124,6 +124,15 @@
   --status-upcoming-background: #dbeafe;
   --status-upcoming-foreground: #193cb8;
 
+  --tag-default-background: var(--status-operating-background);
+  --tag-default-foreground: var(--status-operating-foreground);
+  --tag-new-background: var(--riu-primary-20);
+  --tag-new-foreground: var(--riu-primary-500);
+  --tag-delete-background: var(--riu-monochrome-30);
+  --tag-delete-foreground: var(--riu-monochrome-600);
+  --tag-expect-delete-background: var(--riu-monochrome-20);
+  --tag-expect-delete-foreground: var(--riu-monochrome-500);
+
   --sidebar: #ffffff;
   --sidebar-foreground: var(--riu-monochrome-800);
   --sidebar-primary: var(--riu-primary-500);
@@ -233,6 +242,15 @@
   --color-status-renovation-foreground: var(--status-renovation-foreground);
   --color-status-upcoming-background: var(--status-upcoming-background);
   --color-status-upcoming-foreground: var(--status-upcoming-foreground);
+
+  --color-tag-default-background: var(--tag-default-background);
+  --color-tag-default-foreground: var(--tag-default-foreground);
+  --color-tag-new-background: var(--tag-new-background);
+  --color-tag-new-foreground: var(--tag-new-foreground);
+  --color-tag-delete-background: var(--tag-delete-background);
+  --color-tag-delete-foreground: var(--tag-delete-foreground);
+  --color-tag-expect-delete-background: var(--tag-expect-delete-background);
+  --color-tag-expect-delete-foreground: var(--tag-expect-delete-foreground);
 
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
