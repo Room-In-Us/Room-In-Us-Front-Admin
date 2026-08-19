@@ -86,6 +86,9 @@
   --foreground: var(--riu-monochrome-800);
   --surface: #ffffff;
   --surface-foreground: var(--riu-monochrome-800);
+  --dashboard-background: #f9fafb;
+  --dashboard-border: #e5e7eb;
+  --title-foreground: #101828;
   --card: #ffffff;
   --card-foreground: var(--riu-monochrome-800);
   --popover: #ffffff;
@@ -207,6 +210,9 @@
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
   --color-surface-foreground: var(--surface-foreground);
+  --color-dashboard-background: var(--dashboard-background);
+  --color-dashboard-border: var(--dashboard-border);
+  --color-title-foreground: var(--title-foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);

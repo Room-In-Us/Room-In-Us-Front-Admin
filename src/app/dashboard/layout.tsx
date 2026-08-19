@@ -5,11 +5,11 @@ import {SidebarNavigation} from '@/src/shared/components/layout/SidebarNavigatio
 
 export default function DashboardLayout({children}: {children: ReactNode}) {
   return (
-    <div className='min-h-screen bg-[#f9fafb]'>
+    <div className='bg-dashboard-background min-h-screen'>
       <DashboardHeader />
 
       <div className='flex min-h-[calc(100vh-4rem)]'>
-        <aside className='w-64 shrink-0 border-r border-[#e5e7eb] bg-white'>
+        <aside className='border-dashboard-border bg-surface w-64 shrink-0 border-r'>
           <SidebarNavigation />
         </aside>
 

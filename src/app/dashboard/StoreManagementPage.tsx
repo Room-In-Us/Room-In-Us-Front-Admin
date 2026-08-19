@@ -198,7 +198,11 @@ function StoreManagementPage() {
       <PageTitle
         title={<span id='store-management-title'>매장 관리</span>}
         subtitle={`총 ${filteredStores.length}개의 매장`}
-        action={<PageTitleActionButton>매장 추가</PageTitleActionButton>}
+        action={
+          <PageTitleActionButton disabled title='매장 추가 기능 준비 중'>
+            매장 추가
+          </PageTitleActionButton>
+        }
       />
 
       <div className='mt-6 flex flex-wrap items-center gap-x-4 gap-y-3'>
@@ -286,7 +290,9 @@ function StoreManagementPage() {
                           type='button'
                           variant='outline'
                           size='icon'
-                          aria-label={`${store.name} 수정`}
+                          disabled
+                          aria-label={`${store.name} 수정 기능 준비 중`}
+                          title='수정 기능 준비 중'
                           className='border-riu-monochrome-30 bg-surface text-riu-monochrome-700 hover:bg-riu-monochrome-10'>
                           <Pencil aria-hidden='true' className='size-4' />
                         </Button>
@@ -294,7 +300,9 @@ function StoreManagementPage() {
                           type='button'
                           variant='outline'
                           size='icon'
-                          aria-label={`${store.name} 삭제`}
+                          disabled
+                          aria-label={`${store.name} 삭제 기능 준비 중`}
+                          title='삭제 기능 준비 중'
                           className='border-riu-monochrome-30 bg-surface text-riu-monochrome-700 hover:bg-riu-monochrome-10'>
                           <Trash2 aria-hidden='true' className='size-4' />
                         </Button>
