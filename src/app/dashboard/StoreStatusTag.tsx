@@ -22,10 +22,7 @@ const statusTagClassName = {
     'bg-tag-expect-delete-background text-tag-expect-delete-foreground',
 } satisfies Record<StoreStatusTagVariant, string>;
 
-function StoreStatusTag({
-  variant = 'default',
-  className,
-}: StoreStatusTagProps) {
+function StoreStatusTag({variant = 'default', className}: StoreStatusTagProps) {
   return (
     <span
       className={cn(

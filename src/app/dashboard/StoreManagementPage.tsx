@@ -13,10 +13,7 @@ import {PageSizeSelect} from '@/src/shared/components/ui/PageSizeSelect';
 import {SearchInputArea} from '@/src/shared/components/ui/SearchInputArea';
 import {cn} from '@/src/shared/lib/utils';
 
-import {
-  StoreStatusTag,
-  type StoreStatusTagVariant,
-} from './StoreStatusTag';
+import {StoreStatusTag, type StoreStatusTagVariant} from './StoreStatusTag';
 
 type StoreStatus = 'operating' | 'new' | 'closing' | 'closed';
 
@@ -220,11 +217,11 @@ function StoreManagementPage() {
         />
       </div>
 
-      <div className='mt-6 overflow-hidden rounded-sm border border-riu-monochrome-50 bg-surface'>
+      <div className='border-riu-monochrome-50 bg-surface mt-6 overflow-hidden rounded-sm border'>
         <div className='overflow-x-auto'>
           <table className='w-full min-w-[52.25rem] table-fixed border-collapse'>
             <thead>
-              <tr className='h-10 border-b border-riu-monochrome-50 bg-riu-monochrome-10'>
+              <tr className='border-riu-monochrome-50 bg-riu-monochrome-10 h-10 border-b'>
                 {columnHeaders.map((header) => (
                   <th
                     key={header}
@@ -249,7 +246,7 @@ function StoreManagementPage() {
                 paginatedStores.map((store) => (
                   <tr
                     key={store.id}
-                    className='h-[3.4375rem] border-b border-riu-monochrome-30 last:border-b-0'>
+                    className='border-riu-monochrome-30 h-[3.4375rem] border-b last:border-b-0'>
                     <td className='text-body3 text-riu-monochrome-800 px-2'>
                       {store.id}
                     </td>
