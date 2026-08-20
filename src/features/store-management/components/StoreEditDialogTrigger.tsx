@@ -69,7 +69,7 @@ function StoreEditDialogTrigger({store}: {store: Store}) {
         size='icon'
         aria-label={`${store.name} 수정`}
         title='수정'
-        className='border-riu-monochrome-100 bg-riu-monochrome-10 text-riu-monochrome-1000 hover:border-riu-monochrome-300 hover:bg-riu-monochrome-30'
+        className='border-riu-monochrome-30 bg-surface text-riu-monochrome-700 hover:bg-riu-monochrome-10'
         onClick={() => setIsOpen(true)}>
         <Pencil aria-hidden='true' className='size-4' />
       </Button>
