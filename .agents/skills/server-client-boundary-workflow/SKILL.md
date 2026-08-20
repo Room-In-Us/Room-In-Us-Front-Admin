@@ -60,6 +60,8 @@ Apply these checks in order. Start from the smallest browser-only behavior, not 
 - Pass serializable props from Server Components to Client Components.
 - Pass Server Components as `children` into Client Components when an interactive shell needs server-rendered content inside it.
 - Render providers as deep as practical so static layout pieces can remain server-rendered.
+- For feature pages with multiple client concerns, prefer a server page/shell plus a feature-local client provider or controller that owns search, filters, pagination, modal state, geolocation, maps, and React Query orchestration.
+- Keep section components under that provider focused on rendering and user events. Let them read the smallest needed state through selector-style hooks or narrow contexts instead of forcing the page/shell to become client-only.
 - Keep TanStack Query hooks, browser storage, and event-heavy behavior behind a client boundary.
 - Keep server-only modules out of any file that might be imported by a Client Component.
 - Do not move a component to the client only to satisfy one child; move that child or a wrapper instead.
@@ -70,6 +72,7 @@ Apply these checks in order. Start from the smallest browser-only behavior, not 
 - Treat `'use client'` as a bundle boundary, not a convenience flag.
 - Prefer server shells with client islands: one form, modal, table controller, provider, or button group can be client-rendered inside a server-rendered page.
 - Keep Client Components thin: own interaction and call client hooks, but avoid embedding data shaping, route policy, or backend contract details there.
+- When a client provider is needed, split memoized context values by concern, such as `search`, `table`, `pagination`, `map`, or `marketList`, so one state update does not unnecessarily churn unrelated consumers.
 - Keep Server Components explicit about data ownership: fetch, normalize, and pass stable props rather than leaking transport shapes through the tree.
 - When a shared component grows event-heavy behavior, split a server-compatible presentational component from a client controller component.
 - If a boundary decision is unclear, choose the option that keeps fewer modules in the client bundle and revisit after real interaction requirements appear.
@@ -98,7 +101,8 @@ Apply these checks in order. Start from the smallest browser-only behavior, not 
 5. Check that client files do not import server-only helpers, private environment logic, filesystem code, database code, or token-bearing API helpers.
 6. Check whether a third-party client-only component needs a small wrapper.
 7. Check that shared components remain server-compatible unless their purpose is interaction.
-8. Verify with `pnpm build` when boundary changes affect routes, providers, or imports.
+8. Check that imports use concrete paths when a broad barrel import would pull unrelated shared component modules into a client graph.
+9. Verify with `pnpm build` when boundary changes affect routes, providers, or imports.
 
 ## Done Criteria
 

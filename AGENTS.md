@@ -59,6 +59,7 @@ Do not add Jira, Turbo generator, monorepo, design-system package, PR monitoring
 - Prefer `em`, `%`, or relative units for scalable layout and sizing; use `px` for border width, border radius, hairlines, and small fixed formatting details.
 - Pages and layouts are Server Components by default. Add `'use client'` only to components that need state, event handlers, effects, browser APIs, or client hooks.
 - Keep `'use client'` at the smallest practical boundary so static shells and server-fetched data stay server-rendered.
+- For feature pages with search, pagination, filters, modals, maps, or query orchestration, keep the page/shell server-rendered and move only client-owned state into a narrow feature-local client provider or controller. Render static layout around that client island when possible.
 - In Next 16 App Router pages, treat `params` and `searchParams` as promises.
 - Keep route-specific components close to the route until reuse is real.
 - For API work, keep request/response types near the API boundary and include response-changing inputs in React Query keys.
