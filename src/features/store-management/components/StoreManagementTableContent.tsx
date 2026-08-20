@@ -102,9 +102,8 @@ function StoreManagementTableContent() {
                         type='button'
                         variant='outline'
                         size='icon'
-                        disabled
-                        aria-label={`${store.name} 삭제 기능 준비 중`}
-                        title='삭제 기능 준비 중'
+                        aria-label={`${store.name} 삭제`}
+                        title='삭제'
                         className='border-riu-monochrome-30 bg-surface text-riu-monochrome-700 hover:bg-riu-monochrome-10'>
                         <Trash2 aria-hidden='true' className='size-4' />
                       </Button>
