@@ -8,6 +8,14 @@ type Store = {
   status: StoreStatus;
   phone: string;
   website: string;
+  reservationUrl?: string;
+  description?: string;
+  memo?: string;
+  openedAt?: string;
+  expectedClosedAt?: string;
+  renovationStartedAt?: string;
+  renovationEndedAt?: string;
+  closedAt?: string;
 };
 
 export type {Store, StoreStatus};

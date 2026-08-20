@@ -96,6 +96,7 @@ const stores: Store[] = Array.from({length: 50}, (_, index) => {
     status,
     phone: `02-${String(3000 + id).padStart(4, '0')}-${String(7000 + id).padStart(4, '0')}`,
     website: `https://example.com/stores/${id}`,
+    reservationUrl: `https://example.com/stores/${id}/reservation`,
   };
 });
 

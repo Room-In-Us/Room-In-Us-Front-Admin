@@ -1,12 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import {Pencil, Trash2} from 'lucide-react';
+import {Trash2} from 'lucide-react';
 
 import {Button} from '@/src/shared/components/ui/button';
 import {cn} from '@/src/shared/lib/utils';
 
 import type {Store} from '../model/store';
+import {StoreEditDialogTrigger} from './StoreEditDialogTrigger';
 import {useStoreManagementRows} from './StoreManagementClientProvider';
 import {StoreStatusTag, type StoreStatusTagVariant} from './StoreStatusTag';
 
@@ -96,16 +97,7 @@ function StoreManagementTableContent() {
                   </td>
                   <td className='px-2'>
                     <div className='flex items-center gap-2'>
-                      <Button
-                        type='button'
-                        variant='outline'
-                        size='icon'
-                        disabled
-                        aria-label={`${store.name} 수정 기능 준비 중`}
-                        title='수정 기능 준비 중'
-                        className='border-riu-monochrome-30 bg-surface text-riu-monochrome-700 hover:bg-riu-monochrome-10'>
-                        <Pencil aria-hidden='true' className='size-4' />
-                      </Button>
+                      <StoreEditDialogTrigger store={store} />
                       <Button
                         type='button'
                         variant='outline'
