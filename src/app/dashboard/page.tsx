@@ -1,4 +1,4 @@
-import {StoreManagementPage} from '@/src/app/dashboard/StoreManagementPage';
+import {StoreManagementPage} from '@/src/features/store-management/StoreManagementPage';
 
 export default function DashboardPage() {
   return <StoreManagementPage />;

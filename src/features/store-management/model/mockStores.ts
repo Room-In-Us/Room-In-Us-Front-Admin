@@ -1,21 +1,4 @@
-import {
-  PageTitle,
-  PageTitleActionButton,
-} from '@/src/shared/components/layout/PageTitle';
-
-import {StoreManagementTable} from './StoreManagementTable';
-
-type StoreStatus = 'operating' | 'new' | 'closing' | 'closed';
-
-export type Store = {
-  id: number;
-  name: string;
-  address: string;
-  station: string;
-  status: StoreStatus;
-  phone: string;
-  website: string;
-};
+import type {Store} from './store';
 
 const mockStoreSeeds = [
   {
@@ -116,22 +99,4 @@ const stores: Store[] = Array.from({length: 50}, (_, index) => {
   };
 });
 
-function StoreManagementPage() {
-  return (
-    <section aria-labelledby='store-management-title' className='min-w-0'>
-      <PageTitle
-        title={<span id='store-management-title'>매장 관리</span>}
-        subtitle={`총 ${stores.length}개의 매장`}
-        action={
-          <PageTitleActionButton disabled title='매장 추가 기능 준비 중'>
-            매장 추가
-          </PageTitleActionButton>
-        }
-      />
-
-      <StoreManagementTable stores={stores} />
-    </section>
-  );
-}
-
-export {StoreManagementPage};
+export {stores};
