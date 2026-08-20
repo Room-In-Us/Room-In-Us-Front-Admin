@@ -51,11 +51,11 @@ function StoreAddDialogTrigger() {
           aria-labelledby={titleId}
           aria-describedby={descriptionId}
           aria-modal='true'
-          className='fixed inset-0 z-50 flex items-center justify-center bg-overlay px-4 py-4'
+          className='bg-overlay fixed inset-0 z-50 flex items-center justify-center px-4 py-4'
           role='dialog'
           onMouseDown={closeDialog}>
           <form
-            className='[-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden flex max-h-[calc(100dvh-2rem)] w-full max-w-[35rem] flex-col gap-4 overflow-y-auto rounded-[10px] border border-black/10 bg-white p-6 shadow-xl'
+            className='flex max-h-[calc(100dvh-2rem)] w-full max-w-[35rem] [scrollbar-width:none] flex-col gap-4 overflow-y-auto rounded-[10px] border border-black/10 bg-white p-6 shadow-xl [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden'
             onMouseDown={(event) => event.stopPropagation()}
             onSubmit={(event) => {
               event.preventDefault();
@@ -77,7 +77,7 @@ function StoreAddDialogTrigger() {
 
               <Button
                 aria-label='매장 추가 닫기'
-                className='size-6 text-riu-monochrome-800 hover:bg-riu-monochrome-20'
+                className='text-riu-monochrome-800 hover:bg-riu-monochrome-20 size-6'
                 size='icon-xs'
                 type='button'
                 variant='ghost'
@@ -101,7 +101,7 @@ function StoreAddDialogTrigger() {
               ))}
             </div>
 
-            <div className='h-px w-full bg-riu-monochrome-50' />
+            <div className='bg-riu-monochrome-50 h-px w-full' />
 
             <section className='flex flex-col gap-3'>
               <h3 className='text-body2 text-riu-monochrome-1000'>
@@ -117,14 +117,14 @@ function StoreAddDialogTrigger() {
 
             <div className='flex justify-end gap-2 pt-0'>
               <Button
-                className='h-9 rounded-lg border-riu-monochrome-50 px-4 text-body3 text-riu-monochrome-1000'
+                className='border-riu-monochrome-50 text-body3 text-riu-monochrome-1000 h-9 rounded-lg px-4'
                 type='button'
                 variant='outline'
                 onClick={closeDialog}>
                 취소
               </Button>
               <Button
-                className='h-9 rounded-lg bg-riu-monochrome-800 px-4 text-body3 text-riu-monochrome-10 hover:bg-riu-monochrome-700'
+                className='bg-riu-monochrome-800 text-body3 text-riu-monochrome-10 hover:bg-riu-monochrome-700 h-9 rounded-lg px-4'
                 type='submit'>
                 추가
               </Button>
@@ -154,7 +154,7 @@ function StoreAddDialogField({
       {textarea ? (
         <textarea
           className={cn(
-            'border-input bg-input text-body3 text-riu-monochrome-300 min-h-16 w-full resize-none rounded-lg border px-3 py-2 outline-none transition-colors',
+            'border-input bg-input text-body3 text-riu-monochrome-300 min-h-16 w-full resize-none rounded-lg border px-3 py-2 transition-colors outline-none',
             'placeholder:text-riu-monochrome-300',
             'focus-visible:border-riu-primary-500 focus-visible:bg-riu-monochrome-10 focus-visible:text-riu-monochrome-700'
           )}

@@ -12,12 +12,8 @@ const pageSizeOptions = [
 ];
 
 function StoreManagementToolbar() {
-  const {
-    pageSize,
-    searchKeyword,
-    onPageSizeChange,
-    onSearchKeywordChange,
-  } = useStoreManagementControls();
+  const {pageSize, searchKeyword, onPageSizeChange, onSearchKeywordChange} =
+    useStoreManagementControls();
 
   return (
     <div className='mt-6 flex flex-wrap items-center gap-x-4 gap-y-3'>

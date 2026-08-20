@@ -91,12 +91,7 @@ function StoreManagementClientProvider({
       onPageSizeChange: handlePageSizeChange,
       onSearchKeywordChange: handleSearchKeywordChange,
     }),
-    [
-      pageSize,
-      searchKeyword,
-      handlePageSizeChange,
-      handleSearchKeywordChange,
-    ]
+    [pageSize, searchKeyword, handlePageSizeChange, handleSearchKeywordChange]
   );
 
   const rowsValue = React.useMemo(

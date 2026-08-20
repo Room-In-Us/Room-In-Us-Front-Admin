@@ -5,13 +5,8 @@ import {Button} from '@/src/shared/components/ui/button';
 import {useStoreManagementPagination} from './StoreManagementClientProvider';
 
 function StoreManagementPagination() {
-  const {
-    currentPage,
-    totalPages,
-    hasPreviousPage,
-    hasNextPage,
-    movePage,
-  } = useStoreManagementPagination();
+  const {currentPage, totalPages, hasPreviousPage, hasNextPage, movePage} =
+    useStoreManagementPagination();
 
   return (
     <div className='mt-6 flex items-center justify-center gap-2'>
