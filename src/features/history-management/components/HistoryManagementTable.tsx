@@ -34,7 +34,8 @@ const pageSizeOptions = [
 ];
 
 function HistoryManagementTable() {
-  const [activeTarget, setActiveTarget] = React.useState<HistoryTarget>('store');
+  const [activeTarget, setActiveTarget] =
+    React.useState<HistoryTarget>('store');
   const [pageSize, setPageSize] = React.useState('10');
   const rows = histories.filter((history) => history.target === activeTarget);
   const visibleRows = rows.slice(0, Number(pageSize));
@@ -123,10 +124,7 @@ function HistoryDateInput({id, label}: {id: string; label: string}) {
   );
 }
 
-function HistoryHeaderCell({
-  className,
-  children,
-}: React.ComponentProps<'th'>) {
+function HistoryHeaderCell({className, children}: React.ComponentProps<'th'>) {
   return (
     <th
       scope='col'
