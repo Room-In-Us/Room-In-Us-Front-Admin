@@ -1,9 +1,5 @@
+import {ReviewManagementPage} from '@/src/features/review-management/ReviewManagementPage';
+
 export default function ReviewsPage() {
-  return (
-    <section aria-labelledby='reviews-title'>
-      <h1 id='reviews-title' className='text-h1 text-title-foreground'>
-        {'후기 관리'}
-      </h1>
-    </section>
-  );
+  return <ReviewManagementPage />;
 }
