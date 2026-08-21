@@ -32,12 +32,21 @@ const reviewTabs: ReviewTabItem[] = [
 ];
 
 function ReviewManagementTabs({reviews}: ReviewManagementTabsProps) {
+  const [reviewItems, setReviewItems] = React.useState(reviews);
   const [activeTab, setActiveTab] = React.useState<ReviewTab>('reported');
-  const reportedCount = reviews.filter(
+  const reportedCount = reviewItems.filter(
     (review) => review.status === 'reported'
   ).length;
-  const rows = getRowsByTab(reviews, activeTab);
+  const rows = getRowsByTab(reviewItems, activeTab);
   const summaryLabel = getSummaryLabel(activeTab, rows.length);
+
+  function handleDelete(reviewId: number) {
+    setReviewItems((currentReviews) =>
+      currentReviews.map((review) =>
+        review.id === reviewId ? {...review, status: 'deleted'} : review
+      )
+    );
+  }
 
   return (
     <div className='flex min-w-0 flex-col gap-6'>
@@ -64,7 +73,7 @@ function ReviewManagementTabs({reviews}: ReviewManagementTabsProps) {
               )}>
               <span>{tab.label}</span>
               {tab.value === 'reported' ? (
-                <span className='text-button3 flex min-w-[1.25rem] items-center justify-center rounded-lg bg-[#d4183d] px-2 py-0.5 text-white'>
+                <span className='bg-status-reported-background text-status-reported-foreground text-button3 flex min-w-[1.25rem] items-center justify-center rounded-lg px-2 py-0.5'>
                   {reportedCount}
                 </span>
               ) : null}
@@ -78,7 +87,7 @@ function ReviewManagementTabs({reviews}: ReviewManagementTabsProps) {
         role='tabpanel'
         aria-labelledby={`review-management-tab-${activeTab}`}
         className='min-w-0'>
-        <ReviewManagementTable reviews={rows} />
+        <ReviewManagementTable reviews={rows} onDelete={handleDelete} />
         <p className='text-caption2 text-riu-monochrome-300 mt-3'>
           {summaryLabel}
         </p>
@@ -96,7 +105,7 @@ function getRowsByTab(reviews: Review[], tab: ReviewTab) {
     return reviews.filter((review) => review.status === 'deleted');
   }
 
-  return reviews;
+  return reviews.filter((review) => review.status !== 'deleted');
 }
 
 function getSummaryLabel(tab: ReviewTab, count: number) {

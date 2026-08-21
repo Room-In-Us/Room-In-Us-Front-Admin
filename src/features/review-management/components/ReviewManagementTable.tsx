@@ -7,6 +7,7 @@ import type {Review} from '../model/review';
 
 type ReviewManagementTableProps = {
   reviews: Review[];
+  onDelete: (reviewId: number) => void;
 };
 
 const columnHeaders = [
@@ -20,7 +21,10 @@ const columnHeaders = [
   '작업',
 ];
 
-function ReviewManagementTable({reviews}: ReviewManagementTableProps) {
+function ReviewManagementTable({
+  reviews,
+  onDelete,
+}: ReviewManagementTableProps) {
   return (
     <div className='border-dashboard-border bg-surface overflow-hidden rounded-[10px] border'>
       <div className='overflow-x-auto'>
@@ -78,8 +82,12 @@ function ReviewManagementTable({reviews}: ReviewManagementTableProps) {
                       variant='outline'
                       size='icon'
                       aria-label={`${review.id}번 후기 삭제`}
-                      title='삭제'
-                      className='border-riu-monochrome-30 bg-surface text-riu-monochrome-700 hover:bg-riu-monochrome-10 mx-auto'>
+                      title={
+                        review.status === 'deleted' ? '이미 삭제됨' : '삭제'
+                      }
+                      disabled={review.status === 'deleted'}
+                      className='border-riu-monochrome-30 bg-surface text-riu-monochrome-700 hover:bg-riu-monochrome-10 mx-auto'
+                      onClick={() => onDelete(review.id)}>
                       <Trash2 aria-hidden='true' className='size-4' />
                     </Button>
                   </td>
@@ -116,8 +124,8 @@ function ReviewRating({rating}: {rating: number}) {
             className={cn(
               'size-4',
               isFilled
-                ? 'fill-[#f5bd43] text-[#f5bd43]'
-                : 'text-riu-monochrome-50'
+                ? 'fill-rating-star-active text-rating-star-active'
+                : 'text-rating-star-inactive'
             )}
           />
         );
@@ -128,7 +136,7 @@ function ReviewRating({rating}: {rating: number}) {
 
 function ReportedBadge() {
   return (
-    <span className='text-button3 inline-flex items-center gap-1 rounded-lg bg-[#d4183d] px-2 py-0.5 text-white'>
+    <span className='bg-status-reported-background text-status-reported-foreground text-button3 inline-flex items-center gap-1 rounded-lg px-2 py-0.5'>
       <TriangleAlert aria-hidden='true' className='size-3' />
       신고됨
     </span>

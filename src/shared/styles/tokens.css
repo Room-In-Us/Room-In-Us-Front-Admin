@@ -126,6 +126,10 @@
   --status-renovation-foreground: #894b00;
   --status-upcoming-background: #dbeafe;
   --status-upcoming-foreground: #193cb8;
+  --status-reported-background: #d4183d;
+  --status-reported-foreground: #ffffff;
+  --rating-star-active: #f5bd43;
+  --rating-star-inactive: var(--riu-monochrome-50);
 
   --tag-default-background: var(--status-operating-background);
   --tag-default-foreground: var(--status-operating-foreground);
@@ -248,6 +252,10 @@
   --color-status-renovation-foreground: var(--status-renovation-foreground);
   --color-status-upcoming-background: var(--status-upcoming-background);
   --color-status-upcoming-foreground: var(--status-upcoming-foreground);
+  --color-status-reported-background: var(--status-reported-background);
+  --color-status-reported-foreground: var(--status-reported-foreground);
+  --color-rating-star-active: var(--rating-star-active);
+  --color-rating-star-inactive: var(--rating-star-inactive);
 
   --color-tag-default-background: var(--tag-default-background);
   --color-tag-default-foreground: var(--tag-default-foreground);
