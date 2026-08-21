@@ -5,6 +5,11 @@
     "sourceFileName": "ic-chevron-down.svg"
   },
   {
+    "componentName": "IcEye",
+    "generatedFileName": "IcEye.tsx",
+    "sourceFileName": "ic-eye.svg"
+  },
+  {
     "componentName": "IcHistory",
     "generatedFileName": "IcHistory.tsx",
     "sourceFileName": "ic-history.svg"
@@ -40,8 +45,18 @@
     "sourceFileName": "ic-refresh-cw.svg"
   },
   {
+    "componentName": "IcStar",
+    "generatedFileName": "IcStar.tsx",
+    "sourceFileName": "ic-star.svg"
+  },
+  {
     "componentName": "IcStore",
     "generatedFileName": "IcStore.tsx",
     "sourceFileName": "ic-store.svg"
+  },
+  {
+    "componentName": "IcTriangleAlert",
+    "generatedFileName": "IcTriangleAlert.tsx",
+    "sourceFileName": "ic-triangle-alert.svg"
   }
 ]
