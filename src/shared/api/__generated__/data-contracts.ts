@@ -106,27 +106,27 @@ export interface PostThemeRequest {
    */
   closureDate?: string;
   detailedGenreList?: (
-    | "SENTIMENTAL"
-    | "HORROR"
-    | "THRILLER"
-    | "DETECTIVE"
-    | "COMIC"
-    | "MYSTERY"
-    | "FANTASY"
-    | "ADVENTURE"
-    | "ESCAPE"
-    | "DRAMA"
-    | "ROMANCE"
-    | "SF"
-    | "HISTORY"
-    | "FAIRY_TALE"
-    | "ARCADE"
-    | "SURVIVAL"
-    | "PROBLEM"
-    | "ACTION"
-    | "ADULT"
-    | "OUTDOOR"
-    | "ETC"
+    | 'SENTIMENTAL'
+    | 'HORROR'
+    | 'THRILLER'
+    | 'DETECTIVE'
+    | 'COMIC'
+    | 'MYSTERY'
+    | 'FANTASY'
+    | 'ADVENTURE'
+    | 'ESCAPE'
+    | 'DRAMA'
+    | 'ROMANCE'
+    | 'SF'
+    | 'HISTORY'
+    | 'FAIRY_TALE'
+    | 'ARCADE'
+    | 'SURVIVAL'
+    | 'PROBLEM'
+    | 'ACTION'
+    | 'ADULT'
+    | 'OUTDOOR'
+    | 'ETC'
   )[];
   genreList?: string[];
   priceList?: ThemePriceDto[];
@@ -392,27 +392,27 @@ export interface PatchThemeRequest {
    */
   closureDate?: string;
   detailedGenreList?: (
-    | "SENTIMENTAL"
-    | "HORROR"
-    | "THRILLER"
-    | "DETECTIVE"
-    | "COMIC"
-    | "MYSTERY"
-    | "FANTASY"
-    | "ADVENTURE"
-    | "ESCAPE"
-    | "DRAMA"
-    | "ROMANCE"
-    | "SF"
-    | "HISTORY"
-    | "FAIRY_TALE"
-    | "ARCADE"
-    | "SURVIVAL"
-    | "PROBLEM"
-    | "ACTION"
-    | "ADULT"
-    | "OUTDOOR"
-    | "ETC"
+    | 'SENTIMENTAL'
+    | 'HORROR'
+    | 'THRILLER'
+    | 'DETECTIVE'
+    | 'COMIC'
+    | 'MYSTERY'
+    | 'FANTASY'
+    | 'ADVENTURE'
+    | 'ESCAPE'
+    | 'DRAMA'
+    | 'ROMANCE'
+    | 'SF'
+    | 'HISTORY'
+    | 'FAIRY_TALE'
+    | 'ARCADE'
+    | 'SURVIVAL'
+    | 'PROBLEM'
+    | 'ACTION'
+    | 'ADULT'
+    | 'OUTDOOR'
+    | 'ETC'
   )[];
   genreList?: string[];
   priceList?: ThemePriceDto[];
@@ -538,36 +538,36 @@ export interface GetThemeListResponse {
    */
   img?: string;
   detailedGenreList?: (
-    | "SENTIMENTAL"
-    | "HORROR"
-    | "THRILLER"
-    | "DETECTIVE"
-    | "COMIC"
-    | "MYSTERY"
-    | "FANTASY"
-    | "ADVENTURE"
-    | "ESCAPE"
-    | "DRAMA"
-    | "ROMANCE"
-    | "SF"
-    | "HISTORY"
-    | "FAIRY_TALE"
-    | "ARCADE"
-    | "SURVIVAL"
-    | "PROBLEM"
-    | "ACTION"
-    | "ADULT"
-    | "OUTDOOR"
-    | "ETC"
+    | 'SENTIMENTAL'
+    | 'HORROR'
+    | 'THRILLER'
+    | 'DETECTIVE'
+    | 'COMIC'
+    | 'MYSTERY'
+    | 'FANTASY'
+    | 'ADVENTURE'
+    | 'ESCAPE'
+    | 'DRAMA'
+    | 'ROMANCE'
+    | 'SF'
+    | 'HISTORY'
+    | 'FAIRY_TALE'
+    | 'ARCADE'
+    | 'SURVIVAL'
+    | 'PROBLEM'
+    | 'ACTION'
+    | 'ADULT'
+    | 'OUTDOOR'
+    | 'ETC'
   )[];
   /** 테마 상태 (OPEN_SOON: 오픈 예정, NEW_OPEN: 신규 오픈, NORMAL: 정상 운영, RENEWAL: 리뉴얼, CLOSING_SOON: 폐업 예정, CLOSED: 폐업) */
   themeStatus?:
-    | "OPEN_SOON"
-    | "NEW_OPEN"
-    | "NORMAL"
-    | "RENEWAL"
-    | "CLOSING_SOON"
-    | "CLOSED";
+    | 'OPEN_SOON'
+    | 'NEW_OPEN'
+    | 'NORMAL'
+    | 'RENEWAL'
+    | 'CLOSING_SOON'
+    | 'CLOSED';
 }
 
 export interface PageResponseGetThemeListResponse {
@@ -688,27 +688,27 @@ export interface GetThemeDetailResponse {
    */
   closureDate?: string;
   detailedGenreList?: (
-    | "SENTIMENTAL"
-    | "HORROR"
-    | "THRILLER"
-    | "DETECTIVE"
-    | "COMIC"
-    | "MYSTERY"
-    | "FANTASY"
-    | "ADVENTURE"
-    | "ESCAPE"
-    | "DRAMA"
-    | "ROMANCE"
-    | "SF"
-    | "HISTORY"
-    | "FAIRY_TALE"
-    | "ARCADE"
-    | "SURVIVAL"
-    | "PROBLEM"
-    | "ACTION"
-    | "ADULT"
-    | "OUTDOOR"
-    | "ETC"
+    | 'SENTIMENTAL'
+    | 'HORROR'
+    | 'THRILLER'
+    | 'DETECTIVE'
+    | 'COMIC'
+    | 'MYSTERY'
+    | 'FANTASY'
+    | 'ADVENTURE'
+    | 'ESCAPE'
+    | 'DRAMA'
+    | 'ROMANCE'
+    | 'SF'
+    | 'HISTORY'
+    | 'FAIRY_TALE'
+    | 'ARCADE'
+    | 'SURVIVAL'
+    | 'PROBLEM'
+    | 'ACTION'
+    | 'ADULT'
+    | 'OUTDOOR'
+    | 'ETC'
   )[];
   genreList?: string[];
   priceList?: ThemePriceDto[];
@@ -724,12 +724,12 @@ export interface GetThemeDetailResponse {
   note?: string;
   /** 테마 상태 (OPEN_SOON: 오픈 예정, NEW_OPEN: 신규 오픈, NORMAL: 정상 운영, RENEWAL: 리뉴얼, CLOSING_SOON: 폐업 예정, CLOSED: 폐업) */
   themeStatus?:
-    | "OPEN_SOON"
-    | "NEW_OPEN"
-    | "NORMAL"
-    | "RENEWAL"
-    | "CLOSING_SOON"
-    | "CLOSED";
+    | 'OPEN_SOON'
+    | 'NEW_OPEN'
+    | 'NORMAL'
+    | 'RENEWAL'
+    | 'CLOSING_SOON'
+    | 'CLOSED';
 }
 
 export interface GetThemeHistoryListResponse {
@@ -750,7 +750,7 @@ export interface GetThemeHistoryListResponse {
    */
   name?: string;
   /** 작업 유형 (INITIAL: 생성, UPDATE: 수정, TERMINAL: 삭제) */
-  snapshotType?: "INITIAL" | "UPDATE" | "TERMINAL";
+  snapshotType?: 'INITIAL' | 'UPDATE' | 'TERMINAL';
   /**
    * 수정자
    * @example "루미너스"
@@ -802,7 +802,7 @@ export interface GetThemeHistoryDetailResponse {
    */
   themeName?: string;
   /** 작업 유형 (INITIAL: 생성, UPDATE: 수정, TERMINAL: 삭제) */
-  snapshotType?: "INITIAL" | "UPDATE" | "TERMINAL";
+  snapshotType?: 'INITIAL' | 'UPDATE' | 'TERMINAL';
   /**
    * 수정자
    * @example "관리자"
@@ -843,12 +843,12 @@ export interface GetStoreListResponse {
   station?: string;
   /** 상태<br>(OPEN_SOON: 오픈 예정, NEW_OPEN: 신규 오픈, NORMAL: 정상 운영, RENEWAL: 리뉴얼, CLOSING_SOON: 폐업 예정, CLOSED: 폐업) */
   status?:
-    | "OPEN_SOON"
-    | "NEW_OPEN"
-    | "NORMAL"
-    | "RENEWAL"
-    | "CLOSING_SOON"
-    | "CLOSED";
+    | 'OPEN_SOON'
+    | 'NEW_OPEN'
+    | 'NORMAL'
+    | 'RENEWAL'
+    | 'CLOSING_SOON'
+    | 'CLOSED';
   /**
    * 연락처
    * @example "010-5544-7839"
@@ -965,7 +965,7 @@ export interface GetStoreHistoryListResponse {
    */
   name?: string;
   /** 작업 유형 (INITIAL: 생성, UPDATE: 수정, TERMINAL: 삭제) */
-  snapshotType?: "INITIAL" | "UPDATE" | "TERMINAL";
+  snapshotType?: 'INITIAL' | 'UPDATE' | 'TERMINAL';
   /**
    * 수정자
    * @example "루미너스"
@@ -1090,13 +1090,13 @@ export interface GetThemeReviewDetailResponse {
   satisfactionLevel?: number;
   /** 총평 (SOIL: 흙길, SOIL_GRASS: 흙풀길, GRASS: 풀길, GRASS_FLOWER: 풀꽃길, FLOWER: 꽃길, FLOWER_GARDEN: 꽃밭길, FAVORITE: 인생테마) */
   review?:
-    | "SOIL"
-    | "SOIL_GRASS"
-    | "GRASS"
-    | "GRASS_FLOWER"
-    | "FLOWER"
-    | "FLOWER_GARDEN"
-    | "FAVORITE";
+    | 'SOIL'
+    | 'SOIL_GRASS'
+    | 'GRASS'
+    | 'GRASS_FLOWER'
+    | 'FLOWER'
+    | 'FLOWER_GARDEN'
+    | 'FAVORITE';
   /**
    * 총평
    * @example "저의 총평은 ..."
@@ -1115,7 +1115,7 @@ export interface GetThemeReviewDetailResponse {
   /** 남은 시간 */
   remainingTime?: LocalTime;
   /** 탈출 실패 사유 (HINT: 힌트 개수 초과, TIME: 시간 부족, ETC: 기타) */
-  failReason?: "HINT" | "TIME" | "ETC";
+  failReason?: 'HINT' | 'TIME' | 'ETC';
   /** 엔딩 열람 여부 */
   hasViewedEnding?: boolean;
   /**
@@ -1138,11 +1138,11 @@ export interface GetThemeReviewDetailResponse {
   maxRecommendedHeadcount?: number;
   /** 총평 태그 목록 (AGING: 노후화, DEVICE_ERROR: 장치 오류, ENTRY_DELAY: 입장 지연, SAME_DAY_BOOKING: 당일 예약, EARLY_EXIT: 중도 포기) */
   reviewTagList?: (
-    | "AGING"
-    | "DEVICE_ERROR"
-    | "ENTRY_DELAY"
-    | "SAME_DAY_BOOKING"
-    | "EARLY_EXIT"
+    | 'AGING'
+    | 'DEVICE_ERROR'
+    | 'ENTRY_DELAY'
+    | 'SAME_DAY_BOOKING'
+    | 'EARLY_EXIT'
   )[];
   /**
    * 자물쇠/장치 비율 (자물쇠 기준)
@@ -1184,7 +1184,7 @@ export interface GetThemeReviewDetailResponse {
    */
   activityComment?: string;
   /** 추천 복장 (PANTS: 바지, LONG_SKIRT: 긴 치마, SHORT_SKIRT: 짧은 치마) */
-  recommendedCloth?: "PANTS" | "LONG_SKIRT" | "SHORT_SKIRT";
+  recommendedCloth?: 'PANTS' | 'LONG_SKIRT' | 'SHORT_SKIRT';
   /**
    * 스토리 점수
    * @format float
@@ -1231,6 +1231,6 @@ export interface LocalTime {
 
 /** 참가자 정보 */
 export interface ThemeReviewParticipantDto {
-  proficiency?: "BEGINNER" | "JUNIOR" | "SENIOR" | "MASTER";
+  proficiency?: 'BEGINNER' | 'JUNIOR' | 'SENIOR' | 'MASTER';
   remark?: string;
 }

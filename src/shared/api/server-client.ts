@@ -47,7 +47,7 @@ export const createServerApi = async ({
 
   serverApi.interceptors.response.use(
     (response) => response,
-    (error: unknown) => Promise.reject(normalizeApiError(error)),
+    (error: unknown) => Promise.reject(normalizeApiError(error))
   );
 
   return serverApi;

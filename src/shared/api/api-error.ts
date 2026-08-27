@@ -50,7 +50,7 @@ const getErrorType = (status: number): ApiErrorCategoryTypes => {
 };
 
 const isErrorResponse = (
-  value: unknown,
+  value: unknown
 ): value is AdminApiTypes.ErrorResponse => {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 };
@@ -85,7 +85,9 @@ export const normalizeApiError = (error: unknown) => {
 const normalizeAxiosError = (error: AxiosError) => {
   const status = error.response?.status;
   const responseBody = error.response?.data;
-  const errorResponse = isErrorResponse(responseBody) ? responseBody : undefined;
+  const errorResponse = isErrorResponse(responseBody)
+    ? responseBody
+    : undefined;
 
   if (status) {
     return new ApiError({

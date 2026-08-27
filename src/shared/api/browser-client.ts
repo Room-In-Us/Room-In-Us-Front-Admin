@@ -79,7 +79,7 @@ export const createBrowserApi = () => {
       }
 
       throw normalizeApiError(error);
-    },
+    }
   );
 
   return api;

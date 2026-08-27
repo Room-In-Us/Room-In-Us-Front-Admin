@@ -13,7 +13,7 @@ const encodePathParam = (value: ApiPathParamTypes) => {
 
 export const buildApiPath = (
   pathname: string,
-  searchParams?: ApiSearchParamsTypes,
+  searchParams?: ApiSearchParamsTypes
 ) => {
   if (!searchParams) {
     return pathname;
@@ -49,12 +49,14 @@ export const API_ENDPOINTS = {
     root: '/reviews',
   },
   stores: {
-    detail: (storeId: ApiPathParamTypes) => `/stores/${encodePathParam(storeId)}`,
+    detail: (storeId: ApiPathParamTypes) =>
+      `/stores/${encodePathParam(storeId)}`,
     histories: '/stores/histories',
     root: '/stores',
   },
   themes: {
-    detail: (themeId: ApiPathParamTypes) => `/themes/${encodePathParam(themeId)}`,
+    detail: (themeId: ApiPathParamTypes) =>
+      `/themes/${encodePathParam(themeId)}`,
     histories: '/themes/histories',
     historyDetail: (commitId: ApiPathParamTypes) =>
       `/themes/histories/${encodePathParam(commitId)}`,
