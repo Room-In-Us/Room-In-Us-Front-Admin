@@ -1,4 +1,4 @@
-import {AxiosError, isAxiosError} from 'axios';
+import {type AxiosError, isAxiosError} from 'axios';
 
 import type {AdminApiTypes} from './index';
 

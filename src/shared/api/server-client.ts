@@ -15,15 +15,36 @@ interface CreateServerApiOptions {
 
 const REQUEST_TIMEOUT_MS = 10_000;
 
+const getHttpsAdminApiBaseUrl = (adminApiBaseUrl: string | undefined) => {
+  if (!adminApiBaseUrl) {
+    throw createApiConfigurationError('ADMIN_API_BASE_URL is not configured.');
+  }
+
+  let parsedUrl: URL;
+
+  try {
+    parsedUrl = new URL(adminApiBaseUrl);
+  } catch {
+    throw createApiConfigurationError(
+      'ADMIN_API_BASE_URL must be an absolute https URL.'
+    );
+  }
+
+  if (parsedUrl.protocol !== 'https:') {
+    throw createApiConfigurationError(
+      'ADMIN_API_BASE_URL must use the https scheme.'
+    );
+  }
+
+  return parsedUrl.toString().replace(/\/+$/, '');
+};
+
 export const createServerApi = async ({
   accessToken,
   includeAccessToken = true,
 }: CreateServerApiOptions = {}): Promise<AxiosInstance> => {
   const {adminApiBaseUrl} = getServerEnv();
-
-  if (!adminApiBaseUrl) {
-    throw createApiConfigurationError('ADMIN_API_BASE_URL is not configured.');
-  }
+  const resolvedAdminApiBaseUrl = getHttpsAdminApiBaseUrl(adminApiBaseUrl);
 
   const cookieAccessToken =
     includeAccessToken && !accessToken
@@ -31,7 +52,7 @@ export const createServerApi = async ({
       : undefined;
   const resolvedAccessToken = accessToken ?? cookieAccessToken;
   const serverApi = axios.create({
-    baseURL: adminApiBaseUrl,
+    baseURL: resolvedAdminApiBaseUrl,
     timeout: REQUEST_TIMEOUT_MS,
   });
 
