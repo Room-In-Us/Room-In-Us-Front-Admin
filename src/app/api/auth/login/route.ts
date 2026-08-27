@@ -48,7 +48,8 @@ export async function POST(request: Request) {
     const serverApi = await createServerApi({includeAccessToken: false});
     const {data} = await serverApi.post<AdminApiTypes.PostLoginResponse>(
       API_ENDPOINTS.auth.login,
-      body
+      body,
+      {maxRedirects: 0}
     );
 
     await setAuthCookies(data);
