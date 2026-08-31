@@ -1,9 +1,14 @@
 import LoginImage from '@/src/assets/images/login.svg';
-
-import {LoginForm} from './LoginForm';
+import {LoginForm} from '@/src/features/auth/components/LoginForm';
 
 export default function LoginPage() {
-  const shouldShowTestAccount = process.env.NODE_ENV !== 'production';
+  const isProduction = process.env.NODE_ENV === 'production';
+  const testAdminId = process.env.NEXT_PUBLIC_TEST_ADMIN_ID;
+  const testAdminPassword = process.env.NEXT_PUBLIC_TEST_ADMIN_PASSWORD;
+  const shouldShowTestAccount =
+    !isProduction &&
+    process.env.NEXT_PUBLIC_SHOW_TEST_ACCOUNT === 'true' &&
+    Boolean(testAdminId && testAdminPassword);
 
   return (
     <main className='flex min-h-dvh items-center justify-center bg-[linear-gradient(108deg,#9fabf7_0.85%,#85bfb3_100%)] px-4 py-4'>
@@ -28,7 +33,12 @@ export default function LoginPage() {
         </div>
 
         <div className='flex w-full flex-col gap-4'>
-          <LoginForm />
+          <LoginForm
+            idPlaceholder={shouldShowTestAccount ? testAdminId : undefined}
+            passwordPlaceholder={
+              shouldShowTestAccount ? testAdminPassword : undefined
+            }
+          />
 
           {shouldShowTestAccount ? (
             <aside className='bg-riu-monochrome-10 flex w-full flex-col gap-1 rounded-sm p-3'>
@@ -36,10 +46,10 @@ export default function LoginPage() {
                 {'테스트 계정'}
               </p>
               <p className='text-caption3 text-riu-monochrome-500'>
-                {'아이디: admin'}
+                {`아이디: ${testAdminId}`}
               </p>
               <p className='text-caption3 text-riu-monochrome-500'>
-                {'비밀번호: admin1234'}
+                {`비밀번호: ${testAdminPassword}`}
               </p>
             </aside>
           ) : null}
