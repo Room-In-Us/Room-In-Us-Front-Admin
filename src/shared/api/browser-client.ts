@@ -4,6 +4,7 @@ import axios, {
   type InternalAxiosRequestConfig,
 } from 'axios';
 
+import {API_ENDPOINTS} from './api-endpoints';
 import {normalizeApiError} from './api-error';
 
 type RetryableAxiosRequestConfig = InternalAxiosRequestConfig & {
@@ -11,7 +12,6 @@ type RetryableAxiosRequestConfig = InternalAxiosRequestConfig & {
 };
 
 const REQUEST_TIMEOUT_MS = 10_000;
-const AUTH_ACCESS_TOKEN_PATH = '/auth/access-token';
 const LOGIN_PATH = '/login';
 
 let browserApi: AxiosInstance | undefined;
@@ -27,7 +27,7 @@ const redirectToLogin = () => {
 
 const refreshAccessToken = (api: AxiosInstance) => {
   refreshAccessTokenPromise ??= api
-    .post(AUTH_ACCESS_TOKEN_PATH)
+    .post(API_ENDPOINTS.auth.accessToken)
     .then(() => undefined)
     .finally(() => {
       refreshAccessTokenPromise = undefined;
@@ -37,7 +37,7 @@ const refreshAccessToken = (api: AxiosInstance) => {
 };
 
 const isRefreshRequest = (config: InternalAxiosRequestConfig | undefined) => {
-  return config?.url === AUTH_ACCESS_TOKEN_PATH;
+  return config?.url === API_ENDPOINTS.auth.accessToken;
 };
 
 export const createBrowserApi = () => {
@@ -73,8 +73,10 @@ export const createBrowserApi = () => {
           await refreshAccessToken(api);
 
           return api.request(originalRequest);
-        } catch {
+        } catch (refreshError) {
           redirectToLogin();
+
+          throw normalizeApiError(refreshError);
         }
       }
 
