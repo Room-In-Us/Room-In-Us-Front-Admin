@@ -81,8 +81,8 @@ jobs:
           host: ${{ secrets.OCI_HOST }}
           username: ${{ secrets.OCI_USER }}
           key: ${{ secrets.OCI_SSH_KEY }}
-          source: "deploy/prod/docker-compose.yml"
-          target: "~/roominus/prod/frontend-admin"
+          source: 'deploy/prod/docker-compose.yml'
+          target: '~/roominus/prod/frontend-admin'
           strip_components: 2
 
       - name: Deploy via SSH

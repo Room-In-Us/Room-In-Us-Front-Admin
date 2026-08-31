@@ -21,8 +21,8 @@ services:
     # 실행되어 특권 포트(<1024) 바인딩이 불가능합니다 (EACCES).
     environment:
       NODE_ENV: production
-      PORT: "3000"
-      HOSTNAME: "0.0.0.0"
+      PORT: '3000'
+      HOSTNAME: '0.0.0.0'
       TZ: Asia/Seoul
 
       # NEXT_PUBLIC_ 접두사가 없으므로 서버 전용 런타임 변수입니다.
@@ -35,16 +35,16 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.5"
+          cpus: '0.5'
           memory: 768M
         reservations:
-          cpus: "0.1"
+          cpus: '0.1'
 
     logging:
       driver: json-file
       options:
-        max-size: "10m"
-        max-file: "3"
+        max-size: '10m'
+        max-file: '3'
 
 networks:
   roominus:
