@@ -2,9 +2,11 @@ import LoginImage from '@/src/assets/images/login.svg';
 import {LoginForm} from '@/src/features/auth/components/LoginForm';
 
 export default function LoginPage() {
+  const isProduction = process.env.NODE_ENV === 'production';
   const testAdminId = process.env.NEXT_PUBLIC_TEST_ADMIN_ID;
   const testAdminPassword = process.env.NEXT_PUBLIC_TEST_ADMIN_PASSWORD;
   const shouldShowTestAccount =
+    !isProduction &&
     process.env.NEXT_PUBLIC_SHOW_TEST_ACCOUNT === 'true' &&
     Boolean(testAdminId && testAdminPassword);
 

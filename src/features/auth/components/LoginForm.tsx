@@ -1,6 +1,6 @@
 'use client';
 
-import {useState, type FormEvent} from 'react';
+import {useRef, useState, type FormEvent} from 'react';
 import {useRouter} from 'next/navigation';
 
 import {isApiError} from '@/src/shared/api';
@@ -17,6 +17,7 @@ interface LoginFormProps {
 
 function LoginForm({idPlaceholder, passwordPlaceholder}: LoginFormProps) {
   const router = useRouter();
+  const isSubmittingRef = useRef(false);
   const [idError, setIdError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [submitError, setSubmitError] = useState('');
@@ -24,6 +25,10 @@ function LoginForm({idPlaceholder, passwordPlaceholder}: LoginFormProps) {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (isSubmittingRef.current) {
+      return;
+    }
 
     const formData = new FormData(event.currentTarget);
     const id = String(formData.get('id') ?? '').trim();
@@ -39,6 +44,7 @@ function LoginForm({idPlaceholder, passwordPlaceholder}: LoginFormProps) {
       return;
     }
 
+    isSubmittingRef.current = true;
     setIsSubmitting(true);
 
     try {
@@ -48,6 +54,7 @@ function LoginForm({idPlaceholder, passwordPlaceholder}: LoginFormProps) {
     } catch (error) {
       setSubmitError(isApiError(error) ? error.message : LOGIN_ERROR_MESSAGE);
     } finally {
+      isSubmittingRef.current = false;
       setIsSubmitting(false);
     }
   };
