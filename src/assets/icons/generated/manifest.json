@@ -1,0 +1,62 @@
+[
+  {
+    "componentName": "IcChevronDown",
+    "generatedFileName": "IcChevronDown.tsx",
+    "sourceFileName": "ic-chevron-down.svg"
+  },
+  {
+    "componentName": "IcEye",
+    "generatedFileName": "IcEye.tsx",
+    "sourceFileName": "ic-eye.svg"
+  },
+  {
+    "componentName": "IcHistory",
+    "generatedFileName": "IcHistory.tsx",
+    "sourceFileName": "ic-history.svg"
+  },
+  {
+    "componentName": "IcKeyRound",
+    "generatedFileName": "IcKeyRound.tsx",
+    "sourceFileName": "ic-key-round.svg"
+  },
+  {
+    "componentName": "IcLayers",
+    "generatedFileName": "IcLayers.tsx",
+    "sourceFileName": "ic-layers.svg"
+  },
+  {
+    "componentName": "IcLogOut",
+    "generatedFileName": "IcLogOut.tsx",
+    "sourceFileName": "ic-log-out.svg"
+  },
+  {
+    "componentName": "IcMessageSquare",
+    "generatedFileName": "IcMessageSquare.tsx",
+    "sourceFileName": "ic-message-square.svg"
+  },
+  {
+    "componentName": "IcPlus",
+    "generatedFileName": "IcPlus.tsx",
+    "sourceFileName": "ic-plus.svg"
+  },
+  {
+    "componentName": "IcRefreshCw",
+    "generatedFileName": "IcRefreshCw.tsx",
+    "sourceFileName": "ic-refresh-cw.svg"
+  },
+  {
+    "componentName": "IcStar",
+    "generatedFileName": "IcStar.tsx",
+    "sourceFileName": "ic-star.svg"
+  },
+  {
+    "componentName": "IcStore",
+    "generatedFileName": "IcStore.tsx",
+    "sourceFileName": "ic-store.svg"
+  },
+  {
+    "componentName": "IcTriangleAlert",
+    "generatedFileName": "IcTriangleAlert.tsx",
+    "sourceFileName": "ic-triangle-alert.svg"
+  }
+]

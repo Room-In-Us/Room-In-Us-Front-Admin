@@ -1,0 +1,52 @@
+# 서버 배치 경로: ~/roominus/prod/frontend-admin/docker-compose.yml
+#
+# 기존 ~/roominus/prod/docker-compose.yml 은 건드리지 않습니다.
+# 그 파일은 frontend 항목이 실물과 어긋나 있고, --env-file 없이 실행하면
+# backend 이미지가 ':' 로 치환되어 서비스가 죽습니다.
+# 여기는 독립된 compose 프로젝트로 두고, 네트워크만 공유합니다.
+
+name: frontend-admin
+
+services:
+  frontend-admin:
+    # 롤백: IMAGE_TAG=prod-<short-sha> docker compose up -d
+    image: ghcr.io/room-in-us/room-in-us-front-admin:${IMAGE_TAG:-prod-latest}
+    container_name: frontend-admin
+    restart: unless-stopped
+
+    # 포트를 호스트에 노출하지 않습니다.
+    # 앞단 nginx 만 80/443 을 잡고, 내부에서 frontend-admin:3000 으로 접근합니다.
+    #
+    # PORT 를 80 으로 바꾸지 마세요. 이 이미지는 USER nextjs(uid 1001)로
+    # 실행되어 특권 포트(<1024) 바인딩이 불가능합니다 (EACCES).
+    environment:
+      NODE_ENV: production
+      PORT: '3000'
+      HOSTNAME: '0.0.0.0'
+      TZ: Asia/Seoul
+
+      # NEXT_PUBLIC_ 접두사가 없으므로 서버 전용 런타임 변수입니다.
+      # 빌드 시점에 번들로 들어가지 않으므로 Dockerfile 수정이 필요 없습니다.
+      ADMIN_API_BASE_URL: ${ADMIN_API_BASE_URL:-https://admin-api.roominus.kr}
+
+    networks:
+      - roominus
+
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 768M
+        reservations:
+          cpus: '0.1'
+
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'
+
+networks:
+  roominus:
+    name: prod_roominus-prod-net
+    external: true

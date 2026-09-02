@@ -1,0 +1,44 @@
+enable:
+  issues: true
+  prs: true
+
+labels:
+  '✨ Feature':
+    include:
+      - '(?i)^\[FEAT\]'
+
+  '🐞 BugFix':
+    include:
+      - '(?i)^\[FIX\]'
+
+  '🔨 Refactor':
+    include:
+      - '(?i)^\[REFACTOR\]'
+
+  '📬 API':
+    include:
+      - '(?i)^\[API\]'
+
+  '📃 Docs':
+    include:
+      - '(?i)^\[DOCS\]'
+
+  '🌏 Deploy':
+    include:
+      - '(?i)^\[DEVELOP\]'
+
+  '🎨 Style':
+    include:
+      - '(?i)^\[STYLE\]'
+
+  '💻 CrossBrowsing':
+    include:
+      - '(?i)^\[CROSSBROWSING\]'
+
+  '✅ Test':
+    include:
+      - '(?i)^\[TEST\]'
+
+  '⚙ Setting':
+    include:
+      - '(?i)^\[SETTING\]'

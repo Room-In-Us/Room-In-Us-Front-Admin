@@ -1,0 +1,6 @@
+interface:
+  display_name: 'API Integration Workflow'
+  short_description: 'Add API helpers and React Query hooks.'
+  default_prompt: '$api-integration-workflow로 API 연동과 query key/cache 동작까지 구현해줘.'
+policy:
+  allow_implicit_invocation: true

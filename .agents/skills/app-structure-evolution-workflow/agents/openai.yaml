@@ -1,0 +1,6 @@
+interface:
+  display_name: 'App Structure Evolution Workflow'
+  short_description: 'Evolve Roominus Admin structure using DONGCHIMI as a reference.'
+  default_prompt: '$app-structure-evolution-workflow로 Roominus Admin의 Next.js 폴더 구조를 점검하고 성장 방향을 제안해줘.'
+policy:
+  allow_implicit_invocation: true

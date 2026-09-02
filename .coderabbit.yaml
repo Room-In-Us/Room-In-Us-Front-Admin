@@ -1,0 +1,232 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: 'ko-KR'
+early_access: false
+
+tone_instructions: |
+  한국어로 간결하고 근거 중심의 코드 리뷰를 제공해 주세요.
+  보안, 런타임 오류, Next.js Server/Client Component 경계, 접근성, 유지보수성, 검증 누락을 우선합니다.
+  단순 취향이나 포맷터가 처리할 수 있는 문제는 중요 이슈처럼 다루지 마세요.
+  이 저장소의 기준은 AGENTS.md와 .agents/skills/**/SKILL.md를 우선 적용합니다.
+
+reviews:
+  profile: 'assertive'
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  review_details: false
+  assess_linked_issues: false
+  related_prs: false
+  suggested_labels: true
+  sequence_diagrams: false
+  changed_files_summary: true
+  high_level_summary_in_walkthrough: true
+  high_level_summary_placeholder: '이 PR의 주요 변경사항을 요약합니다.'
+  collapse_walkthrough: true
+  commit_status: true
+  fail_commit_status: false
+  related_issues: false
+  abort_on_close: true
+
+  path_filters:
+    - 'AGENTS.md'
+    - 'README.md'
+    - 'docs/**'
+    - '.agents/**'
+    - '.github/**'
+    - 'src/**'
+    - 'public/**'
+    - 'package.json'
+    - 'pnpm-workspace.yaml'
+    - 'next.config.*'
+    - 'postcss.config.*'
+    - 'eslint.config.*'
+    - 'components.json'
+    - 'tsconfig*.json'
+    - '.prettierrc'
+    - '.prettierignore'
+    - '.node-version'
+    - '!.coderabbit.yaml'
+    - '!node_modules/**'
+    - '!.next/**'
+    - '!out/**'
+    - '!build/**'
+    - '!coverage/**'
+    - '!*.lock'
+    - '!pnpm-lock.yaml'
+    - '!package-lock.json'
+    - '!bun.lockb'
+    - '!**/*.png'
+    - '!**/*.jpg'
+    - '!**/*.jpeg'
+    - '!**/*.gif'
+    - '!**/*.webp'
+    - '!**/*.ico'
+    - '!**/*.avif'
+    - '!**/*.mp4'
+    - '!**/*.webm'
+    - '!**/*.mp3'
+    - '!**/*.ogg'
+
+  path_instructions:
+    - path: 'src/**/*.ts'
+      instructions: |
+        TypeScript 코드 리뷰 기준:
+        - type-only import가 값 import로 작성되지 않았는지 확인합니다.
+        - import 순서는 외부 라이브러리, 내부 절대경로(@/*), 상대경로, 스타일 파일 흐름을 따르는지 확인합니다.
+        - var 사용, 불필요한 let, 사용하지 않는 변수와 매개변수를 지적합니다.
+        - @/* alias가 현재 tsconfig의 프로젝트 루트 기준 alias와 맞는지 확인하고, 존재하지 않는 alias를 제안하지 않습니다.
+        - API 응답처럼 확장될 수 있는 객체 계약은 interface, 단순 조합 타입은 type을 우선 고려합니다.
+        - boolean 값은 is, has, can, should 같은 의미 있는 접두사를 사용하는지 확인합니다.
+        - custom hook은 use* 이름을 따르는지 확인합니다.
+
+    - path: 'src/**/*.tsx'
+      instructions: |
+        React/TSX 코드 리뷰 기준:
+        - project-owned 컴포넌트 파일명은 PascalCase를 따르고, Next route convention 파일(page.tsx, layout.tsx 등)은 예외로 둡니다.
+        - Next route convention 파일은 default export가 필요하지만, 일반 컴포넌트와 유틸 export는 named export를 우선합니다.
+        - props 타입은 컴포넌트 가까이에 두고 ComponentNameProps처럼 읽기 쉬운 이름을 우선합니다.
+        - 이벤트 핸들러는 handle* 이름을 사용해 동작 의도를 드러내는지 확인합니다.
+        - Tailwind class 조합은 기존 shadcn/Radix/cva 패턴을 우선하고, 조건부 class 병합에는 cn/tailwind-merge 사용을 확인합니다.
+        - class 순서만을 위한 리뷰는 피합니다. 이 프로젝트는 prettier-plugin-tailwindcss가 class 정렬을 담당합니다.
+        - arbitrary value나 하드코딩 색상은 실제 디자인 토큰/레이아웃 제약이 없을 때만 허용하고, 반복되면 CSS 변수나 cva variant로 정리하도록 제안합니다.
+        - 버튼과 링크 의미, label 연결, 키보드 포커스, ARIA 사용 같은 접근성 문제를 우선합니다.
+        - useMemo, useCallback, React.memo는 실제 비용이나 참조 안정성 문제가 있을 때만 제안합니다.
+        - Next.js App Router 프로젝트이므로 server/client boundary와 route 파일 규칙을 함께 확인합니다.
+
+    - path: 'src/app/**'
+      instructions: |
+        Next.js App Router 변경 리뷰 기준:
+        - Next.js 16 기준으로 params/searchParams를 Promise로 다루는지 확인합니다.
+        - page.tsx와 layout.tsx는 기본 Server Component로 유지하고, 'use client'는 최소 client island에만 두는지 확인합니다.
+        - route-local UI, src/features, src/shared의 책임 경계가 섞이지 않았는지 확인합니다.
+        - loading, empty, error, disabled, success 상태가 필요한 흐름에서 빠지지 않았는지 확인합니다.
+
+    - path: 'src/shared/components/**'
+      instructions: |
+        공유 컴포넌트 리뷰 기준:
+        - 여러 실제 사용처가 있는지, route-specific copy/API/권한/analytics가 새지 않았는지 확인합니다.
+        - 기본적으로 Server Component에서도 사용할 수 있는 presentational API인지 확인합니다.
+        - interactive behavior가 필요하면 client controller와 presentational component를 분리할 수 있는지 확인합니다.
+        - variant, size, state class는 cva를 우선하고, 외부 className 병합은 cn/tailwind-merge로 충돌을 줄이는지 확인합니다.
+        - Tailwind utility가 반복되어 컴포넌트 API를 흐리면 cva variant 또는 작은 presentational component 분리를 제안합니다.
+        - 고정 px 폭/높이, 긴 텍스트 overflow, 모바일 터치 영역 부족, dark/disabled/focus-visible 상태 누락을 확인합니다.
+        - 접근성(label, role, keyboard, focus-visible)과 responsive text overflow를 확인합니다.
+
+    - path: 'src/app/globals.css'
+      instructions: |
+        Tailwind 전역 스타일 리뷰 기준:
+        - Tailwind CSS 4와 @tailwindcss/postcss 기준에서 동작하는 문법인지 확인합니다.
+        - 전역 CSS에는 reset, theme token, CSS variable, base layer처럼 앱 전체에 필요한 규칙만 둡니다.
+        - 특정 페이지나 컴포넌트에만 필요한 스타일은 globals.css 대신 해당 컴포넌트의 Tailwind class/cva로 유지하도록 제안합니다.
+        - 색상, radius, spacing token 변경은 shadcn/Radix 컴포넌트와 dark mode에 미치는 영향을 함께 확인합니다.
+        - Vanilla Extract나 *.css.ts 전제를 적용하지 않습니다. 이 프로젝트는 Tailwind/shadcn/cva 기반입니다.
+
+    - path: 'src/shared/hooks/**'
+      instructions: |
+        hook 리뷰 기준:
+        - hook 이름이 use* 형태이고 책임이 하나의 상태/효과/흐름으로 설명되는지 확인합니다.
+        - React Query, browser API, effect 의존성이 명확한 client boundary 안에서만 쓰이는지 확인합니다.
+        - 반환값이 호출부에서 예측 가능한 object 또는 tuple 형태인지 확인합니다.
+
+    - path: 'src/shared/lib/**'
+      instructions: |
+        유틸/API 경계 리뷰 기준:
+        - 순수 계산, mapping, formatting은 React state 없이 테스트 가능하게 유지되는지 확인합니다.
+        - API helper는 request/response 타입과 오류 처리를 API boundary 가까이에 두는지 확인합니다.
+        - private env, token, cookie, server-only 로직이 Client Component로 import될 수 있는 경로에 들어가지 않았는지 확인합니다.
+
+    - path: 'src/features/**'
+      instructions: |
+        feature 코드 리뷰 기준:
+        - 도메인별 책임이 src/app route shell이나 src/shared generic component로 새지 않았는지 확인합니다.
+        - API hook, form state, UI state, presentational UI가 과하게 결합되지 않았는지 확인합니다.
+        - shared로 올린 코드가 실제 재사용 근거를 갖는지 확인합니다.
+
+    - path: '.agents/**'
+      instructions: |
+        agent skill 리뷰 기준:
+        - AGENTS.md와 skill 간 source of truth가 중복되거나 충돌하지 않는지 확인합니다.
+        - skill frontmatter description이 실제 trigger 상황을 충분히 담는지 확인합니다.
+        - 새 skill은 현재 단일 Next Admin 앱에 필요한 범위인지 확인하고, Jira/Turbo/모노레포 전제를 들여오지 않았는지 확인합니다.
+
+    - path: '.github/workflows/**'
+      instructions: |
+        GitHub Actions 리뷰 기준:
+        - pnpm-lock.yaml과 package.json script 기준으로 실제 실행 가능한 명령인지 확인합니다.
+        - Node/pnpm 버전 기준이 .node-version과 packageManager 선언을 따르는지 확인합니다.
+        - 캐시, 권한, concurrency가 필요한 최소 범위인지 확인합니다.
+
+    - path: 'docs/**'
+      instructions: |
+        문서 리뷰 기준:
+        - 실제 프로젝트 구조와 다른 미래 전제나 외부 레포 전제가 들어오지 않았는지 확인합니다.
+        - 실행한 검증과 실행하지 못한 검증을 구분하는지 확인합니다.
+        - 앱 동작 변경과 문서/agent-only 변경의 경계를 명확히 적는지 확인합니다.
+
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - 'develop'
+      - 'main'
+    labels:
+      - '!wip'
+      - '!draft'
+      - '!skip-review'
+    ignore_usernames:
+      - 'dependabot'
+      - 'renovate'
+    ignore_title_keywords:
+      - '[docs]'
+      - '[skip-review]'
+
+  pre_merge_checks:
+    title:
+      mode: 'warning'
+      requirements: 'PR 제목은 .github/labeler.yml의 prefix 규칙을 따릅니다. 예: [SETTING] CI 기준 정리'
+    description:
+      mode: 'warning'
+    issue_assessment:
+      mode: 'off'
+
+  finishing_touches:
+    docstrings:
+      enabled: false
+    unit_tests:
+      enabled: false
+
+  tools:
+    eslint:
+      enabled: true
+    languagetool:
+      enabled: true
+      level: 'default'
+    markdownlint:
+      enabled: true
+    gitleaks:
+      enabled: true
+    yamllint:
+      enabled: true
+    actionlint:
+      enabled: true
+
+chat:
+  art: false
+  auto_reply: true
+
+knowledge_base:
+  web_search:
+    enabled: true
+  code_guidelines:
+    enabled: true
+    filePatterns:
+      - 'AGENTS.md'
+      - 'README.md'
+      - 'docs/**/*.md'
+      - '.agents/skills/**/SKILL.md'
+      - '.github/pull_request_template.md'
+      - '.github/labeler.yml'
+      - 'package.json'
+      - 'tsconfig.json'
+      - 'next.config.ts'
