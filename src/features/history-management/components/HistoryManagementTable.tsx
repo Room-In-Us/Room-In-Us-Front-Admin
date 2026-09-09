@@ -153,16 +153,13 @@ function HistoryTableRow({history}: {history: HistoryRecord}) {
 }
 
 function HistoryActionTag({action}: {action: HistoryAction}) {
-  const isCreate = action === 'create';
-
   return (
     <span
-      className={cn(
-        'text-body4 inline-flex h-[22px] min-w-10 items-center justify-center rounded-lg px-2',
-        isCreate
+      className={`text-body4 inline-flex h-[22px] min-w-10 items-center justify-center rounded-lg px-2 ${
+        action === 'create'
           ? 'bg-riu-monochrome-800 text-white'
           : 'bg-riu-monochrome-20 text-riu-monochrome-800'
-      )}>
+      }`}>
       {actionLabels[action]}
     </span>
   );
