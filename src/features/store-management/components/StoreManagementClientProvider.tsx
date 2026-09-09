@@ -2,6 +2,9 @@
 
 import * as React from 'react';
 
+import {isApiError} from '@/src/shared/api';
+
+import {useStoreListQuery} from '../api/store-queries';
 import type {Store} from '../model/store';
 
 type StoreManagementControlsContextValue = {
@@ -13,6 +16,9 @@ type StoreManagementControlsContextValue = {
 
 type StoreManagementRowsContextValue = {
   stores: Store[];
+  isError: boolean;
+  isLoading: boolean;
+  errorMessage: string;
 };
 
 type StoreManagementPaginationContextValue = {
@@ -23,8 +29,11 @@ type StoreManagementPaginationContextValue = {
   movePage: (nextPage: number) => void;
 };
 
+type StoreManagementSummaryContextValue = {
+  totalElements: number;
+};
+
 type StoreManagementClientProviderProps = {
-  stores: Store[];
   children: React.ReactNode;
 };
 
@@ -34,35 +43,23 @@ const StoreManagementRowsContext =
   React.createContext<StoreManagementRowsContextValue | null>(null);
 const StoreManagementPaginationContext =
   React.createContext<StoreManagementPaginationContextValue | null>(null);
+const StoreManagementSummaryContext =
+  React.createContext<StoreManagementSummaryContextValue | null>(null);
 
 function StoreManagementClientProvider({
-  stores,
   children,
 }: StoreManagementClientProviderProps) {
   const [pageSize, setPageSize] = React.useState(10);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [searchKeyword, setSearchKeyword] = React.useState('');
-
-  const normalizedSearchKeyword = searchKeyword.trim().toLowerCase();
-  const filteredStores = React.useMemo(() => {
-    if (!normalizedSearchKeyword) {
-      return stores;
-    }
-
-    return stores.filter((store) =>
-      [store.name, store.address, store.station, store.phone].some((value) =>
-        value.toLowerCase().includes(normalizedSearchKeyword)
-      )
-    );
-  }, [normalizedSearchKeyword, stores]);
-
-  const totalPages = Math.max(Math.ceil(filteredStores.length / pageSize), 1);
+  const normalizedSearchKeyword = searchKeyword.trim();
+  const storeListQuery = useStoreListQuery({
+    keyword: normalizedSearchKeyword || undefined,
+    page: currentPage,
+    size: pageSize,
+  });
+  const totalPages = Math.max(storeListQuery.data?.totalPages ?? 1, 1);
   const safeCurrentPage = Math.min(currentPage, totalPages);
-  const firstVisibleStoreIndex = (safeCurrentPage - 1) * pageSize;
-  const paginatedStores = filteredStores.slice(
-    firstVisibleStoreIndex,
-    firstVisibleStoreIndex + pageSize
-  );
 
   const handlePageSizeChange = React.useCallback((nextPageSize: string) => {
     setPageSize(Number(nextPageSize));
@@ -96,9 +93,17 @@ function StoreManagementClientProvider({
 
   const rowsValue = React.useMemo(
     () => ({
-      stores: paginatedStores,
+      stores: storeListQuery.data?.stores ?? [],
+      isError: storeListQuery.isError,
+      isLoading: storeListQuery.isLoading,
+      errorMessage: getStoreListErrorMessage(storeListQuery.error),
     }),
-    [paginatedStores]
+    [
+      storeListQuery.data?.stores,
+      storeListQuery.error,
+      storeListQuery.isError,
+      storeListQuery.isLoading,
+    ]
   );
 
   const paginationValue = React.useMemo(
@@ -106,21 +111,39 @@ function StoreManagementClientProvider({
       currentPage: safeCurrentPage,
       totalPages,
       hasPreviousPage: safeCurrentPage > 1,
-      hasNextPage: safeCurrentPage < totalPages,
+      hasNextPage:
+        storeListQuery.data?.hasNextPage ?? safeCurrentPage < totalPages,
       movePage,
     }),
-    [safeCurrentPage, totalPages, movePage]
+    [safeCurrentPage, totalPages, storeListQuery.data?.hasNextPage, movePage]
+  );
+
+  const summaryValue = React.useMemo(
+    () => ({
+      totalElements: storeListQuery.data?.totalElements ?? 0,
+    }),
+    [storeListQuery.data?.totalElements]
   );
 
   return (
     <StoreManagementControlsContext.Provider value={controlsValue}>
       <StoreManagementRowsContext.Provider value={rowsValue}>
         <StoreManagementPaginationContext.Provider value={paginationValue}>
-          {children}
+          <StoreManagementSummaryContext.Provider value={summaryValue}>
+            {children}
+          </StoreManagementSummaryContext.Provider>
         </StoreManagementPaginationContext.Provider>
       </StoreManagementRowsContext.Provider>
     </StoreManagementControlsContext.Provider>
   );
+}
+
+function getStoreListErrorMessage(error: unknown) {
+  if (!error) {
+    return '';
+  }
+
+  return isApiError(error) ? error.message : '매장 목록을 불러오지 못했습니다.';
 }
 
 function useStoreManagementControls() {
@@ -159,9 +182,22 @@ function useStoreManagementPagination() {
   return value;
 }
 
+function useStoreManagementSummary() {
+  const value = React.useContext(StoreManagementSummaryContext);
+
+  if (!value) {
+    throw new Error(
+      'useStoreManagementSummary must be used within StoreManagementClientProvider.'
+    );
+  }
+
+  return value;
+}
+
 export {
   StoreManagementClientProvider,
   useStoreManagementControls,
   useStoreManagementPagination,
   useStoreManagementRows,
+  useStoreManagementSummary,
 };
