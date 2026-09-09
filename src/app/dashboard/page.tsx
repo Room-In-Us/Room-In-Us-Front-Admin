@@ -1,5 +1,5 @@
-import {StoreManagementPage} from '@/src/features/store-management/StoreManagementPage';
+import {redirect} from 'next/navigation';
 
 export default function DashboardPage() {
-  return <StoreManagementPage />;
+  redirect('/dashboard/stores');
 }
