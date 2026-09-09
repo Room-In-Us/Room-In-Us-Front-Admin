@@ -14,6 +14,8 @@ import {StoreStatusTag, type StoreStatusTagVariant} from './StoreStatusTag';
 const storeStatusTagVariant = {
   operating: 'default',
   new: 'new',
+  upcoming: 'upcoming',
+  renovation: 'renovation',
   closing: 'expect-delete',
   closed: 'delete',
 } satisfies Record<Store['status'], StoreStatusTagVariant>;

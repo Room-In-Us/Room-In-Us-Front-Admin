@@ -1,4 +1,10 @@
-type StoreStatus = 'operating' | 'new' | 'closing' | 'closed';
+type StoreStatus =
+  | 'operating'
+  | 'new'
+  | 'upcoming'
+  | 'renovation'
+  | 'closing'
+  | 'closed';
 
 type Store = {
   id: number;

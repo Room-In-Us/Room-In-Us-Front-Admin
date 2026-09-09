@@ -1,17 +1,22 @@
 import {cva} from 'class-variance-authority';
 
-import {cn} from '@/src/shared/lib/utils';
-
-type StoreStatusTagVariant = 'default' | 'new' | 'delete' | 'expect-delete';
+type StoreStatusTagVariant =
+  | 'default'
+  | 'new'
+  | 'upcoming'
+  | 'renovation'
+  | 'delete'
+  | 'expect-delete';
 
 type StoreStatusTagProps = {
   variant?: StoreStatusTagVariant;
-  className?: string;
 };
 
 const statusTagLabel = {
   default: '정상 운영',
   new: '신규 오픈',
+  upcoming: '오픈 예정',
+  renovation: '리뉴얼',
   delete: '폐업',
   'expect-delete': '폐업 예정',
 } satisfies Record<StoreStatusTagVariant, string>;
@@ -23,6 +28,10 @@ const statusTagVariants = cva(
       variant: {
         default: 'bg-tag-default-background text-tag-default-foreground',
         new: 'bg-tag-new-background text-tag-new-foreground',
+        upcoming:
+          'bg-status-upcoming-background text-status-upcoming-foreground',
+        renovation:
+          'bg-status-renovation-background text-status-renovation-foreground',
         delete: 'bg-tag-delete-background text-tag-delete-foreground',
         'expect-delete':
           'bg-tag-expect-delete-background text-tag-expect-delete-foreground',
@@ -34,9 +43,9 @@ const statusTagVariants = cva(
   }
 );
 
-function StoreStatusTag({variant = 'default', className}: StoreStatusTagProps) {
+function StoreStatusTag({variant = 'default'}: StoreStatusTagProps) {
   return (
-    <span className={cn(statusTagVariants({variant}), className)}>
+    <span className={statusTagVariants({variant})}>
       {statusTagLabel[variant]}
     </span>
   );
