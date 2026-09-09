@@ -26,7 +26,10 @@ export async function POST() {
       throw createMissingRefreshTokenError();
     }
 
-    const serverApi = await createServerApi({accessToken: refreshToken});
+    const serverApi = await createServerApi({
+      accessToken: refreshToken,
+      authCookieName: 'refreshToken',
+    });
     const {data} = await serverApi.post<AdminApiTypes.GetAccessTokenResponse>(
       API_ENDPOINTS.auth.accessToken,
       undefined,
