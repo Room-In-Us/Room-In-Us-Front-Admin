@@ -30,7 +30,7 @@ const navigationItems: NavigationItem[] = [
   {
     id: 'stores',
     label: '매장 관리',
-    href: '/dashboard',
+    href: '/dashboard/stores',
     icon: IcStore,
   },
   {
@@ -88,10 +88,6 @@ function SidebarNavigation({activeItem, className}: SidebarNavigationProps) {
 }
 
 function isActivePath(pathname: string, href: string) {
-  if (href === '/dashboard') {
-    return pathname === href;
-  }
-
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
