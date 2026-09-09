@@ -4,7 +4,6 @@ import Link from 'next/link';
 import {Trash2} from 'lucide-react';
 
 import {Button} from '@/src/shared/components/ui/button';
-import {cn} from '@/src/shared/lib/utils';
 
 import type {Store} from '../model/store';
 import {StoreEditDialogTrigger} from './StoreEditDialogTrigger';
@@ -21,17 +20,17 @@ const storeStatusTagVariant = {
 } satisfies Record<Store['status'], StoreStatusTagVariant>;
 
 const columnHeaders = [
-  'ID',
-  '매장명',
-  '주소',
-  '상태',
-  '연락처',
-  '웹사이트',
-  '작업',
+  {label: 'ID', className: 'w-[2rem]'},
+  {label: '매장명', className: 'w-[9.375rem]'},
+  {label: '주소', className: 'w-[17.75rem]'},
+  {label: '상태', className: 'w-[4.8125rem] text-center'},
+  {label: '연락처', className: 'w-[7.625rem]'},
+  {label: '웹사이트', className: 'w-[4rem]'},
+  {label: '작업', className: 'w-[5.875rem]'},
 ];
 
 function StoreManagementTableContent() {
-  const {stores} = useStoreManagementRows();
+  const {stores, isLoading, isError, errorMessage} = useStoreManagementRows();
 
   return (
     <div className='border-riu-monochrome-50 bg-surface mt-6 overflow-hidden rounded-sm border'>
@@ -41,25 +40,22 @@ function StoreManagementTableContent() {
             <tr className='border-riu-monochrome-50 bg-riu-monochrome-10 h-10 border-b'>
               {columnHeaders.map((header) => (
                 <th
-                  key={header}
+                  key={header.label}
                   scope='col'
-                  className={cn(
-                    'text-body3 text-riu-monochrome-800 px-2 text-left align-middle',
-                    header === 'ID' && 'w-[2rem]',
-                    header === '매장명' && 'w-[9.375rem]',
-                    header === '주소' && 'w-[17.75rem]',
-                    header === '상태' && 'w-[4.8125rem]',
-                    header === '연락처' && 'w-[7.625rem]',
-                    header === '웹사이트' && 'w-[4rem]',
-                    header === '작업' && 'w-[5.875rem]'
-                  )}>
-                  {header}
+                  className={`text-body3 text-riu-monochrome-800 px-2 text-left align-middle ${header.className}`}>
+                  {header.label}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {stores.length > 0 ? (
+            {isLoading ? (
+              <StoreTableMessageRow message='매장 목록을 불러오는 중입니다.' />
+            ) : isError ? (
+              <StoreTableMessageRow
+                message={errorMessage || '매장 목록을 불러오지 못했습니다.'}
+              />
+            ) : stores.length > 0 ? (
               stores.map((store) => (
                 <tr
                   key={store.id}
@@ -75,27 +71,35 @@ function StoreManagementTableContent() {
                       <span className='text-body3 text-riu-monochrome-800 truncate'>
                         {store.address}
                       </span>
-                      <span className='text-caption3 text-riu-monochrome-300 truncate'>
-                        {store.station}
-                      </span>
+                      {store.station ? (
+                        <span className='text-caption3 text-riu-monochrome-300 truncate'>
+                          {store.station}
+                        </span>
+                      ) : null}
                     </div>
                   </td>
-                  <td className='px-2'>
+                  <td className='px-2 text-center'>
                     <StoreStatusTag
                       variant={storeStatusTagVariant[store.status]}
                     />
                   </td>
                   <td className='text-body3 text-riu-monochrome-800 px-2'>
-                    <span className='block truncate'>{store.phone}</span>
+                    <span className='block truncate'>{store.phone || '-'}</span>
                   </td>
                   <td className='px-2'>
-                    <Link
-                      href={store.website}
-                      className='text-body3 text-link underline-offset-2 hover:underline'
-                      target='_blank'
-                      rel='noreferrer'>
-                      링크
-                    </Link>
+                    {store.website ? (
+                      <Link
+                        href={store.website}
+                        className='text-body3 text-link underline-offset-2 hover:underline'
+                        target='_blank'
+                        rel='noreferrer'>
+                        링크
+                      </Link>
+                    ) : (
+                      <span className='text-body3 text-riu-monochrome-300'>
+                        -
+                      </span>
+                    )}
                   </td>
                   <td className='px-2'>
                     <div className='flex items-center gap-2'>
@@ -114,18 +118,24 @@ function StoreManagementTableContent() {
                 </tr>
               ))
             ) : (
-              <tr className='h-[3.4375rem]'>
-                <td
-                  colSpan={columnHeaders.length}
-                  className='text-body3 text-riu-monochrome-500 px-2 text-center'>
-                  검색 결과가 없습니다.
-                </td>
-              </tr>
+              <StoreTableMessageRow message='검색 결과가 없습니다.' />
             )}
           </tbody>
         </table>
       </div>
     </div>
+  );
+}
+
+function StoreTableMessageRow({message}: {message: string}) {
+  return (
+    <tr className='h-[3.4375rem]'>
+      <td
+        colSpan={columnHeaders.length}
+        className='text-body3 text-riu-monochrome-500 px-2 text-center'>
+        {message}
+      </td>
+    </tr>
   );
 }
 
