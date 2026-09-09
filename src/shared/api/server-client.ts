@@ -10,6 +10,7 @@ import {createApiConfigurationError, normalizeApiError} from './api-error';
 
 interface CreateServerApiOptions {
   accessToken?: string;
+  authCookieName?: 'accessToken' | 'refreshToken';
   includeAccessToken?: boolean;
 }
 
@@ -41,6 +42,7 @@ const getHttpsAdminApiBaseUrl = (adminApiBaseUrl: string | undefined) => {
 
 export const createServerApi = async ({
   accessToken,
+  authCookieName = 'accessToken',
   includeAccessToken = true,
 }: CreateServerApiOptions = {}): Promise<AxiosInstance> => {
   const {adminApiBaseUrl} = getServerEnv();
@@ -60,7 +62,7 @@ export const createServerApi = async ({
     config.headers.Accept = 'application/json';
 
     if (includeAccessToken && resolvedAccessToken) {
-      config.headers.Authorization = `Bearer ${resolvedAccessToken}`;
+      config.headers.Cookie = `${authCookieName}=${resolvedAccessToken}`;
     }
 
     return config;
