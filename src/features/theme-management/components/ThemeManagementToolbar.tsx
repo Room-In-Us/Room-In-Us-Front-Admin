@@ -24,8 +24,8 @@ function ThemeManagementToolbar() {
         onValueChange={onPageSizeChange}
       />
       <SearchInputArea
-        label='검색:'
-        placeholder='매장명/테마명 검색'
+        label='검색'
+        placeholder='매장명, 테마명 검색'
         value={searchKeyword}
         onChange={onSearchKeywordChange}
         wrapperClassName='w-full max-w-[18.375rem] sm:w-[18.375rem]'

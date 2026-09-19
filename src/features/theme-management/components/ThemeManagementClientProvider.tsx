@@ -2,6 +2,9 @@
 
 import * as React from 'react';
 
+import {isApiError} from '@/src/shared/api';
+
+import {useThemeListQuery} from '../api/theme-queries';
 import type {Theme} from '../model/theme';
 
 type ThemeManagementControlsContextValue = {
@@ -12,6 +15,9 @@ type ThemeManagementControlsContextValue = {
 };
 
 type ThemeManagementRowsContextValue = {
+  errorMessage: string;
+  isError: boolean;
+  isLoading: boolean;
   themes: Theme[];
 };
 
@@ -23,8 +29,11 @@ type ThemeManagementPaginationContextValue = {
   movePage: (nextPage: number) => void;
 };
 
+type ThemeManagementSummaryContextValue = {
+  totalElements: number;
+};
+
 type ThemeManagementClientProviderProps = {
-  themes: Theme[];
   children: React.ReactNode;
 };
 
@@ -34,35 +43,23 @@ const ThemeManagementRowsContext =
   React.createContext<ThemeManagementRowsContextValue | null>(null);
 const ThemeManagementPaginationContext =
   React.createContext<ThemeManagementPaginationContextValue | null>(null);
+const ThemeManagementSummaryContext =
+  React.createContext<ThemeManagementSummaryContextValue | null>(null);
 
 function ThemeManagementClientProvider({
-  themes,
   children,
 }: ThemeManagementClientProviderProps) {
   const [pageSize, setPageSize] = React.useState(10);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [searchKeyword, setSearchKeyword] = React.useState('');
-
-  const normalizedSearchKeyword = searchKeyword.trim().toLowerCase();
-  const filteredThemes = React.useMemo(() => {
-    if (!normalizedSearchKeyword) {
-      return themes;
-    }
-
-    return themes.filter((theme) =>
-      [theme.storeName, theme.name, ...theme.genres].some((value) =>
-        value.toLowerCase().includes(normalizedSearchKeyword)
-      )
-    );
-  }, [normalizedSearchKeyword, themes]);
-
-  const totalPages = Math.max(Math.ceil(filteredThemes.length / pageSize), 1);
+  const normalizedSearchKeyword = searchKeyword.trim();
+  const themeListQuery = useThemeListQuery({
+    keyword: normalizedSearchKeyword || undefined,
+    page: currentPage,
+    size: pageSize,
+  });
+  const totalPages = Math.max(themeListQuery.data?.totalPages ?? 1, 1);
   const safeCurrentPage = Math.min(currentPage, totalPages);
-  const firstVisibleThemeIndex = (safeCurrentPage - 1) * pageSize;
-  const paginatedThemes = filteredThemes.slice(
-    firstVisibleThemeIndex,
-    firstVisibleThemeIndex + pageSize
-  );
 
   const handlePageSizeChange = React.useCallback((nextPageSize: string) => {
     setPageSize(Number(nextPageSize));
@@ -96,9 +93,17 @@ function ThemeManagementClientProvider({
 
   const rowsValue = React.useMemo(
     () => ({
-      themes: paginatedThemes,
+      errorMessage: getThemeListErrorMessage(themeListQuery.error),
+      isError: themeListQuery.isError,
+      isLoading: themeListQuery.isLoading,
+      themes: themeListQuery.data?.themes ?? [],
     }),
-    [paginatedThemes]
+    [
+      themeListQuery.data?.themes,
+      themeListQuery.error,
+      themeListQuery.isError,
+      themeListQuery.isLoading,
+    ]
   );
 
   const paginationValue = React.useMemo(
@@ -106,21 +111,39 @@ function ThemeManagementClientProvider({
       currentPage: safeCurrentPage,
       totalPages,
       hasPreviousPage: safeCurrentPage > 1,
-      hasNextPage: safeCurrentPage < totalPages,
+      hasNextPage:
+        themeListQuery.data?.hasNextPage ?? safeCurrentPage < totalPages,
       movePage,
     }),
-    [safeCurrentPage, totalPages, movePage]
+    [safeCurrentPage, totalPages, themeListQuery.data?.hasNextPage, movePage]
+  );
+
+  const summaryValue = React.useMemo(
+    () => ({
+      totalElements: themeListQuery.data?.totalElements ?? 0,
+    }),
+    [themeListQuery.data?.totalElements]
   );
 
   return (
     <ThemeManagementControlsContext.Provider value={controlsValue}>
       <ThemeManagementRowsContext.Provider value={rowsValue}>
         <ThemeManagementPaginationContext.Provider value={paginationValue}>
-          {children}
+          <ThemeManagementSummaryContext.Provider value={summaryValue}>
+            {children}
+          </ThemeManagementSummaryContext.Provider>
         </ThemeManagementPaginationContext.Provider>
       </ThemeManagementRowsContext.Provider>
     </ThemeManagementControlsContext.Provider>
   );
+}
+
+function getThemeListErrorMessage(error: unknown) {
+  if (!error) {
+    return '';
+  }
+
+  return isApiError(error) ? error.message : '테마 목록을 불러오지 못했습니다.';
 }
 
 function useThemeManagementControls() {
@@ -128,7 +151,7 @@ function useThemeManagementControls() {
 
   if (!value) {
     throw new Error(
-      'useThemeManagementControls must be used within ThemeManagementClientProvider.'
+      'useThemeManagementControls는 ThemeManagementClientProvider 안에서 사용해야 합니다.'
     );
   }
 
@@ -140,7 +163,7 @@ function useThemeManagementRows() {
 
   if (!value) {
     throw new Error(
-      'useThemeManagementRows must be used within ThemeManagementClientProvider.'
+      'useThemeManagementRows는 ThemeManagementClientProvider 안에서 사용해야 합니다.'
     );
   }
 
@@ -152,7 +175,19 @@ function useThemeManagementPagination() {
 
   if (!value) {
     throw new Error(
-      'useThemeManagementPagination must be used within ThemeManagementClientProvider.'
+      'useThemeManagementPagination은 ThemeManagementClientProvider 안에서 사용해야 합니다.'
+    );
+  }
+
+  return value;
+}
+
+function useThemeManagementSummary() {
+  const value = React.useContext(ThemeManagementSummaryContext);
+
+  if (!value) {
+    throw new Error(
+      'useThemeManagementSummary는 ThemeManagementClientProvider 안에서 사용해야 합니다.'
     );
   }
 
@@ -164,4 +199,5 @@ export {
   useThemeManagementControls,
   useThemeManagementPagination,
   useThemeManagementRows,
+  useThemeManagementSummary,
 };
