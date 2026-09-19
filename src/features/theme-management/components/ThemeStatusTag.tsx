@@ -7,10 +7,12 @@ type ThemeStatusTagProps = {
 };
 
 const themeStatusTagLabel = {
-  operating: '정상 운영',
-  new: '신규 오픈',
-  closing: '폐업 예정',
   closed: '폐업',
+  closing: '폐업 예정',
+  new: '신규 오픈',
+  operating: '정상 운영',
+  renovation: '리뉴얼',
+  upcoming: '오픈 예정',
 } satisfies Record<ThemeStatus, string>;
 
 const themeStatusTagVariants = cva(
@@ -18,11 +20,15 @@ const themeStatusTagVariants = cva(
   {
     variants: {
       status: {
-        operating: 'bg-tag-default-background text-tag-default-foreground',
-        new: 'bg-tag-new-background text-tag-new-foreground',
+        closed: 'bg-tag-delete-background text-tag-delete-foreground',
         closing:
           'bg-tag-expect-delete-background text-tag-expect-delete-foreground',
-        closed: 'bg-tag-delete-background text-tag-delete-foreground',
+        new: 'bg-tag-new-background text-tag-new-foreground',
+        operating: 'bg-tag-default-background text-tag-default-foreground',
+        renovation:
+          'bg-status-renovation-background text-status-renovation-foreground',
+        upcoming:
+          'bg-status-upcoming-background text-status-upcoming-foreground',
       } satisfies Record<ThemeStatus, string>,
     },
   }
