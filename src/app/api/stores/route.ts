@@ -59,3 +59,23 @@ export async function GET(request: NextRequest) {
     return createApiErrorResponse(error);
   }
 }
+
+export async function POST(request: NextRequest) {
+  const accessToken = request.cookies.get(AUTH_COOKIE_NAMES.accessToken)?.value;
+  const body = (await request.json()) as AdminApiTypes.PostStoreRequest;
+
+  try {
+    const serverApi = await createServerApi({accessToken});
+    const {data} = await serverApi.post<AdminApiTypes.PostStoreResponse>(
+      API_ENDPOINTS.stores.root,
+      body,
+      {
+        maxRedirects: 0,
+      }
+    );
+
+    return NextResponse.json(data);
+  } catch (error) {
+    return createApiErrorResponse(error);
+  }
+}
