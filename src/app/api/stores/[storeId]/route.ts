@@ -25,10 +25,20 @@ const createApiErrorResponse = (error: unknown) => {
   );
 };
 
-const isPositiveInteger = (value: string) => {
-  const numericValue = Number(value);
+const createInvalidStoreIdResponse = () => {
+  return NextResponse.json(
+    {
+      code: 'INVALID_STORE_ID',
+      message: '올바른 매장 ID가 아닙니다.',
+    },
+    {
+      status: 400,
+    }
+  );
+};
 
-  return Number.isInteger(numericValue) && numericValue > 0;
+const isPositiveInteger = (value: string) => {
+  return /^[1-9]\d*$/.test(value);
 };
 
 export async function GET(
@@ -38,15 +48,7 @@ export async function GET(
   const {storeId} = await params;
 
   if (!isPositiveInteger(storeId)) {
-    return NextResponse.json(
-      {
-        code: 'INVALID_STORE_ID',
-        message: '올바른 매장 ID가 아닙니다.',
-      },
-      {
-        status: 400,
-      }
-    );
+    return createInvalidStoreIdResponse();
   }
 
   const accessToken = request.cookies.get(AUTH_COOKIE_NAMES.accessToken)?.value;
@@ -73,15 +75,7 @@ export async function PATCH(
   const {storeId} = await params;
 
   if (!isPositiveInteger(storeId)) {
-    return NextResponse.json(
-      {
-        code: 'INVALID_STORE_ID',
-        message: '올바른 매장 ID가 아닙니다.',
-      },
-      {
-        status: 400,
-      }
-    );
+    return createInvalidStoreIdResponse();
   }
 
   const accessToken = request.cookies.get(AUTH_COOKIE_NAMES.accessToken)?.value;
@@ -114,15 +108,7 @@ export async function DELETE(
   const {storeId} = await params;
 
   if (!isPositiveInteger(storeId)) {
-    return NextResponse.json(
-      {
-        code: 'INVALID_STORE_ID',
-        message: '올바른 매장 ID가 아닙니다.',
-      },
-      {
-        status: 400,
-      }
-    );
+    return createInvalidStoreIdResponse();
   }
 
   const accessToken = request.cookies.get(AUTH_COOKIE_NAMES.accessToken)?.value;
