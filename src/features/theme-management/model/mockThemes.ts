@@ -3,6 +3,7 @@ import type {Theme} from './theme';
 const themes: Theme[] = [
   {
     id: 1,
+    storeId: 1,
     storeName: '키이스케이프 LOG_IN 1',
     name: '크리쳐 - 신인류의 탄생',
     status: 'operating',
@@ -12,6 +13,7 @@ const themes: Theme[] = [
   },
   {
     id: 2,
+    storeId: 1,
     storeName: '키이스케이프 LOG_IN 1',
     name: '미드나잇 익스프레스',
     status: 'operating',
@@ -21,6 +23,7 @@ const themes: Theme[] = [
   },
   {
     id: 3,
+    storeId: 2,
     storeName: '비트포비아 홍대점',
     name: '저주받은 인형',
     status: 'operating',
@@ -30,6 +33,7 @@ const themes: Theme[] = [
   },
   {
     id: 4,
+    storeId: 3,
     storeName: '코드케이 강남점',
     name: '셜록의 서재',
     status: 'operating',
@@ -39,6 +43,7 @@ const themes: Theme[] = [
   },
   {
     id: 5,
+    storeId: 4,
     storeName: '넥스트에디션 신촌점',
     name: '타임루프',
     status: 'new',
@@ -48,6 +53,7 @@ const themes: Theme[] = [
   },
   {
     id: 6,
+    storeId: 5,
     storeName: '마스터키 홍대점',
     name: '좀비 바이러스',
     status: 'operating',
@@ -57,6 +63,7 @@ const themes: Theme[] = [
   },
   {
     id: 7,
+    storeId: 6,
     storeName: '비밀의방 삼성점',
     name: '비밀의 저택',
     status: 'closed',
@@ -66,6 +73,7 @@ const themes: Theme[] = [
   },
   {
     id: 8,
+    storeId: 7,
     storeName: '제로월드 건대점',
     name: '우주 정거장',
     status: 'closing',
@@ -75,6 +83,7 @@ const themes: Theme[] = [
   },
   {
     id: 9,
+    storeId: 8,
     storeName: '어메이징 브레이킹 신림점',
     name: '뱅크 하이스트',
     status: 'closed',
@@ -84,6 +93,7 @@ const themes: Theme[] = [
   },
   {
     id: 10,
+    storeId: 9,
     storeName: '리얼월드 이대점',
     name: '마법학교의 비밀',
     status: 'operating',
@@ -93,6 +103,7 @@ const themes: Theme[] = [
   },
   {
     id: 11,
+    storeId: 10,
     storeName: '셜록홈즈 대학로점',
     name: '잃어버린 기록',
     status: 'operating',
@@ -102,6 +113,7 @@ const themes: Theme[] = [
   },
   {
     id: 12,
+    storeId: 3,
     storeName: '코드케이 강남점',
     name: '라스트 시그널',
     status: 'operating',
@@ -111,6 +123,7 @@ const themes: Theme[] = [
   },
   {
     id: 13,
+    storeId: 4,
     storeName: '넥스트에디션 신촌점',
     name: '심야 병동',
     status: 'operating',
@@ -120,6 +133,7 @@ const themes: Theme[] = [
   },
   {
     id: 14,
+    storeId: 2,
     storeName: '비트포비아 홍대점',
     name: '카지노 로얄',
     status: 'new',
@@ -129,6 +143,7 @@ const themes: Theme[] = [
   },
   {
     id: 15,
+    storeId: 5,
     storeName: '마스터키 홍대점',
     name: '사라진 연구원',
     status: 'operating',
