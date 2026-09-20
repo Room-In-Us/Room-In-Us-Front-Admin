@@ -61,6 +61,27 @@ function ThemeManagementClientProvider({
   const totalPages = Math.max(themeListQuery.data?.totalPages ?? 1, 1);
   const safeCurrentPage = Math.min(currentPage, totalPages);
 
+  React.useEffect(() => {
+    if (
+      !themeListQuery.data ||
+      themeListQuery.isPlaceholderData ||
+      totalPages >= currentPage
+    ) {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setCurrentPage(totalPages);
+    }, 0);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [
+    currentPage,
+    themeListQuery.data,
+    themeListQuery.isPlaceholderData,
+    totalPages,
+  ]);
+
   const handlePageSizeChange = React.useCallback((nextPageSize: string) => {
     setPageSize(Number(nextPageSize));
     setCurrentPage(1);

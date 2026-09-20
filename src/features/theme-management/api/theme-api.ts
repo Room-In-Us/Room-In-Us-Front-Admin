@@ -81,11 +81,14 @@ const mapApiThemeGenres = (
 };
 
 const mapApiTheme = (
-  theme: AdminApiTypes.GetThemeListResponse,
-  index: number
-): Theme => {
+  theme: AdminApiTypes.GetThemeListResponse
+): Theme | null => {
+  if (theme.id == null) {
+    return null;
+  }
+
   return {
-    id: theme.id ?? index + 1,
+    id: theme.id,
     storeId: theme.storeId ?? 0,
     storeName: theme.storeName ?? '',
     name: theme.name ?? '',
@@ -95,6 +98,10 @@ const mapApiTheme = (
     genres: mapApiThemeGenres(theme.detailedGenreList),
     imageUrl: theme.img,
   };
+};
+
+const isTheme = (theme: Theme | null): theme is Theme => {
+  return theme !== null;
 };
 
 const sortThemesById = (themes: Theme[]) => {
@@ -118,7 +125,9 @@ export const getThemeList = async ({
     );
 
   return {
-    themes: sortThemesById(data.contents?.map(mapApiTheme) ?? []),
+    themes: sortThemesById(
+      data.contents?.map(mapApiTheme).filter(isTheme) ?? []
+    ),
     page: data.page ?? page,
     size: data.size ?? size,
     totalElements: data.totalElements ?? 0,

@@ -121,6 +121,7 @@ function ThemeTableRow({theme}: {theme: Theme}) {
       <td className='px-2'>
         <div
           aria-label={`${theme.name} 이미지 영역`}
+          role='img'
           className='bg-riu-monochrome-30 mx-auto size-16 overflow-hidden rounded'
           style={
             theme.imageUrl

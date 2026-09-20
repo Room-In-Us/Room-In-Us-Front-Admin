@@ -19,7 +19,6 @@ const useThemeListQuery = (params: GetThemeListParams) => {
   return useQuery<ThemeListResult>({
     queryKey: themeQueryKeys.list(params),
     queryFn: () => getThemeList(params),
-    placeholderData: (previousData) => previousData,
   });
 };
 
