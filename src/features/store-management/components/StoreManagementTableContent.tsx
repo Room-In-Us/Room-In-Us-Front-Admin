@@ -125,6 +125,10 @@ function StoreTableActions({store}: {store: Store}) {
   );
 
   const handleDelete = async () => {
+    if (!window.confirm(`${store.name} 매장을 삭제할까요?`)) {
+      return;
+    }
+
     try {
       await deleteStoreMutation.mutateAsync({storeId: store.id});
     } catch {
@@ -151,9 +155,8 @@ function StoreTableActions({store}: {store: Store}) {
       {deleteStoreMutation.isError ? (
         <p
           role='alert'
-          title={deleteErrorMessage}
-          className='text-caption3 text-destructive w-full truncate'>
-          삭제 실패
+          className='text-caption3 text-destructive w-full break-words whitespace-normal'>
+          {deleteErrorMessage} 삭제 실패
         </p>
       ) : null}
     </div>

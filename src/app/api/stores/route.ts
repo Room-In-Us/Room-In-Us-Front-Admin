@@ -62,9 +62,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const accessToken = request.cookies.get(AUTH_COOKIE_NAMES.accessToken)?.value;
-  const body = (await request.json()) as AdminApiTypes.PostStoreRequest;
 
   try {
+    const body = (await request.json()) as AdminApiTypes.PostStoreRequest;
     const serverApi = await createServerApi({accessToken});
     const {data} = await serverApi.post<AdminApiTypes.PostStoreResponse>(
       API_ENDPOINTS.stores.root,

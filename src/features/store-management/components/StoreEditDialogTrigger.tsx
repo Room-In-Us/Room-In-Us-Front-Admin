@@ -273,7 +273,11 @@ function getDatePatchValue(
 ) {
   const nextValue = getFormValue(formData, name);
 
-  return nextValue === (currentValue ?? '') ? null : nextValue;
+  if (nextValue === (currentValue ?? '')) {
+    return undefined;
+  }
+
+  return nextValue || null;
 }
 
 function StoreDetailStatus({

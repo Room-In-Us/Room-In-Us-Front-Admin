@@ -85,9 +85,9 @@ export async function PATCH(
   }
 
   const accessToken = request.cookies.get(AUTH_COOKIE_NAMES.accessToken)?.value;
-  const body = (await request.json()) as AdminApiTypes.PatchStoreRequest;
 
   try {
+    const body = (await request.json()) as AdminApiTypes.PatchStoreRequest;
     const serverApi = await createServerApi({accessToken});
     const {data, status} = await serverApi.patch(
       API_ENDPOINTS.stores.detail(storeId),
