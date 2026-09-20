@@ -1,4 +1,4 @@
-import type {FormEvent, ReactNode} from 'react';
+import type {FormEvent, FormEventHandler, ReactNode} from 'react';
 
 import {Input} from '@/src/shared/components/ui/Input';
 import {ModalLayout} from '@/src/shared/components/ui/ModalLayout';
@@ -20,6 +20,8 @@ type StoreFormDialogProps = {
   titleId: string;
   descriptionId: string;
   closeLabel: string;
+  submitDisabled?: boolean;
+  onSubmit?: FormEventHandler<HTMLFormElement>;
   onClose: () => void;
   children: ReactNode;
 };
@@ -31,6 +33,8 @@ function StoreFormDialog({
   titleId,
   descriptionId,
   closeLabel,
+  submitDisabled = false,
+  onSubmit,
   onClose,
   children,
 }: StoreFormDialogProps) {
@@ -45,10 +49,11 @@ function StoreFormDialog({
       description={description}
       descriptionId={descriptionId}
       submitLabel={submitLabel}
+      submitDisabled={submitDisabled}
       title={title}
       titleId={titleId}
       onClose={onClose}
-      onSubmit={handleSubmit}>
+      onSubmit={onSubmit ?? handleSubmit}>
       {children}
     </ModalLayout>
   );
@@ -84,6 +89,7 @@ function StoreFormDialogField({
           )}
           defaultValue={field.defaultValue}
           id={inputId}
+          name={field.id}
           required={field.required}
           rows={3}
         />
@@ -91,6 +97,7 @@ function StoreFormDialogField({
         <Input
           defaultValue={field.defaultValue}
           id={inputId}
+          name={field.id}
           required={field.required}
           type={field.type ?? 'text'}
         />

@@ -20,6 +20,7 @@ type ModalLayoutProps = {
   descriptionId: string;
   closeLabel: string;
   submitLabel: string;
+  submitDisabled?: boolean;
   onClose: () => void;
   onSubmit: FormEventHandler<HTMLFormElement>;
   children: ReactNode;
@@ -34,6 +35,7 @@ function ModalLayout({
   descriptionId,
   closeLabel,
   submitLabel,
+  submitDisabled = false,
   onClose,
   onSubmit,
   children,
@@ -155,6 +157,7 @@ function ModalLayout({
           </Button>
           <Button
             className='bg-riu-monochrome-800 text-body3 text-riu-monochrome-10 hover:bg-riu-monochrome-700 h-9 rounded-lg px-4'
+            disabled={submitDisabled}
             type='submit'>
             {submitLabel}
           </Button>
