@@ -1,28 +1,19 @@
 import {NextRequest, NextResponse} from 'next/server';
 
 import {API_ENDPOINTS, type AdminApiTypes} from '@/src/shared/api';
-import {normalizeApiError} from '@/src/shared/api/api-error';
 import {createServerApi} from '@/src/shared/api/server-client';
 import {AUTH_COOKIE_NAMES} from '@/src/shared/auth';
+
+import {parsePatchThemeRequest} from '../_lib/theme-request';
+import {
+  createInvalidThemeRequestResponse,
+  createThemeApiErrorResponse,
+} from '../_lib/theme-route-error';
 
 type ThemeDetailRouteContext = {
   params: Promise<{
     themeId: string;
   }>;
-};
-
-const createApiErrorResponse = (error: unknown) => {
-  const apiError = normalizeApiError(error);
-
-  return NextResponse.json(
-    {
-      code: apiError.code,
-      message: apiError.message,
-    },
-    {
-      status: apiError.status ?? 500,
-    }
-  );
 };
 
 const isPositiveInteger = (value: string) => {
@@ -53,7 +44,7 @@ export async function GET(
     );
     return NextResponse.json(data);
   } catch (error) {
-    return createApiErrorResponse(error);
+    return createThemeApiErrorResponse(error);
   }
 }
 
@@ -65,8 +56,10 @@ export async function PATCH(
   if (!isPositiveInteger(themeId)) return createInvalidThemeIdResponse();
 
   const accessToken = request.cookies.get(AUTH_COOKIE_NAMES.accessToken)?.value;
+  const body = parsePatchThemeRequest(await request.json().catch(() => null));
+  if (!body) return createInvalidThemeRequestResponse();
+
   try {
-    const body = (await request.json()) as AdminApiTypes.PatchThemeRequest;
     const serverApi = await createServerApi({accessToken});
     const {data, status} = await serverApi.patch(
       API_ENDPOINTS.themes.detail(themeId),
@@ -78,7 +71,7 @@ export async function PATCH(
     }
     return NextResponse.json(data);
   } catch (error) {
-    return createApiErrorResponse(error);
+    return createThemeApiErrorResponse(error);
   }
 }
 
@@ -109,6 +102,6 @@ export async function DELETE(
 
     return NextResponse.json(data);
   } catch (error) {
-    return createApiErrorResponse(error);
+    return createThemeApiErrorResponse(error);
   }
 }

@@ -112,9 +112,9 @@ function ThemeFormDialog({
     const activityLevel = getOptionalNumber(formData, 'activityLevel');
     if (
       (playTime != null && (!Number.isInteger(playTime) || playTime < 0)) ||
-      !isWithinRange(level, 1, 5) ||
-      !isWithinRange(horrorLevel, 0, 5) ||
-      !isWithinRange(activityLevel, 1, 5)
+      !isWithinHalfStepRange(level, 1, 5) ||
+      !isWithinHalfStepRange(horrorLevel, 0, 5) ||
+      !isWithinHalfStepRange(activityLevel, 1, 5)
     ) {
       setActiveTab('basic');
       setErrorMessage('플레이타임과 난이도, 공포도, 활동성 값을 확인해주세요.');
@@ -266,39 +266,44 @@ function ThemeFormDialog({
       titleId={titleId}
       onClose={closeDialog}
       onSubmit={handleSubmit}>
-      <Tabs
-        aria-label='테마 정보'
-        items={tabs}
-        tabClassName='w-auto justify-start gap-2 border-b-2 [&>span:last-child]:hidden'
-        value={activeTab}
-        onValueChange={(value) => {
-          setActiveTab(value as ThemeTab);
-          setErrorMessage('');
-        }}
-      />
-
-      <div className={activeTab === 'basic' ? undefined : 'hidden'}>
-        <ThemeBasicFields
-          initialTheme={initialTheme}
-          genreInput={genreInput}
-          genres={genres}
-          searchNameInput={searchNameInput}
-          searchNames={searchNames}
-          selectedDetailedGenres={selectedDetailedGenres}
-          selectedStore={selectedStore}
-          setGenreInput={setGenreInput}
-          setGenres={setGenres}
-          setSearchNameInput={setSearchNameInput}
-          setSearchNames={setSearchNames}
-          setSelectedDetailedGenres={setSelectedDetailedGenres}
-          setSelectedStore={setSelectedStore}
+      <div
+        className='contents'
+        onChangeCapture={() => setErrorMessage('')}
+        onClickCapture={() => setErrorMessage('')}>
+        <Tabs
+          aria-label='테마 정보'
+          items={tabs}
+          tabClassName='w-auto justify-start gap-2 border-b-2 [&>span:last-child]:hidden'
+          value={activeTab}
+          onValueChange={(value) => {
+            setActiveTab(value as ThemeTab);
+            setErrorMessage('');
+          }}
         />
-      </div>
-      <div className={activeTab === 'price' ? undefined : 'hidden'}>
-        <ThemePriceFields rows={priceRows} setRows={setPriceRows} />
-      </div>
-      <div className={activeTab === 'dates' ? undefined : 'hidden'}>
-        <ThemeDateFields initialTheme={initialTheme} />
+
+        <div className={activeTab === 'basic' ? undefined : 'hidden'}>
+          <ThemeBasicFields
+            initialTheme={initialTheme}
+            genreInput={genreInput}
+            genres={genres}
+            searchNameInput={searchNameInput}
+            searchNames={searchNames}
+            selectedDetailedGenres={selectedDetailedGenres}
+            selectedStore={selectedStore}
+            setGenreInput={setGenreInput}
+            setGenres={setGenres}
+            setSearchNameInput={setSearchNameInput}
+            setSearchNames={setSearchNames}
+            setSelectedDetailedGenres={setSelectedDetailedGenres}
+            setSelectedStore={setSelectedStore}
+          />
+        </div>
+        <div className={activeTab === 'price' ? undefined : 'hidden'}>
+          <ThemePriceFields rows={priceRows} setRows={setPriceRows} />
+        </div>
+        <div className={activeTab === 'dates' ? undefined : 'hidden'}>
+          <ThemeDateFields initialTheme={initialTheme} />
+        </div>
       </div>
 
       {errorMessage ? (
@@ -323,9 +328,17 @@ function getOptionalNumber(formData: FormData, name: string) {
   return value ? Number(value) : undefined;
 }
 
-function isWithinRange(value: number | undefined, min: number, max: number) {
+function isWithinHalfStepRange(
+  value: number | undefined,
+  min: number,
+  max: number
+) {
   return (
-    value == null || (Number.isFinite(value) && value >= min && value <= max)
+    value == null ||
+    (Number.isFinite(value) &&
+      value >= min &&
+      value <= max &&
+      Number.isInteger(value * 2))
   );
 }
 

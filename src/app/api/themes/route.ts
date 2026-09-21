@@ -1,26 +1,17 @@
 import {NextRequest, NextResponse} from 'next/server';
 
 import {API_ENDPOINTS, type AdminApiTypes} from '@/src/shared/api';
-import {normalizeApiError} from '@/src/shared/api/api-error';
 import {createServerApi} from '@/src/shared/api/server-client';
 import {AUTH_COOKIE_NAMES} from '@/src/shared/auth';
 
+import {parsePostThemeRequest} from './_lib/theme-request';
+import {
+  createInvalidThemeRequestResponse,
+  createThemeApiErrorResponse,
+} from './_lib/theme-route-error';
+
 const DEFAULT_PAGE = 1;
 const DEFAULT_PAGE_SIZE = 10;
-
-const createApiErrorResponse = (error: unknown) => {
-  const apiError = normalizeApiError(error);
-
-  return NextResponse.json(
-    {
-      code: apiError.code,
-      message: apiError.message,
-    },
-    {
-      status: apiError.status ?? 500,
-    }
-  );
-};
 
 const getPositiveIntegerParam = (
   searchParams: URLSearchParams,
@@ -56,15 +47,16 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(data);
   } catch (error) {
-    return createApiErrorResponse(error);
+    return createThemeApiErrorResponse(error);
   }
 }
 
 export async function POST(request: NextRequest) {
   const accessToken = request.cookies.get(AUTH_COOKIE_NAMES.accessToken)?.value;
+  const body = parsePostThemeRequest(await request.json().catch(() => null));
+  if (!body) return createInvalidThemeRequestResponse();
 
   try {
-    const body = (await request.json()) as AdminApiTypes.PostThemeRequest;
     const serverApi = await createServerApi({accessToken});
     const {data} = await serverApi.post<AdminApiTypes.PostThemeResponse>(
       API_ENDPOINTS.themes.root,
@@ -76,6 +68,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(data);
   } catch (error) {
-    return createApiErrorResponse(error);
+    return createThemeApiErrorResponse(error);
   }
 }
