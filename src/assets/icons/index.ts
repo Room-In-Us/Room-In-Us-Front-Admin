@@ -12,6 +12,7 @@ export {default as IcLogOut} from './generated/IcLogOut';
 export {default as IcMessageSquare} from './generated/IcMessageSquare';
 export {default as IcPlus} from './generated/IcPlus';
 export {default as IcRefreshCw} from './generated/IcRefreshCw';
+export {default as IcRotateCcw} from './generated/IcRotateCcw';
 export {default as IcSearch} from './generated/IcSearch';
 export {default as IcStar} from './generated/IcStar';
 export {default as IcStore} from './generated/IcStore';
