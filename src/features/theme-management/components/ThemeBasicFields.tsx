@@ -17,6 +17,7 @@ type DetailedGenre = NonNullable<
 type SelectedStore = {id: number; name: string};
 
 type ThemeBasicFieldsProps = {
+  initialTheme?: AdminApiTypes.GetThemeDetailResponse;
   selectedStore: SelectedStore | null;
   setSelectedStore: Dispatch<SetStateAction<SelectedStore | null>>;
   searchNameInput: string;
@@ -56,6 +57,7 @@ const detailedGenres: {value: DetailedGenre; label: string}[] = [
 ];
 
 function ThemeBasicFields({
+  initialTheme,
   selectedStore,
   setSelectedStore,
   searchNameInput,
@@ -69,7 +71,7 @@ function ThemeBasicFields({
   selectedDetailedGenres,
   setSelectedDetailedGenres,
 }: ThemeBasicFieldsProps) {
-  const [storeSearch, setStoreSearch] = useState('');
+  const [storeSearch, setStoreSearch] = useState(initialTheme?.storeName ?? '');
   const [storeListOpen, setStoreListOpen] = useState(false);
   const [detailedGenreOpen, setDetailedGenreOpen] = useState(false);
   const detailedGenreMenuId = useId();
@@ -133,7 +135,11 @@ function ThemeBasicFields({
             </div>
           ) : null}
         </div>
-        <ThemeInputField name='name' label='테마명 *' />
+        <ThemeInputField
+          name='name'
+          label='테마명 *'
+          defaultValue={initialTheme?.name}
+        />
         <ThemeTagInput
           id='theme-add-searchName'
           inputValue={searchNameInput}
@@ -143,11 +149,17 @@ function ThemeBasicFields({
           onInputChange={setSearchNameInput}
           onTagsChange={setSearchNames}
         />
-        <ThemeInputField name='img' label='이미지 URL *' type='url' />
+        <ThemeInputField
+          name='img'
+          label='이미지 URL *'
+          type='url'
+          defaultValue={initialTheme?.img}
+        />
       </div>
       <ThemeInputField
         name='playTime'
         label='플레이타임 (분)'
+        defaultValue={initialTheme?.playTime}
         type='number'
         min={0}
         step={1}
@@ -159,6 +171,7 @@ function ThemeBasicFields({
         <textarea
           className='border-input bg-input text-body3 text-riu-monochrome-700 placeholder:text-riu-monochrome-300 focus-visible:border-riu-primary-500 focus-visible:bg-riu-monochrome-10 min-h-16 w-full resize-none rounded-lg border px-3 py-2 outline-none'
           id='theme-add-synopsis'
+          defaultValue={initialTheme?.synopsis}
           name='synopsis'
           placeholder='시놉시스 입력'
           rows={3}
@@ -167,6 +180,7 @@ function ThemeBasicFields({
       <div className='grid grid-cols-3 gap-4'>
         <ThemeInputField
           name='level'
+          defaultValue={initialTheme?.level}
           label='난이도 (1-5)'
           type='number'
           min={1}
@@ -175,6 +189,7 @@ function ThemeBasicFields({
         />
         <ThemeInputField
           name='horrorLevel'
+          defaultValue={initialTheme?.horrorLevel}
           label='공포도 (0-5)'
           type='number'
           min={0}
@@ -183,6 +198,7 @@ function ThemeBasicFields({
         />
         <ThemeInputField
           name='activityLevel'
+          defaultValue={initialTheme?.activityLevel}
           label='활동성 (1-5)'
           type='number'
           min={1}
@@ -294,6 +310,7 @@ function ThemeBasicFields({
         </div>
         <ThemeInputField
           name='minRecommendedHeadcount'
+          defaultValue={initialTheme?.minRecommendedHeadcount}
           label='최소 추천 인원'
           type='number'
           min={1}
@@ -301,13 +318,22 @@ function ThemeBasicFields({
         />
         <ThemeInputField
           name='maxRecommendedHeadcount'
+          defaultValue={initialTheme?.maxRecommendedHeadcount}
           label='최대 추천 인원'
           type='number'
           min={1}
           step={1}
         />
-        <ThemeInputField name='remark' label='특이사항' />
-        <ThemeInputField name='note' label='비고' />
+        <ThemeInputField
+          name='remark'
+          label='특이사항'
+          defaultValue={initialTheme?.remark}
+        />
+        <ThemeInputField
+          name='note'
+          label='비고'
+          defaultValue={initialTheme?.note}
+        />
       </div>
     </div>
   );
