@@ -216,7 +216,7 @@ function ThemeBasicFields({
           <span className='text-body3 text-riu-monochrome-800'>
             상세 장르 (선택)
           </span>
-          <div className='border-riu-monochrome-70 relative flex min-h-9 items-center justify-between gap-2 rounded-lg border bg-white p-2'>
+          <div className='border-riu-monochrome-70 relative flex min-h-[3.625rem] flex-1 items-center justify-between gap-2 rounded-lg border bg-white p-2'>
             <button
               aria-controls={detailedGenreMenuId}
               aria-expanded={detailedGenreOpen}
@@ -267,7 +267,7 @@ function ThemeBasicFields({
           {detailedGenreOpen ? (
             <div
               id={detailedGenreMenuId}
-              className='border-riu-monochrome-30 absolute top-full z-10 mt-1 grid max-h-[min(30rem,60dvh)] w-full grid-cols-2 gap-1 overflow-y-auto rounded-lg border bg-white p-2 shadow-lg'>
+              className='border-riu-monochrome-30 absolute top-full z-10 mt-[10px] grid max-h-[min(30rem,60dvh)] w-full grid-cols-2 gap-1 overflow-y-auto rounded-lg border bg-white p-2 shadow-lg'>
               {detailedGenres.map((genre) => (
                 <label
                   key={genre.value}
