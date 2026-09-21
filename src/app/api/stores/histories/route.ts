@@ -5,43 +5,33 @@ import {normalizeApiError} from '@/src/shared/api/api-error';
 import {createServerApi} from '@/src/shared/api/server-client';
 import {AUTH_COOKIE_NAMES} from '@/src/shared/auth';
 
-const DEFAULT_PAGE = 1;
-const DEFAULT_PAGE_SIZE = 10;
-const snapshotTypes = new Set(['INITIAL', 'UPDATE', 'TERMINAL']);
-
-const getPositiveIntegerParam = (
-  searchParams: URLSearchParams,
-  name: string,
-  fallback: number
-) => {
-  const value = Number(searchParams.get(name));
-
-  return Number.isInteger(value) && value > 0 ? value : fallback;
-};
-
-const getDateParam = (searchParams: URLSearchParams, name: string) => {
-  const value = searchParams.get(name)?.trim();
-
-  return value || undefined;
-};
-
-const getSnapshotTypeParam = (searchParams: URLSearchParams) => {
-  const value = searchParams.get('snapshotType')?.trim();
-
-  return value && snapshotTypes.has(value) ? value : undefined;
-};
+import {
+  HISTORY_DEFAULT_PAGE,
+  HISTORY_DEFAULT_PAGE_SIZE,
+  getDateParam,
+  getPositiveIntegerParam,
+  getSnapshotTypeParam,
+} from '@/src/shared/lib/history-query-params';
 
 const createApiErrorResponse = (error: unknown) => {
-  const apiError = normalizeApiError(error);
+  console.error('Store API request failed', error);
+
+  const upstreamStatus = normalizeApiError(error).status;
+
+  const status =
+    typeof upstreamStatus === 'number' &&
+    Number.isInteger(upstreamStatus) &&
+    upstreamStatus >= 400 &&
+    upstreamStatus <= 599
+      ? upstreamStatus
+      : 500;
 
   return NextResponse.json(
     {
-      code: apiError.code,
-      message: apiError.message,
+      code: 'STORE_API_ERROR',
+      message: '매장 요청을 처리하지 못했습니다.',
     },
-    {
-      status: apiError.status ?? 500,
-    }
+    {status}
   );
 };
 
@@ -59,11 +49,15 @@ export async function GET(request: NextRequest) {
           maxRedirects: 0,
           params: {
             endDate: getDateParam(searchParams, 'endDate'),
-            page: getPositiveIntegerParam(searchParams, 'page', DEFAULT_PAGE),
+            page: getPositiveIntegerParam(
+              searchParams,
+              'page',
+              HISTORY_DEFAULT_PAGE
+            ),
             size: getPositiveIntegerParam(
               searchParams,
               'size',
-              DEFAULT_PAGE_SIZE
+              HISTORY_DEFAULT_PAGE_SIZE
             ),
             snapshotType: getSnapshotTypeParam(searchParams),
             startDate: getDateParam(searchParams, 'startDate'),

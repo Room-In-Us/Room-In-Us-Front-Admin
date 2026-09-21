@@ -66,9 +66,9 @@ function HistoryTable({
             ) : null}
 
             {!isLoading && !isError
-              ? histories.map((history) => (
+              ? histories.map((history, index) => (
                   <HistoryTableRow
-                    key={history.commitId ?? history.id}
+                    key={history.commitId ?? `${history.target}-${index}`}
                     history={history}
                     restoreDisabled={restoreDisabled}
                     onOpenDetail={onOpenDetail}

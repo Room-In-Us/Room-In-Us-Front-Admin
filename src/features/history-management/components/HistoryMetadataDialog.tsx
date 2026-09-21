@@ -8,7 +8,11 @@ import {
   getHistoryErrorMessage,
   mapSnapshotTypeToAction,
 } from '../lib/history-utils';
-import type {HistoryRecord, HistoryTarget} from '../model/history';
+import {
+  historyActionLabels,
+  type HistoryRecord,
+  type HistoryTarget,
+} from '../model/history';
 
 const targetLabels = {
   store: '매장',
@@ -45,8 +49,8 @@ function HistoryMetadataDialog({history, onClose}: HistoryMetadataDialogProps) {
 
   const title =
     action === 'delete'
-      ? `${targetLabels[history.target]} #${metadataId} - ${action}`
-      : `${detail?.themeName ?? history.item} - ${action}`;
+      ? `${targetLabels[history.target]} #${metadataId} - ${historyActionLabels[action]}`
+      : `${detail?.themeName ?? history.item} - ${historyActionLabels[action]}`;
 
   const updateEntries =
     action === 'update'
@@ -119,10 +123,17 @@ function HistoryMetadataDialog({history, onClose}: HistoryMetadataDialogProps) {
 
         {!themeHistoryDetailQuery.isLoading &&
         !themeHistoryDetailQuery.isError &&
-        action !== 'update' ? (
+        action === 'create' ? (
           <pre className='font-metadata text-riu-monochrome-1000 border-dashboard-border bg-dashboard-background overflow-auto rounded p-3 text-[0.75rem] leading-4 whitespace-pre'>
             {metadataText}
           </pre>
+        ) : null}
+        {!themeHistoryDetailQuery.isLoading &&
+        !themeHistoryDetailQuery.isError &&
+        action === 'delete' ? (
+          <div className='border-dashboard-border bg-dashboard-background text-caption2 text-riu-monochrome-300 rounded p-3'>
+            삭제된 데이터의 상세 정보는 제공되지 않습니다.
+          </div>
         ) : null}
       </div>
     </ModalLayout>
@@ -208,16 +219,11 @@ function getHistoryMetadata(
     return history.metadata;
   }
 
-  if (detail.snapshotType === 'UPDATE') {
+  if (detail.snapshotType !== 'INITIAL') {
     return undefined;
   }
 
-  const detailMetadata =
-    detail as AdminApiTypes.GetThemeHistoryDetailResponse & {
-      deletedData?: Record<string, unknown>;
-    };
-
-  return detailMetadata.deletedData ?? detail.createdData ?? history.metadata;
+  return detail.createdData ?? history.metadata;
 }
 
 export {HistoryMetadataDialog};

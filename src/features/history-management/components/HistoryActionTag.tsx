@@ -1,16 +1,10 @@
 import {cn} from '@/src/shared/lib/utils';
 
-import type {HistoryAction} from '../model/history';
-
-const actionLabels = {
-  create: '생성',
-  delete: '삭제',
-  update: '수정',
-} satisfies Record<HistoryAction, string>;
+import {historyActionLabels, type HistoryAction} from '../model/history';
 
 const actionTagClassNames = {
   create: 'bg-riu-monochrome-800',
-  delete: 'bg-[#d4183d]',
+  delete: 'bg-status-reported-background',
   update: 'bg-riu-monochrome-20',
 } satisfies Record<HistoryAction, string>;
 
@@ -28,7 +22,7 @@ function HistoryActionTag({action}: {action: HistoryAction}) {
         actionTagClassNames[action]
       )}>
       <span className={`text-body4 ${actionTagTextClassNames[action]}`}>
-        {actionLabels[action]}
+        {historyActionLabels[action]}
       </span>
     </span>
   );

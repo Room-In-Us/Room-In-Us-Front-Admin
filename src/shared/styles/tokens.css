@@ -2,8 +2,7 @@
   --font-family-pretendard:
     var(--font-pretendard), 'Apple SD Gothic Neo', 'Noto Sans KR', Arial,
     sans-serif;
-  --font-family-metadata:
-    var(--font-consola), Consolas, 'Courier New', monospace;
+  --font-family-metadata: Consolas, 'Courier New', monospace;
 
   /* RIU typography tokens from Figma */
   --riu-type-h1-font-size: 1.5rem;

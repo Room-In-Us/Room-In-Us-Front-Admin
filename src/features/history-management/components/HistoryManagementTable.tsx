@@ -19,6 +19,7 @@ import {
 import {HistoryFilterBar} from './HistoryFilterBar';
 import {HistoryMetadataDialog} from './HistoryMetadataDialog';
 import {HistoryTable} from './HistoryTable';
+import {HistoryManagementPagination} from './HistoryManagementPagination';
 
 const targetLabels = {
   store: '매장',
@@ -33,17 +34,18 @@ function HistoryManagementTable() {
   const [endDate, setEndDate] = React.useState('');
   const [selectedHistory, setSelectedHistory] =
     React.useState<HistoryRecord | null>(null);
+  const [page, setPage] = React.useState(1);
 
   const storeHistoryListQuery = useStoreHistoryListQuery({
     endDate,
-    page: 1,
+    page,
     size: Number(pageSize),
     startDate,
   });
 
   const themeHistoryListQuery = useThemeHistoryListQuery({
     endDate,
-    page: 1,
+    page,
     size: Number(pageSize),
     startDate,
   });
@@ -73,11 +75,30 @@ function HistoryManagementTable() {
       : '매장 히스토리를 불러오지 못했습니다.'
   );
 
-  function handleTargetChange(value: string) {
-    const target = value as HistoryTarget;
+  const totalPages = Math.max(activeHistoryQuery.data?.totalPages ?? 1, 1);
 
-    setActiveTarget(target);
-    setPageSize(target === 'theme' ? '5' : '10');
+  const hasPreviousPage = page > 1;
+
+  const hasNextPage = page < totalPages;
+
+  function handlePageSizeChange(value: string) {
+    setPageSize(value);
+    setPage(1);
+  }
+
+  function handleStartDateChange(value: string) {
+    setStartDate(value);
+    setPage(1);
+  }
+
+  function handleEndDateChange(value: string) {
+    setEndDate(value);
+    setPage(1);
+  }
+
+  function handleTargetChange(value: string) {
+    setActiveTarget(value as HistoryTarget);
+    setPage(1);
   }
 
   async function handleThemeRestore(history: HistoryRecord) {
@@ -117,9 +138,9 @@ function HistoryManagementTable() {
         pageSize={pageSize}
         startDate={startDate}
         endDate={endDate}
-        onPageSizeChange={setPageSize}
-        onStartDateChange={setStartDate}
-        onEndDateChange={setEndDate}
+        onPageSizeChange={handlePageSizeChange}
+        onStartDateChange={handleStartDateChange}
+        onEndDateChange={handleEndDateChange}
       />
 
       <HistoryTable
@@ -130,6 +151,14 @@ function HistoryManagementTable() {
         restoreDisabled={restoreThemeHistoryMutation.isPending}
         onOpenDetail={setSelectedHistory}
         onRestore={handleThemeRestore}
+      />
+
+      <HistoryManagementPagination
+        currentPage={page}
+        totalPages={totalPages}
+        hasPreviousPage={hasPreviousPage}
+        hasNextPage={hasNextPage}
+        onPageChange={setPage}
       />
 
       <p className='text-caption2 text-riu-monochrome-300'>
