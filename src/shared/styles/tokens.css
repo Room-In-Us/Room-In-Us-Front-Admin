@@ -2,6 +2,7 @@
   --font-family-pretendard:
     var(--font-pretendard), 'Apple SD Gothic Neo', 'Noto Sans KR', Arial,
     sans-serif;
+  --font-family-metadata: Consolas, 'Courier New', monospace;
 
   /* RIU typography tokens from Figma */
   --riu-type-h1-font-size: 1.5rem;
@@ -154,6 +155,7 @@
 
 @theme inline {
   --font-sans: var(--font-family-pretendard);
+  --font-metadata: var(--font-family-metadata);
 
   --text-h1: var(--riu-type-h1-font-size);
   --text-h1--line-height: var(--riu-type-h1-line-height);

@@ -3,8 +3,10 @@
 import Link from 'next/link';
 import {Trash2} from 'lucide-react';
 
+import {isApiError} from '@/src/shared/api';
 import {Button} from '@/src/shared/components/ui/button';
 
+import {useDeleteStoreMutation} from '../api/store-queries';
 import type {Store} from '../model/store';
 import {StoreEditDialogTrigger} from './StoreEditDialogTrigger';
 import {useStoreManagementRows} from './StoreManagementClientProvider';
@@ -102,18 +104,7 @@ function StoreManagementTableContent() {
                     )}
                   </td>
                   <td className='px-2'>
-                    <div className='flex items-center gap-2'>
-                      <StoreEditDialogTrigger store={store} />
-                      <Button
-                        type='button'
-                        variant='outline'
-                        size='icon'
-                        aria-label={`${store.name} 삭제`}
-                        title='삭제'
-                        className='border-riu-monochrome-30 bg-surface text-riu-monochrome-700 hover:bg-riu-monochrome-10'>
-                        <Trash2 aria-hidden='true' className='size-4' />
-                      </Button>
-                    </div>
+                    <StoreTableActions store={store} />
                   </td>
                 </tr>
               ))
@@ -123,6 +114,51 @@ function StoreManagementTableContent() {
           </tbody>
         </table>
       </div>
+    </div>
+  );
+}
+
+function StoreTableActions({store}: {store: Store}) {
+  const deleteStoreMutation = useDeleteStoreMutation();
+  const deleteErrorMessage = getDeleteStoreErrorMessage(
+    deleteStoreMutation.error
+  );
+
+  const handleDelete = async () => {
+    if (!window.confirm(`${store.name} 매장을 삭제할까요?`)) {
+      return;
+    }
+
+    try {
+      await deleteStoreMutation.mutateAsync({storeId: store.id});
+    } catch {
+      // The mutation keeps the error for rendering below.
+    }
+  };
+
+  return (
+    <div className='flex flex-col gap-1'>
+      <div className='flex items-center gap-2'>
+        <StoreEditDialogTrigger store={store} />
+        <Button
+          type='button'
+          variant='outline'
+          size='icon'
+          aria-label={`${store.name} 삭제`}
+          title='삭제'
+          disabled={deleteStoreMutation.isPending}
+          className='border-riu-monochrome-30 bg-surface text-riu-monochrome-700 hover:bg-riu-monochrome-10'
+          onClick={handleDelete}>
+          <Trash2 aria-hidden='true' className='size-4' />
+        </Button>
+      </div>
+      {deleteStoreMutation.isError ? (
+        <p
+          role='alert'
+          className='text-caption3 text-destructive w-full break-words whitespace-normal'>
+          {deleteErrorMessage} 삭제 실패
+        </p>
+      ) : null}
     </div>
   );
 }
@@ -137,6 +173,10 @@ function StoreTableMessageRow({message}: {message: string}) {
       </td>
     </tr>
   );
+}
+
+function getDeleteStoreErrorMessage(error: unknown) {
+  return isApiError(error) ? error.message : '매장을 삭제하지 못했습니다.';
 }
 
 export {StoreManagementTableContent};

@@ -19,9 +19,12 @@ type ModalLayoutProps = {
   titleId: string;
   descriptionId: string;
   closeLabel: string;
-  submitLabel: string;
+  submitLabel?: string;
+  submitDisabled?: boolean;
+  showFooter?: boolean;
+  noValidate?: boolean;
   onClose: () => void;
-  onSubmit: FormEventHandler<HTMLFormElement>;
+  onSubmit?: FormEventHandler<HTMLFormElement>;
   children: ReactNode;
   className?: string;
   footerClassName?: string;
@@ -34,6 +37,9 @@ function ModalLayout({
   descriptionId,
   closeLabel,
   submitLabel,
+  submitDisabled = false,
+  showFooter = true,
+  noValidate = false,
   onClose,
   onSubmit,
   children,
@@ -100,6 +106,15 @@ function ModalLayout({
     }
   }
 
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    if (!onSubmit) {
+      event.preventDefault();
+      return;
+    }
+
+    onSubmit(event);
+  };
+
   return (
     <div
       aria-labelledby={titleId}
@@ -111,12 +126,13 @@ function ModalLayout({
       onMouseDown={onClose}>
       <form
         ref={formRef}
+        noValidate={noValidate}
         className={cn(
           'flex max-h-[calc(100dvh-2rem)] w-full max-w-[35rem] [scrollbar-width:none] flex-col gap-4 overflow-y-auto rounded-[10px] border border-black/10 bg-white p-6 shadow-xl [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden',
           className
         )}
         onMouseDown={(event) => event.stopPropagation()}
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit}
         tabIndex={-1}>
         <div className='flex items-start justify-between gap-4'>
           <div className='flex min-w-0 flex-col gap-2'>
@@ -145,20 +161,23 @@ function ModalLayout({
 
         {children}
 
-        <div className={cn('flex justify-end gap-2 pt-0', footerClassName)}>
-          <Button
-            className='border-riu-monochrome-50 text-body3 text-riu-monochrome-1000 h-9 rounded-lg px-4'
-            type='button'
-            variant='outline'
-            onClick={onClose}>
-            취소
-          </Button>
-          <Button
-            className='bg-riu-monochrome-800 text-body3 text-riu-monochrome-10 hover:bg-riu-monochrome-700 h-9 rounded-lg px-4'
-            type='submit'>
-            {submitLabel}
-          </Button>
-        </div>
+        {showFooter && submitLabel ? (
+          <div className={cn('flex justify-end gap-2 pt-0', footerClassName)}>
+            <Button
+              className='border-riu-monochrome-50 text-body3 text-riu-monochrome-1000 h-9 rounded-lg px-4'
+              type='button'
+              variant='outline'
+              onClick={onClose}>
+              취소
+            </Button>
+            <Button
+              className='bg-riu-monochrome-800 text-body3 text-riu-monochrome-10 hover:bg-riu-monochrome-700 h-9 rounded-lg px-4'
+              disabled={submitDisabled}
+              type='submit'>
+              {submitLabel}
+            </Button>
+          </div>
+        ) : null}
       </form>
     </div>
   );
@@ -183,7 +202,8 @@ function getFocusableElements(container: HTMLElement | null) {
   ).filter(
     (element) =>
       !element.hasAttribute('disabled') &&
-      element.getAttribute('aria-hidden') !== 'true'
+      element.getAttribute('aria-hidden') !== 'true' &&
+      element.getClientRects().length > 0
   );
 }
 
