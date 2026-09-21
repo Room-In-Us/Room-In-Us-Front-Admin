@@ -26,6 +26,10 @@ type DeleteThemeParams = {
   themeId: Theme['id'];
 };
 
+type CreateThemeParams = {
+  request: AdminApiTypes.PostThemeRequest;
+};
+
 type ApiThemeStatus = NonNullable<
   AdminApiTypes.GetThemeListResponse['themeStatus']
 >;
@@ -142,4 +146,20 @@ export const deleteTheme = async ({
   await getBrowserApi().delete(API_ENDPOINTS.themes.detail(themeId));
 };
 
-export type {DeleteThemeParams, GetThemeListParams, ThemeListResult};
+export const createTheme = async ({
+  request,
+}: CreateThemeParams): Promise<AdminApiTypes.PostThemeResponse> => {
+  const {data} = await getBrowserApi().post<AdminApiTypes.PostThemeResponse>(
+    API_ENDPOINTS.themes.root,
+    request
+  );
+
+  return data;
+};
+
+export type {
+  CreateThemeParams,
+  DeleteThemeParams,
+  GetThemeListParams,
+  ThemeListResult,
+};

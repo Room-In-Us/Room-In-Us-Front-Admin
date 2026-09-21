@@ -1,8 +1,10 @@
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 
 import {
+  createTheme,
   deleteTheme,
   getThemeList,
+  type CreateThemeParams,
   type DeleteThemeParams,
   type GetThemeListParams,
   type ThemeListResult,
@@ -33,4 +35,20 @@ const useDeleteThemeMutation = () => {
   });
 };
 
-export {themeQueryKeys, useDeleteThemeMutation, useThemeListQuery};
+const useCreateThemeMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (params: CreateThemeParams) => createTheme(params),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({queryKey: themeQueryKeys.lists()});
+    },
+  });
+};
+
+export {
+  themeQueryKeys,
+  useCreateThemeMutation,
+  useDeleteThemeMutation,
+  useThemeListQuery,
+};
