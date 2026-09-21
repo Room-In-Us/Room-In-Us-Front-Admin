@@ -13,8 +13,25 @@ type GetThemeListParams = {
   size: number;
 };
 
+type GetThemeHistoryListParams = {
+  startDate?: string;
+  endDate?: string;
+  snapshotType?: AdminApiTypes.GetThemeHistoryListResponse['snapshotType'];
+  page: number;
+  size: number;
+};
+
 type ThemeListResult = {
   themes: Theme[];
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+  hasNextPage: boolean;
+};
+
+type ThemeHistoryListResult = {
+  histories: AdminApiTypes.GetThemeHistoryListResponse[];
   page: number;
   size: number;
   totalElements: number;
@@ -31,6 +48,12 @@ type CreateThemeParams = {
 };
 
 type GetThemeDetailParams = {themeId: Theme['id']};
+
+type GetThemeHistoryDetailParams = {
+  commitId: NonNullable<AdminApiTypes.GetThemeHistoryListResponse['commitId']>;
+};
+
+type RestoreThemeHistoryParams = GetThemeHistoryDetailParams;
 
 type NullableDatePatchThemeRequest = Omit<
   AdminApiTypes.PatchThemeRequest,
@@ -162,6 +185,34 @@ export const getThemeList = async ({
   };
 };
 
+export const getThemeHistoryList = async ({
+  endDate,
+  page,
+  size,
+  snapshotType,
+  startDate,
+}: GetThemeHistoryListParams): Promise<ThemeHistoryListResult> => {
+  const {data} =
+    await getBrowserApi().get<AdminApiTypes.PageResponseGetThemeHistoryListResponse>(
+      buildApiPath(API_ENDPOINTS.themes.histories, {
+        endDate: endDate || undefined,
+        page,
+        size,
+        snapshotType,
+        startDate: startDate || undefined,
+      })
+    );
+
+  return {
+    histories: data.contents ?? [],
+    page: data.page ?? page,
+    size: data.size ?? size,
+    totalElements: data.totalElements ?? 0,
+    totalPages: data.totalPages ?? 1,
+    hasNextPage: data.hasNextPage ?? false,
+  };
+};
+
 export const deleteTheme = async ({
   themeId,
 }: DeleteThemeParams): Promise<void> => {
@@ -190,6 +241,17 @@ export const getThemeDetail = async ({
   return data;
 };
 
+export const getThemeHistoryDetail = async ({
+  commitId,
+}: GetThemeHistoryDetailParams): Promise<AdminApiTypes.GetThemeHistoryDetailResponse> => {
+  const {data} =
+    await getBrowserApi().get<AdminApiTypes.GetThemeHistoryDetailResponse>(
+      API_ENDPOINTS.themes.historyDetail(commitId)
+    );
+
+  return data;
+};
+
 export const updateTheme = async ({
   themeId,
   request,
@@ -197,12 +259,22 @@ export const updateTheme = async ({
   await getBrowserApi().patch(API_ENDPOINTS.themes.detail(themeId), request);
 };
 
+export const restoreThemeHistory = async ({
+  commitId,
+}: RestoreThemeHistoryParams): Promise<void> => {
+  await getBrowserApi().patch(API_ENDPOINTS.themes.restoreHistory(commitId));
+};
+
 export type {
   CreateThemeParams,
   DeleteThemeParams,
   GetThemeDetailParams,
+  GetThemeHistoryDetailParams,
+  GetThemeHistoryListParams,
   GetThemeListParams,
   NullableDatePatchThemeRequest,
+  RestoreThemeHistoryParams,
+  ThemeHistoryListResult,
   ThemeListResult,
   UpdateThemeParams,
 };

@@ -60,6 +60,11 @@
     "sourceFileName": "ic-refresh-cw.svg"
   },
   {
+    "componentName": "IcRotateCcw",
+    "generatedFileName": "IcRotateCcw.tsx",
+    "sourceFileName": "ic-rotate-ccw.svg"
+  },
+  {
     "componentName": "IcSearch",
     "generatedFileName": "IcSearch.tsx",
     "sourceFileName": "ic-search.svg"

@@ -4,13 +4,16 @@ import {
   createStore,
   deleteStore,
   getStoreDetail,
+  getStoreHistoryList,
   getStoreList,
   updateStore,
   type CreateStoreParams,
   type DeleteStoreParams,
   type GetStoreDetailParams,
+  type GetStoreHistoryListParams,
   type GetStoreListParams,
   type StoreDetailResult,
+  type StoreHistoryListResult,
   type StoreListResult,
   type UpdateStoreParams,
 } from './store-api';
@@ -22,6 +25,9 @@ const storeQueryKeys = {
   lists: () => [...storeQueryKeys.all, 'list'] as const,
   list: (params: GetStoreListParams) =>
     [...storeQueryKeys.lists(), params] as const,
+  histories: () => [...storeQueryKeys.all, 'histories'] as const,
+  historyList: (params: GetStoreHistoryListParams) =>
+    [...storeQueryKeys.histories(), params] as const,
 };
 
 const useStoreDetailQuery = ({
@@ -45,13 +51,26 @@ const useStoreListQuery = (params: GetStoreListParams) => {
   });
 };
 
+const useStoreHistoryListQuery = (params: GetStoreHistoryListParams) => {
+  return useQuery<StoreHistoryListResult>({
+    queryKey: storeQueryKeys.historyList(params),
+    queryFn: () => getStoreHistoryList(params),
+    placeholderData: (previousData) => previousData,
+  });
+};
+
 const useCreateStoreMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (params: CreateStoreParams) => createStore(params),
     onSuccess: async () => {
-      await queryClient.invalidateQueries({queryKey: storeQueryKeys.lists()});
+      await Promise.all([
+        queryClient.invalidateQueries({queryKey: storeQueryKeys.lists()}),
+        queryClient.invalidateQueries({
+          queryKey: storeQueryKeys.histories(),
+        }),
+      ]);
     },
   });
 };
@@ -66,6 +85,9 @@ const useDeleteStoreMutation = () => {
         queryClient.invalidateQueries({queryKey: storeQueryKeys.lists()}),
         queryClient.removeQueries({
           queryKey: storeQueryKeys.detail(variables.storeId),
+        }),
+        queryClient.invalidateQueries({
+          queryKey: storeQueryKeys.histories(),
         }),
       ]);
     },
@@ -83,6 +105,9 @@ const useUpdateStoreMutation = () => {
         queryClient.invalidateQueries({
           queryKey: storeQueryKeys.detail(variables.storeId),
         }),
+        queryClient.invalidateQueries({
+          queryKey: storeQueryKeys.histories(),
+        }),
       ]);
     },
   });
@@ -95,4 +120,5 @@ export {
   useStoreDetailQuery,
   useStoreListQuery,
   useUpdateStoreMutation,
+  useStoreHistoryListQuery,
 };
