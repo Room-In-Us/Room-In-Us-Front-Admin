@@ -1,13 +1,28 @@
 [
   {
+    "componentName": "IcCalendar",
+    "generatedFileName": "IcCalendar.tsx",
+    "sourceFileName": "ic-calendar.svg"
+  },
+  {
     "componentName": "IcChevronDown",
     "generatedFileName": "IcChevronDown.tsx",
     "sourceFileName": "ic-chevron-down.svg"
   },
   {
+    "componentName": "IcDollarSign",
+    "generatedFileName": "IcDollarSign.tsx",
+    "sourceFileName": "ic-dollar-sign.svg"
+  },
+  {
     "componentName": "IcEye",
     "generatedFileName": "IcEye.tsx",
     "sourceFileName": "ic-eye.svg"
+  },
+  {
+    "componentName": "IcFileText",
+    "generatedFileName": "IcFileText.tsx",
+    "sourceFileName": "ic-file-text.svg"
   },
   {
     "componentName": "IcHistory",
@@ -43,6 +58,11 @@
     "componentName": "IcRefreshCw",
     "generatedFileName": "IcRefreshCw.tsx",
     "sourceFileName": "ic-refresh-cw.svg"
+  },
+  {
+    "componentName": "IcSearch",
+    "generatedFileName": "IcSearch.tsx",
+    "sourceFileName": "ic-search.svg"
   },
   {
     "componentName": "IcStar",
