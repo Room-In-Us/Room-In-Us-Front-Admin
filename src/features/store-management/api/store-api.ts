@@ -57,6 +57,23 @@ type UpdateStoreParams = {
   storeId: Store['id'];
 };
 
+type GetStoreHistoryListParams = {
+  page: number;
+  size: number;
+  startDate?: string;
+  endDate?: string;
+  snapshotType?: AdminApiTypes.GetStoreHistoryListResponse['snapshotType'];
+};
+
+type StoreHistoryListResult = {
+  histories: AdminApiTypes.GetStoreHistoryListResponse[];
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+  hasNextPage: boolean;
+};
+
 type ApiStoreStatus = NonNullable<AdminApiTypes.GetStoreListResponse['status']>;
 
 const storeStatusMap = {
@@ -138,6 +155,34 @@ export const getStoreList = async ({
   };
 };
 
+export const getStoreHistoryList = async ({
+  page,
+  size,
+  startDate,
+  endDate,
+  snapshotType,
+}: GetStoreHistoryListParams): Promise<StoreHistoryListResult> => {
+  const {data} =
+    await getBrowserApi().get<AdminApiTypes.PageResponseGetStoreHistoryListResponse>(
+      buildApiPath(API_ENDPOINTS.stores.histories, {
+        page,
+        size,
+        startDate: startDate || undefined,
+        endDate: endDate || undefined,
+        snapshotType,
+      })
+    );
+
+  return {
+    histories: data.contents ?? [],
+    page: data.page ?? page,
+    size: data.size ?? size,
+    totalElements: data.totalElements ?? 0,
+    totalPages: data.totalPages ?? 1,
+    hasNextPage: data.hasNextPage ?? false,
+  };
+};
+
 export const createStore = async ({
   request,
 }: CreateStoreParams): Promise<AdminApiTypes.PostStoreResponse> => {
@@ -186,9 +231,11 @@ export type {
   CreateStoreParams,
   DeleteStoreParams,
   GetStoreDetailParams,
+  GetStoreHistoryListParams,
   GetStoreListParams,
   NullableDatePatchStoreRequest,
   StoreDetailResult,
+  StoreHistoryListResult,
   StoreListResult,
   UpdateStoreParams,
 };
