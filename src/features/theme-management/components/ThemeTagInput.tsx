@@ -63,6 +63,7 @@ function ThemeTagInput({
           </div>
         ) : null}
         <Input
+          className='placeholder:text-riu-monochrome-100'
           id={id}
           placeholder={placeholder}
           value={inputValue}
