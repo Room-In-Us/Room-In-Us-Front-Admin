@@ -21,6 +21,7 @@ type ModalLayoutProps = {
   closeLabel: string;
   submitLabel: string;
   submitDisabled?: boolean;
+  noValidate?: boolean;
   onClose: () => void;
   onSubmit: FormEventHandler<HTMLFormElement>;
   children: ReactNode;
@@ -36,6 +37,7 @@ function ModalLayout({
   closeLabel,
   submitLabel,
   submitDisabled = false,
+  noValidate = false,
   onClose,
   onSubmit,
   children,
@@ -113,6 +115,7 @@ function ModalLayout({
       onMouseDown={onClose}>
       <form
         ref={formRef}
+        noValidate={noValidate}
         className={cn(
           'flex max-h-[calc(100dvh-2rem)] w-full max-w-[35rem] [scrollbar-width:none] flex-col gap-4 overflow-y-auto rounded-[10px] border border-black/10 bg-white p-6 shadow-xl [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden',
           className
@@ -186,7 +189,8 @@ function getFocusableElements(container: HTMLElement | null) {
   ).filter(
     (element) =>
       !element.hasAttribute('disabled') &&
-      element.getAttribute('aria-hidden') !== 'true'
+      element.getAttribute('aria-hidden') !== 'true' &&
+      element.getClientRects().length > 0
   );
 }
 

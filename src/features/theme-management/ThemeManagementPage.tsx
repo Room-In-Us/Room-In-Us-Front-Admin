@@ -1,10 +1,8 @@
 'use client';
 
-import {
-  PageTitle,
-  PageTitleActionButton,
-} from '@/src/shared/components/layout/PageTitle';
+import {PageTitle} from '@/src/shared/components/layout/PageTitle';
 
+import {ThemeAddDialogTrigger} from './components/ThemeAddDialogTrigger';
 import {
   ThemeManagementClientProvider,
   useThemeManagementSummary,
@@ -27,7 +25,7 @@ function ThemeManagementPageContent() {
       <PageTitle
         title={<span id='theme-management-title'>테마 관리</span>}
         subtitle={`총 ${totalElements}개의 테마`}
-        action={<PageTitleActionButton>테마 추가</PageTitleActionButton>}
+        action={<ThemeAddDialogTrigger />}
       />
 
       <ThemeManagementTable />

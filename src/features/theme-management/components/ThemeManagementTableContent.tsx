@@ -1,6 +1,6 @@
 'use client';
 
-import {Pencil, Trash2} from 'lucide-react';
+import {Trash2} from 'lucide-react';
 
 import {isApiError} from '@/src/shared/api';
 import {Button} from '@/src/shared/components/ui/button';
@@ -8,6 +8,7 @@ import {cn} from '@/src/shared/lib/utils';
 
 import {useDeleteThemeMutation} from '../api/theme-queries';
 import type {Theme} from '../model/theme';
+import {ThemeEditDialogTrigger} from './ThemeEditDialogTrigger';
 import {useThemeManagementRows} from './ThemeManagementClientProvider';
 import {ThemeStatusTag} from './ThemeStatusTag';
 
@@ -68,7 +69,6 @@ function ThemeManagementTableContent() {
 
 function ThemeTableRow({theme}: {theme: Theme}) {
   const deleteThemeMutation = useDeleteThemeMutation();
-  const unavailableDescriptionId = `theme-actions-unavailable-${theme.id}`;
   const deleteErrorMessage = getDeleteThemeErrorMessage(
     deleteThemeMutation.error
   );
@@ -136,21 +136,8 @@ function ThemeTableRow({theme}: {theme: Theme}) {
       </td>
       <td className='px-2'>
         <div className='flex flex-col items-center justify-center gap-1'>
-          <span id={unavailableDescriptionId} className='sr-only'>
-            테마 수정 기능은 아직 준비 중입니다.
-          </span>
           <div className='flex items-center justify-center gap-2'>
-            <Button
-              type='button'
-              variant='outline'
-              size='icon'
-              aria-label={`${theme.name} 수정`}
-              aria-describedby={unavailableDescriptionId}
-              title='수정 기능 준비 중'
-              disabled
-              className='border-riu-monochrome-30 bg-surface text-riu-monochrome-700 hover:bg-riu-monochrome-10'>
-              <Pencil aria-hidden='true' className='size-4' />
-            </Button>
+            <ThemeEditDialogTrigger themeId={theme.id} themeName={theme.name} />
             <Button
               type='button'
               variant='outline'
