@@ -67,9 +67,9 @@ function ThemeAddDialogTrigger() {
     const img = getText(formData, 'img');
     const playTime = getOptionalNumber(formData, 'playTime');
 
-    if (!selectedStore || !name || !img || playTime == null) {
+    if (!selectedStore || !name || !img) {
       setActiveTab('basic');
-      setErrorMessage('매장, 테마명, 이미지 URL, 플레이타임을 입력해주세요.');
+      setErrorMessage('매장, 테마명, 이미지 URL을 입력해주세요.');
       return;
     }
 
@@ -83,8 +83,7 @@ function ThemeAddDialogTrigger() {
     const horrorLevel = getOptionalNumber(formData, 'horrorLevel');
     const activityLevel = getOptionalNumber(formData, 'activityLevel');
     if (
-      !Number.isInteger(playTime) ||
-      playTime < 0 ||
+      (playTime != null && (!Number.isInteger(playTime) || playTime < 0)) ||
       !isWithinRange(level, 1, 5) ||
       !isWithinRange(horrorLevel, 0, 5) ||
       !isWithinRange(activityLevel, 1, 5)
@@ -158,7 +157,7 @@ function ThemeAddDialogTrigger() {
       storeId: selectedStore.id,
       name,
       img,
-      playTime,
+      playTime: playTime ?? 0,
       searchName: allSearchNames.join(', ') || undefined,
       synopsis: getOptionalText(formData, 'synopsis'),
       level,
