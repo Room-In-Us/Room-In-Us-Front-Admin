@@ -30,6 +30,28 @@ type CreateThemeParams = {
   request: AdminApiTypes.PostThemeRequest;
 };
 
+type GetThemeDetailParams = {themeId: Theme['id']};
+
+type NullableDatePatchThemeRequest = Omit<
+  AdminApiTypes.PatchThemeRequest,
+  | 'openDate'
+  | 'closureExpectedDate'
+  | 'renewalStartDate'
+  | 'renewalEndDate'
+  | 'closureDate'
+> & {
+  openDate?: string | null;
+  closureExpectedDate?: string | null;
+  renewalStartDate?: string | null;
+  renewalEndDate?: string | null;
+  closureDate?: string | null;
+};
+
+type UpdateThemeParams = {
+  themeId: Theme['id'];
+  request: NullableDatePatchThemeRequest;
+};
+
 type ApiThemeStatus = NonNullable<
   AdminApiTypes.GetThemeListResponse['themeStatus']
 >;
@@ -157,9 +179,30 @@ export const createTheme = async ({
   return data;
 };
 
+export const getThemeDetail = async ({
+  themeId,
+}: GetThemeDetailParams): Promise<AdminApiTypes.GetThemeDetailResponse> => {
+  const {data} =
+    await getBrowserApi().get<AdminApiTypes.GetThemeDetailResponse>(
+      API_ENDPOINTS.themes.detail(themeId)
+    );
+
+  return data;
+};
+
+export const updateTheme = async ({
+  themeId,
+  request,
+}: UpdateThemeParams): Promise<void> => {
+  await getBrowserApi().patch(API_ENDPOINTS.themes.detail(themeId), request);
+};
+
 export type {
   CreateThemeParams,
   DeleteThemeParams,
+  GetThemeDetailParams,
   GetThemeListParams,
+  NullableDatePatchThemeRequest,
   ThemeListResult,
+  UpdateThemeParams,
 };
