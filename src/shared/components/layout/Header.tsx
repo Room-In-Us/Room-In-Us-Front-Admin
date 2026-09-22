@@ -4,6 +4,7 @@ import {IcLogOut, IcRefreshCw} from '@/src/assets/icons';
 import {Button} from '@/src/shared/components/ui/button';
 import {IconSlot, type IconSlotSize} from '@/src/shared/components/ui/IconSlot';
 import {cn} from '@/src/shared/lib/utils';
+import Link from 'next/link';
 
 type HeaderProps = {
   title?: string;
@@ -30,7 +31,12 @@ function Header({
         'border-riu-monochrome-30 bg-surface flex h-16 w-full items-center justify-between border-b px-6 py-4',
         className
       )}>
-      <h1 className='text-h2 text-riu-monochrome-1000'>{title}</h1>
+      <Link
+        href='/dashboard'
+        aria-label='대시보드 초기 화면으로 이동'
+        className='rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-riu-primary-300'>
+        <h1 className='text-h2 text-riu-monochrome-1000'>{title}</h1>
+      </Link>
 
       <div className='flex items-center gap-2'>
         <HeaderActionButton disabled={!onReset} onClick={onReset}>
