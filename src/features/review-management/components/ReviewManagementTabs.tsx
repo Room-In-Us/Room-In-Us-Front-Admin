@@ -34,9 +34,15 @@ const reviewTabs: ReviewTabItem[] = [
 function ReviewManagementTabs({reviews}: ReviewManagementTabsProps) {
   const [reviewItems, setReviewItems] = React.useState(reviews);
   const [activeTab, setActiveTab] = React.useState<ReviewTab>('reported');
+
   const reportedCount = reviewItems.filter(
-    (review) => review.status === 'reported'
+    (review) => review.isReported && review.status !== 'deleted'
   ).length;
+
+  const deletedCount = reviewItems.filter(
+    (review) => review.status === 'deleted'
+  ).length;
+
   const rows = getRowsByTab(reviewItems, activeTab);
   const summaryLabel = getSummaryLabel(activeTab, rows.length);
 
@@ -44,6 +50,14 @@ function ReviewManagementTabs({reviews}: ReviewManagementTabsProps) {
     setReviewItems((currentReviews) =>
       currentReviews.map((review) =>
         review.id === reviewId ? {...review, status: 'deleted'} : review
+      )
+    );
+  }
+
+  function handleRestore(reviewId: number) {
+    setReviewItems((currentReviews) =>
+      currentReviews.map((review) =>
+        review.id === reviewId ? {...review, status: 'active'} : review
       )
     );
   }
@@ -67,16 +81,23 @@ function ReviewManagementTabs({reviews}: ReviewManagementTabsProps) {
               id={`review-management-tab-${tab.value}`}
               onClick={() => setActiveTab(tab.value)}
               className={cn(
-                'text-body3 text-riu-monochrome-1000 flex h-8 w-[140px] items-center justify-center gap-3 rounded-xl px-2 py-1 transition-colors outline-none',
+                'text-body3 text-riu-monochrome-1000 flex h-8 w-[116px] shrink-0 items-center justify-center gap-3 rounded-xl px-2 py-1 whitespace-nowrap transition-colors outline-none',
                 'focus-visible:ring-riu-primary-300 focus-visible:ring-2 focus-visible:ring-offset-2',
                 isActive && 'bg-surface'
               )}>
-              <span>{tab.label}</span>
-              {tab.value === 'reported' ? (
-                <span className='bg-status-reported-background text-status-reported-foreground text-button3 flex min-w-[1.25rem] items-center justify-center rounded-lg px-2 py-0.5'>
+              <span className='shrink-0'>{tab.label}</span>
+
+              {tab.value === 'reported' && (
+                <span className='bg-status-reported-background text-status-reported-foreground text-button3 flex min-w-[1.475rem] shrink-0 items-center justify-center rounded-lg px-[0.55rem] py-[0.175rem]'>
                   {reportedCount}
                 </span>
-              ) : null}
+              )}
+
+              {tab.value === 'deleted' && (
+                <span className='bg-riu-monochrome-20 text-riu-monochrome-800 text-button3 flex min-w-[1.475rem] shrink-0 items-center justify-center rounded-lg px-[0.55rem] py-[0.175rem]'>
+                  {deletedCount}
+                </span>
+              )}
             </button>
           );
         })}
@@ -87,7 +108,13 @@ function ReviewManagementTabs({reviews}: ReviewManagementTabsProps) {
         role='tabpanel'
         aria-labelledby={`review-management-tab-${activeTab}`}
         className='min-w-0'>
-        <ReviewManagementTable reviews={rows} onDelete={handleDelete} />
+        <ReviewManagementTable
+          reviews={rows}
+          activeTab={activeTab}
+          onDelete={handleDelete}
+          onRestore={handleRestore}
+        />
+
         <p className='text-caption2 text-riu-monochrome-300 mt-3'>
           {summaryLabel}
         </p>
@@ -98,7 +125,9 @@ function ReviewManagementTabs({reviews}: ReviewManagementTabsProps) {
 
 function getRowsByTab(reviews: Review[], tab: ReviewTab) {
   if (tab === 'reported') {
-    return reviews.filter((review) => review.status === 'reported');
+    return reviews.filter(
+      (review) => review.isReported && review.status !== 'deleted'
+    );
   }
 
   if (tab === 'deleted') {

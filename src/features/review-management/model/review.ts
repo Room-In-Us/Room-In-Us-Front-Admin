@@ -1,4 +1,4 @@
-type ReviewStatus = 'normal' | 'reported' | 'deleted';
+type ReviewStatus = 'active' | 'deleted';
 
 type Review = {
   id: number;
@@ -8,6 +8,7 @@ type Review = {
   content: string;
   createdAt: string;
   status: ReviewStatus;
+  isReported: boolean;
 };
 
 type ReviewTab = 'reported' | 'all' | 'deleted';
