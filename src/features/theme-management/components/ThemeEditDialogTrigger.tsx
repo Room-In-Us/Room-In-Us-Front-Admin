@@ -1,7 +1,6 @@
 'use client';
 
 import {useState} from 'react';
-import {Pencil} from 'lucide-react';
 
 import {isApiError} from '@/src/shared/api';
 import {Button} from '@/src/shared/components/ui/button';
@@ -9,6 +8,7 @@ import {ModalLayout} from '@/src/shared/components/ui/ModalLayout';
 
 import {useThemeDetailQuery} from '../api/theme-queries';
 import {ThemeFormDialog} from './ThemeFormDialog';
+import {IcSquarePen} from '@/src/assets/icons';
 
 function ThemeEditDialogTrigger({
   themeId,
@@ -29,7 +29,7 @@ function ThemeEditDialogTrigger({
         type='button'
         variant='outline'
         onClick={() => setIsOpen(true)}>
-        <Pencil aria-hidden='true' className='size-4' />
+        <IcSquarePen aria-hidden='true' className='size-4' />
       </Button>
       {isOpen ? (
         <ThemeEditDialog themeId={themeId} onClose={() => setIsOpen(false)} />

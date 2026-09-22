@@ -150,7 +150,7 @@ function StoreTableActions({store}: {store: Store}) {
           disabled={deleteStoreMutation.isPending}
           className='border-riu-monochrome-30 bg-surface text-riu-monochrome-700 hover:bg-riu-monochrome-10'
           onClick={handleDelete}>
-          <Trash2 aria-hidden='true' className='size-4' />
+          <IcTrash2 aria-hidden='true' className='size-4' />
         </Button>
       </div>
       {deleteStoreMutation.isError ? (

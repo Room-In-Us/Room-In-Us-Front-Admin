@@ -1,9 +1,8 @@
 'use client';
 
 import {useId, useState, type Dispatch, type SetStateAction} from 'react';
-import {X} from 'lucide-react';
 
-import {IcChevronDown} from '@/src/assets/icons';
+import {IcChevronDown, IcX} from '@/src/assets/icons';
 import {type AdminApiTypes} from '@/src/shared/api';
 import {Input} from '@/src/shared/components/ui/Input';
 
@@ -264,7 +263,7 @@ function ThemeBasicFields({
                             )
                           )
                         }>
-                        <X aria-hidden='true' className='size-3' />
+                        <IcX aria-hidden='true' className='size-3' />
                       </button>
                     </span>
                   );

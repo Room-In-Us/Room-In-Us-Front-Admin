@@ -1,7 +1,7 @@
 import {type KeyboardEvent} from 'react';
-import {X} from 'lucide-react';
 
 import {Input} from '@/src/shared/components/ui/Input';
+import {IcX} from '@/src/assets/icons';
 
 type ThemeTagInputProps = {
   id: string;
@@ -56,7 +56,7 @@ function ThemeTagInput({
                   onClick={() =>
                     onTagsChange(tags.filter((item) => item !== tag))
                   }>
-                  <X aria-hidden='true' className='size-3' />
+                  <IcX aria-hidden='true' className='size-3' />
                 </button>
               </span>
             ))}

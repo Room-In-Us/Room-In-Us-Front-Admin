@@ -1,7 +1,6 @@
 'use client';
 
 import {useId, useState, type FormEvent} from 'react';
-import {MapPin, Pencil} from 'lucide-react';
 
 import {isApiError} from '@/src/shared/api';
 import {Button} from '@/src/shared/components/ui/button';
@@ -17,6 +16,7 @@ import {
   StoreFormDialogField,
   type StoreFormFieldConfig,
 } from './StoreFormDialog';
+import {IcMapPin, IcSquarePen} from '@/src/assets/icons';
 
 const operationDateFields = [
   {id: 'openedAt', label: '오픈일', type: 'date'},
@@ -56,7 +56,7 @@ function StoreEditDialogTrigger({store}: {store: Store}) {
       defaultValue: storeDetail?.address,
       helperText: (
         <>
-          <MapPin aria-hidden='true' className='text-destructive size-3' />
+          <IcMapPin aria-hidden='true' className='text-destructive size-3' />
           <span className='min-w-0 truncate'>{storeDetail?.station}</span>
         </>
       ),
@@ -123,7 +123,7 @@ function StoreEditDialogTrigger({store}: {store: Store}) {
         title='수정'
         className='border-riu-monochrome-30 bg-surface text-riu-monochrome-700 hover:bg-riu-monochrome-10'
         onClick={() => setIsOpen(true)}>
-        <Pencil aria-hidden='true' className='size-4' />
+        <IcSquarePen aria-hidden='true' className='size-4' />
       </Button>
 
       {isOpen ? (

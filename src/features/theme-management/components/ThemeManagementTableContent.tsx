@@ -1,7 +1,5 @@
 'use client';
 
-import {Trash2} from 'lucide-react';
-
 import {isApiError} from '@/src/shared/api';
 import {Button} from '@/src/shared/components/ui/button';
 import {cn} from '@/src/shared/lib/utils';
@@ -11,6 +9,7 @@ import type {Theme} from '../model/theme';
 import {ThemeEditDialogTrigger} from './ThemeEditDialogTrigger';
 import {useThemeManagementRows} from './ThemeManagementClientProvider';
 import {ThemeStatusTag} from './ThemeStatusTag';
+import {IcTrash2} from '@/src/assets/icons';
 
 const columnHeaders = [
   {label: 'ID', className: 'w-[2rem]'},
@@ -147,7 +146,7 @@ function ThemeTableRow({theme}: {theme: Theme}) {
               disabled={deleteThemeMutation.isPending}
               className='border-riu-monochrome-30 bg-surface text-riu-monochrome-700 hover:bg-riu-monochrome-10'
               onClick={handleDelete}>
-              <Trash2 aria-hidden='true' className='size-4' />
+              <IcTrash2 aria-hidden='true' className='size-4' />
             </Button>
           </div>
           {deleteThemeMutation.isError ? (
