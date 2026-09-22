@@ -34,7 +34,7 @@ function Header({
       <Link
         href='/dashboard'
         aria-label='대시보드 초기 화면으로 이동'
-        className='rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-riu-primary-300'>
+        className='focus-visible:ring-riu-primary-300 rounded-sm outline-none focus-visible:ring-2'>
         <h1 className='text-h2 text-riu-monochrome-1000'>{title}</h1>
       </Link>
 

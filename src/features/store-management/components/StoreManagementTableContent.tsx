@@ -11,7 +11,7 @@ import {StoreEditDialogTrigger} from './StoreEditDialogTrigger';
 import {useStoreManagementRows} from './StoreManagementClientProvider';
 import {StoreStatusTag, type StoreStatusTagVariant} from './StoreStatusTag';
 import {IcTrash2} from '@/src/assets/icons';
-import { cn } from '@/src/shared/lib/utils';
+import {cn} from '@/src/shared/lib/utils';
 
 const storeStatusTagVariant = {
   operating: 'default',
@@ -45,7 +45,10 @@ function StoreManagementTableContent() {
                 <th
                   key={header.label}
                   scope='col'
-                  className={`text-body3 text-riu-monochrome-800 px-2 text-left align-middle ${header.className}`}>
+                  className={cn(
+                    'text-body3 text-riu-monochrome-800 px-2 text-left align-middle',
+                    header.className
+                  )}>
                   {header.label}
                 </th>
               ))}
