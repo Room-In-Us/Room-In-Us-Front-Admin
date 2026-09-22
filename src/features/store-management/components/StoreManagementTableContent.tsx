@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import {Trash2} from 'lucide-react';
 
 import {isApiError} from '@/src/shared/api';
 import {Button} from '@/src/shared/components/ui/button';
@@ -11,6 +10,8 @@ import type {Store} from '../model/store';
 import {StoreEditDialogTrigger} from './StoreEditDialogTrigger';
 import {useStoreManagementRows} from './StoreManagementClientProvider';
 import {StoreStatusTag, type StoreStatusTagVariant} from './StoreStatusTag';
+import {IcTrash2} from '@/src/assets/icons';
+import { cn } from '@/src/shared/lib/utils';
 
 const storeStatusTagVariant = {
   operating: 'default',
