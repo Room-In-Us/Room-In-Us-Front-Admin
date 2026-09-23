@@ -26,7 +26,15 @@ const useReviewListQuery = (params: GetReviewListParams) => {
   return useQuery<ReviewListResult>({
     queryKey: reviewQueryKeys.list(params),
     queryFn: () => getReviewList(params),
-    placeholderData: (previousData) => previousData,
+    placeholderData: (previousData, previousQuery) => {
+      const previousParams = previousQuery?.queryKey[2] as
+        | GetReviewListParams
+        | undefined;
+
+      return previousParams?.searchType === params.searchType
+        ? previousData
+        : undefined;
+    },
   });
 };
 

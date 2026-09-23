@@ -1,30 +1,17 @@
 import {NextRequest, NextResponse} from 'next/server';
 
 import {API_ENDPOINTS, type AdminApiTypes} from '@/src/shared/api';
-import {normalizeApiError} from '@/src/shared/api/api-error';
 import {createServerApi} from '@/src/shared/api/server-client';
 import {AUTH_COOKIE_NAMES} from '@/src/shared/auth';
+import {createApiErrorResponse} from '@/src/shared/api/api-error-response';
 
 const DEFAULT_PAGE = 1;
 const DEFAULT_PAGE_SIZE = 10;
+const MAX_PAGE_SIZE = 100;
 
 const reviewSearchTypes = ['REPORTED', 'DELETED'] as const;
 
 type ReviewSearchType = (typeof reviewSearchTypes)[number];
-
-const createApiErrorResponse = (error: unknown) => {
-  const apiError = normalizeApiError(error);
-
-  return NextResponse.json(
-    {
-      code: apiError.code,
-      message: apiError.message,
-    },
-    {
-      status: apiError.status ?? 500,
-    }
-  );
-};
 
 const getPositiveIntegerParam = (
   searchParams: URLSearchParams,
@@ -55,7 +42,10 @@ export async function GET(request: NextRequest) {
 
   const page = getPositiveIntegerParam(searchParams, 'page', DEFAULT_PAGE);
 
-  const size = getPositiveIntegerParam(searchParams, 'size', DEFAULT_PAGE_SIZE);
+  const size = Math.min(
+    getPositiveIntegerParam(searchParams, 'size', DEFAULT_PAGE_SIZE),
+    MAX_PAGE_SIZE
+  );
 
   const searchType = getSearchTypeParam(searchParams);
 

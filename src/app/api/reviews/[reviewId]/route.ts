@@ -1,28 +1,14 @@
 import {NextRequest, NextResponse} from 'next/server';
 
 import {API_ENDPOINTS, type AdminApiTypes} from '@/src/shared/api';
-import {normalizeApiError} from '@/src/shared/api/api-error';
 import {createServerApi} from '@/src/shared/api/server-client';
 import {AUTH_COOKIE_NAMES} from '@/src/shared/auth';
+import {createApiErrorResponse} from '@/src/shared/api/api-error-response';
 
 type ReviewDetailRouteContext = {
   params: Promise<{
     reviewId: string;
   }>;
-};
-
-const createApiErrorResponse = (error: unknown) => {
-  const apiError = normalizeApiError(error);
-
-  return NextResponse.json(
-    {
-      code: apiError.code,
-      message: apiError.message,
-    },
-    {
-      status: apiError.status ?? 500,
-    }
-  );
 };
 
 const createInvalidReviewIdResponse = () => {
