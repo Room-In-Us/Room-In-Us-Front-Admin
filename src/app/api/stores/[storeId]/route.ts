@@ -3,7 +3,7 @@ import {NextRequest, NextResponse} from 'next/server';
 import {API_ENDPOINTS, type AdminApiTypes} from '@/src/shared/api';
 import {createServerApi} from '@/src/shared/api/server-client';
 import {AUTH_COOKIE_NAMES} from '@/src/shared/auth';
-import { createApiErrorResponse } from '@/src/shared/api/api-error-response';
+import {createApiErrorResponse} from '@/src/shared/api/api-error-response';
 
 type StoreDetailRouteContext = {
   params: Promise<{

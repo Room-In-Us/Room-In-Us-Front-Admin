@@ -4,11 +4,8 @@ import {API_ENDPOINTS, type AdminApiTypes} from '@/src/shared/api';
 import {ApiError} from '@/src/shared/api/api-error';
 import {createServerApi} from '@/src/shared/api/server-client';
 
-import {
-  getRefreshToken,
-  setAuthCookies,
-} from '../_lib/auth-route';
-import { createApiErrorResponse } from '@/src/shared/api/api-error-response';
+import {getRefreshToken, setAuthCookies} from '../_lib/auth-route';
+import {createApiErrorResponse} from '@/src/shared/api/api-error-response';
 
 const createMissingRefreshTokenError = () => {
   return new ApiError({

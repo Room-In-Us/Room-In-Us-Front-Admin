@@ -4,7 +4,7 @@ import {API_ENDPOINTS, type AdminApiTypes} from '@/src/shared/api';
 import {createServerApi} from '@/src/shared/api/server-client';
 
 import {setAuthCookies} from '../_lib/auth-route';
-import { createApiErrorResponse } from '@/src/shared/api/api-error-response';
+import {createApiErrorResponse} from '@/src/shared/api/api-error-response';
 
 const createBadRequestResponse = (message: string) => {
   return NextResponse.json({message}, {status: 400});
