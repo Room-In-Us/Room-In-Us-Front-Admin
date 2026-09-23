@@ -1,7 +1,6 @@
 import {PageTitle} from '@/src/shared/components/layout/PageTitle';
 
 import {ReviewManagementTabs} from './components/ReviewManagementTabs';
-import {reviews} from './model/mockReviews';
 
 function ReviewManagementPage() {
   return (
@@ -13,7 +12,7 @@ function ReviewManagementPage() {
         subtitle='후기 확인 및 관리'
       />
 
-      <ReviewManagementTabs reviews={reviews} />
+      <ReviewManagementTabs />
     </section>
   );
 }

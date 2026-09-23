@@ -1,19 +1,22 @@
-import {Button} from '@/src/shared/components/ui/button';
-import {cn} from '@/src/shared/lib/utils';
-
-import type {Review, ReviewTab} from '../model/review';
 import {
   IcRotateCcw,
   IcStar,
   IcTrash2,
   IcTriangleAlert,
 } from '@/src/assets/icons';
+import {Button} from '@/src/shared/components/ui/button';
+import {cn} from '@/src/shared/lib/utils';
+
+import type {Review, ReviewTab} from '../model/review';
 
 type ReviewManagementTableProps = {
   reviews: Review[];
   activeTab: ReviewTab;
+  isLoading?: boolean;
+  isError?: boolean;
+  errorMessage?: string;
+  deleteDisabled?: boolean;
   onDelete: (reviewId: number) => void;
-  onRestore: (reviewId: number) => void;
 };
 
 const columnHeaders = [
@@ -30,8 +33,11 @@ const columnHeaders = [
 function ReviewManagementTable({
   reviews,
   activeTab,
+  isLoading = false,
+  isError = false,
+  errorMessage,
+  deleteDisabled = false,
   onDelete,
-  onRestore,
 }: ReviewManagementTableProps) {
   return (
     <div className='border-dashboard-border bg-surface overflow-hidden rounded-[10px] border'>
@@ -67,7 +73,13 @@ function ReviewManagementTable({
           </thead>
 
           <tbody>
-            {reviews.length > 0 ? (
+            {isLoading ? (
+              <ReviewMessageRow message='후기를 불러오는 중입니다.' />
+            ) : isError ? (
+              <ReviewMessageRow
+                message={errorMessage ?? '후기를 불러오지 못했습니다.'}
+              />
+            ) : reviews.length > 0 ? (
               reviews.map((review) => (
                 <tr key={review.id} className='h-12'>
                   <td className='text-caption2 text-riu-monochrome-800 px-2.5 text-center'>
@@ -98,7 +110,7 @@ function ReviewManagementTable({
                     <div className='flex items-center justify-center gap-2.5'>
                       {review.isReported && <ReportedBadge />}
 
-                      {activeTab === 'deleted' && <DeletedBadge />}
+                      {review.status === 'deleted' && <DeletedBadge />}
                     </div>
                   </td>
 
@@ -108,10 +120,10 @@ function ReviewManagementTable({
                         type='button'
                         variant='outline'
                         size='icon'
+                        disabled
                         aria-label={`${review.id}번 후기 복구`}
                         title='복구'
-                        className='border-riu-monochrome-30 bg-surface text-riu-monochrome-700 hover:bg-riu-monochrome-10 mx-auto h-8 w-8'
-                        onClick={() => onRestore(review.id)}>
+                        className='border-riu-monochrome-30 bg-surface text-riu-monochrome-700 hover:bg-riu-monochrome-10 mx-auto h-8 w-8'>
                         <IcRotateCcw aria-hidden='true' className='size-4' />
                       </Button>
                     ) : (
@@ -119,6 +131,7 @@ function ReviewManagementTable({
                         type='button'
                         variant='outline'
                         size='icon'
+                        disabled={deleteDisabled}
                         aria-label={`${review.id}번 후기 삭제`}
                         title='삭제'
                         className='border-riu-monochrome-30 bg-surface text-riu-monochrome-700 hover:bg-riu-monochrome-10 mx-auto h-8 w-8'
@@ -130,13 +143,7 @@ function ReviewManagementTable({
                 </tr>
               ))
             ) : (
-              <tr className='h-12'>
-                <td
-                  colSpan={columnHeaders.length}
-                  className='text-caption2 text-riu-monochrome-300 px-2.5 text-center'>
-                  데이터가 없습니다.
-                </td>
-              </tr>
+              <ReviewMessageRow message='데이터가 없습니다.' />
             )}
           </tbody>
         </table>
@@ -146,12 +153,14 @@ function ReviewManagementTable({
 }
 
 function ReviewRating({rating}: {rating: number}) {
+  const filledStarCount = Math.round(rating);
+
   return (
     <div
       className='flex items-center justify-center gap-1'
       aria-label={`평점 ${rating}점`}>
       {Array.from({length: 5}, (_, index) => {
-        const isFilled = index < rating;
+        const isFilled = index < filledStarCount;
 
         return (
           <IcStar
@@ -184,6 +193,18 @@ function DeletedBadge() {
     <span className='bg-riu-monochrome-20 text-riu-monochrome-800 text-button3 inline-flex items-center justify-center rounded-lg px-2 py-0.5 whitespace-nowrap'>
       삭제됨
     </span>
+  );
+}
+
+function ReviewMessageRow({message}: {message: string}) {
+  return (
+    <tr className='h-12'>
+      <td
+        colSpan={columnHeaders.length}
+        className='text-caption2 text-riu-monochrome-300 px-2.5 text-center'>
+        {message}
+      </td>
+    </tr>
   );
 }
 
