@@ -1,0 +1,25 @@
+import {forwardRef, memo, type Ref, type SVGProps} from 'react';
+const SvgIcSquarePen = (
+  props: SVGProps<SVGSVGElement>,
+  ref: Ref<SVGSVGElement>
+) => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    width='1em'
+    height='1em'
+    fill='none'
+    viewBox='0 0 24 24'
+    ref={ref}
+    {...props}>
+    <path
+      stroke='currentColor'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      strokeWidth={2}
+      d='M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7m-2.625-9.375a2.121 2.121 0 1 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z'
+    />
+  </svg>
+);
+const ForwardRef = forwardRef(SvgIcSquarePen);
+const Memo = memo(ForwardRef);
+export default Memo;

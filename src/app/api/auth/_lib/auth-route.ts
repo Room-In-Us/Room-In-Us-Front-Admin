@@ -1,7 +1,6 @@
 import {cookies} from 'next/headers';
-import {NextResponse} from 'next/server';
 
-import {ApiError, normalizeApiError} from '@/src/shared/api/api-error';
+import {ApiError} from '@/src/shared/api/api-error';
 import {AUTH_COOKIE_NAMES, AUTH_COOKIE_PATHS} from '@/src/shared/auth';
 
 interface AuthTokenPair {
@@ -64,18 +63,4 @@ export const clearAuthCookies = async () => {
 
 export const getRefreshToken = async () => {
   return (await getCookieStore()).get(AUTH_COOKIE_NAMES.refreshToken)?.value;
-};
-
-export const createApiErrorResponse = (error: unknown) => {
-  const apiError = normalizeApiError(error);
-
-  return NextResponse.json(
-    {
-      code: apiError.code,
-      message: apiError.message,
-    },
-    {
-      status: apiError.status ?? 500,
-    }
-  );
 };

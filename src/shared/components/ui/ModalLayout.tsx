@@ -7,11 +7,11 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react';
-import {X} from 'lucide-react';
 
 import {cn} from '@/src/shared/lib/utils';
 
 import {Button} from './button';
+import {IcX} from '@/src/assets/icons';
 
 type ModalLayoutProps = {
   title: string;
@@ -155,7 +155,7 @@ function ModalLayout({
             type='button'
             variant='ghost'
             onClick={onClose}>
-            <X aria-hidden='true' className='size-4' />
+            <IcX aria-hidden='true' className='size-4' />
           </Button>
         </div>
 

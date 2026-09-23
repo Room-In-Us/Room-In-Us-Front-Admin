@@ -45,6 +45,11 @@
     "sourceFileName": "ic-log-out.svg"
   },
   {
+    "componentName": "IcMapPin",
+    "generatedFileName": "IcMapPin.tsx",
+    "sourceFileName": "ic-map-pin.svg"
+  },
+  {
     "componentName": "IcMessageSquare",
     "generatedFileName": "IcMessageSquare.tsx",
     "sourceFileName": "ic-message-square.svg"
@@ -70,6 +75,11 @@
     "sourceFileName": "ic-search.svg"
   },
   {
+    "componentName": "IcSquarePen",
+    "generatedFileName": "IcSquarePen.tsx",
+    "sourceFileName": "ic-square-pen.svg"
+  },
+  {
     "componentName": "IcStar",
     "generatedFileName": "IcStar.tsx",
     "sourceFileName": "ic-star.svg"
@@ -80,8 +90,18 @@
     "sourceFileName": "ic-store.svg"
   },
   {
+    "componentName": "IcTrash2",
+    "generatedFileName": "IcTrash2.tsx",
+    "sourceFileName": "ic-trash-2.svg"
+  },
+  {
     "componentName": "IcTriangleAlert",
     "generatedFileName": "IcTriangleAlert.tsx",
     "sourceFileName": "ic-triangle-alert.svg"
+  },
+  {
+    "componentName": "IcX",
+    "generatedFileName": "IcX.tsx",
+    "sourceFileName": "ic-x.svg"
   }
 ]

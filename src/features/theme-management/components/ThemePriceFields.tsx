@@ -1,9 +1,8 @@
 'use client';
 
 import {type Dispatch, type SetStateAction} from 'react';
-import {Trash2} from 'lucide-react';
 
-import {IcPlus} from '@/src/assets/icons';
+import {IcPlus, IcTrash2} from '@/src/assets/icons';
 import {Button} from '@/src/shared/components/ui/button';
 import {Input} from '@/src/shared/components/ui/Input';
 
@@ -188,7 +187,7 @@ function ThemePriceFields({rows, setRows}: ThemePriceFieldsProps) {
                             currentRows.filter((item) => item.id !== row.id)
                           )
                         }>
-                        <Trash2 aria-hidden='true' className='size-4' />
+                        <IcTrash2 aria-hidden='true' className='size-4' />
                       </Button>
                     </td>
                   </tr>

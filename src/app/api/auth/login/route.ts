@@ -3,7 +3,8 @@ import {NextResponse} from 'next/server';
 import {API_ENDPOINTS, type AdminApiTypes} from '@/src/shared/api';
 import {createServerApi} from '@/src/shared/api/server-client';
 
-import {createApiErrorResponse, setAuthCookies} from '../_lib/auth-route';
+import {setAuthCookies} from '../_lib/auth-route';
+import {createApiErrorResponse} from '@/src/shared/api/api-error-response';
 
 const createBadRequestResponse = (message: string) => {
   return NextResponse.json({message}, {status: 400});
