@@ -9,6 +9,7 @@ type Review = {
   createdAt: string;
   status: ReviewStatus;
   isReported: boolean;
+  reportReasons: string[];
 };
 
 type ReviewTab = 'reported' | 'all' | 'deleted';
