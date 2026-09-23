@@ -11,8 +11,8 @@ import {cn} from '@/src/shared/lib/utils';
 
 import type {ReviewTab} from '../model/review';
 import {ReviewManagementTable} from './ReviewManagementTable';
-import {ReviewManagementPagination} from './ReviewManagementPagination';
 import {GetReviewListParams} from '../api/review-api';
+import {ManagementPagination} from '@/src/shared/components/ui/ManagementPagination';
 
 type ReviewTabItem = {
   value: ReviewTab;
@@ -160,7 +160,7 @@ function ReviewManagementTabs() {
         {!activeReviewListQuery.isLoading &&
         !activeReviewListQuery.isError &&
         totalElements > 0 ? (
-          <ReviewManagementPagination
+          <ManagementPagination
             currentPage={page}
             totalPages={totalPages}
             hasPreviousPage={page > 1}

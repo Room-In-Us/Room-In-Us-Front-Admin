@@ -19,7 +19,7 @@ import {
 import {HistoryFilterBar} from './HistoryFilterBar';
 import {HistoryMetadataDialog} from './HistoryMetadataDialog';
 import {HistoryTable} from './HistoryTable';
-import {HistoryManagementPagination} from './HistoryManagementPagination';
+import {ManagementPagination} from '@/src/shared/components/ui/ManagementPagination';
 
 const targetLabels = {
   store: '매장',
@@ -153,7 +153,7 @@ function HistoryManagementTable() {
         onRestore={handleThemeRestore}
       />
 
-      <HistoryManagementPagination
+      <ManagementPagination
         currentPage={page}
         totalPages={totalPages}
         hasPreviousPage={hasPreviousPage}
