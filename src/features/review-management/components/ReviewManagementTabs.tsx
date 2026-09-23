@@ -81,7 +81,7 @@ function ReviewManagementTabs({reviews}: ReviewManagementTabsProps) {
               id={`review-management-tab-${tab.value}`}
               onClick={() => setActiveTab(tab.value)}
               className={cn(
-                'text-body3 text-riu-monochrome-1000 flex h-8 w-[116px] shrink-0 items-center justify-center gap-3 rounded-xl px-2 py-1 whitespace-nowrap transition-colors outline-none',
+                'text-body3 text-riu-monochrome-1000 flex h-8 min-w-[116px] shrink-0 items-center justify-center gap-3 rounded-xl px-2 py-1 whitespace-nowrap transition-colors outline-none',
                 'focus-visible:ring-riu-primary-300 focus-visible:ring-2 focus-visible:ring-offset-2',
                 isActive && 'bg-surface'
               )}>

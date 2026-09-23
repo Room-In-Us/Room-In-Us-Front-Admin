@@ -32,7 +32,7 @@ const reviews: Review[] = [
     isReported: false,
   },
   {
-    id: 1,
+    id: 4,
     theme: '셜록의 서재',
     author: '차민준',
     rating: 5,
@@ -42,7 +42,7 @@ const reviews: Review[] = [
     isReported: true,
   },
   {
-    id: 2,
+    id: 5,
     theme: '크리쳐 - 신인류의 탄생',
     author: '익명유저99',
     rating: 5,

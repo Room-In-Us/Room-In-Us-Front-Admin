@@ -28,14 +28,14 @@ function Header({
   return (
     <header
       className={cn(
-        'border-riu-monochrome-30 bg-surface flex h-16 w-full items-center justify-between border-b px-6 py-4',
+        'border-riu-monochrome-30 bg-surface flex h-16 w-full items-center justify-between gap-4 border-b px-6 py-4',
         className
       )}>
       <Link
         href='/dashboard'
         aria-label='대시보드 초기 화면으로 이동'
-        className='focus-visible:ring-riu-primary-300 rounded-sm outline-none focus-visible:ring-2'>
-        <h1 className='text-h2 text-riu-monochrome-1000'>{title}</h1>
+        className='focus-visible:ring-riu-primary-300 min-w-0 rounded-sm outline-none focus-visible:ring-2'>
+        <h1 className='text-h2 text-riu-monochrome-1000 truncate'>{title}</h1>
       </Link>
 
       <div className='flex items-center gap-2'>
