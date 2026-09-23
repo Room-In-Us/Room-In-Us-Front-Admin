@@ -1,9 +1,8 @@
 'use client';
 
 import {useId, useState, type Dispatch, type SetStateAction} from 'react';
-import {X} from 'lucide-react';
 
-import {IcChevronDown} from '@/src/assets/icons';
+import {IcChevronDown, IcX} from '@/src/assets/icons';
 import {type AdminApiTypes} from '@/src/shared/api';
 import {Input} from '@/src/shared/components/ui/Input';
 
@@ -149,12 +148,19 @@ function ThemeBasicFields({
           onInputChange={setSearchNameInput}
           onTagsChange={setSearchNames}
         />
-        <ThemeInputField
-          name='img'
-          label='이미지 URL *'
-          type='url'
-          defaultValue={initialTheme?.img}
-        />
+        <label className='flex min-w-0 flex-col gap-2' htmlFor='theme-add-url'>
+          <span className='text-body3 text-riu-monochrome-800'>
+            이미지 URL *
+          </span>
+
+          <textarea
+            id='theme-add-url'
+            name='img'
+            defaultValue={initialTheme?.img}
+            placeholder='이미지 URL 입력'
+            className='border-input bg-input text-body3 text-riu-monochrome-700 placeholder:text-riu-monochrome-300 focus-visible:border-riu-primary-500 focus-visible:bg-riu-monochrome-10 min-h-16 w-full resize-none rounded-lg border px-3 py-2 outline-none'
+          />
+        </label>
       </div>
       <ThemeInputField
         name='playTime'
@@ -264,7 +270,7 @@ function ThemeBasicFields({
                             )
                           )
                         }>
-                        <X aria-hidden='true' className='size-3' />
+                        <IcX aria-hidden='true' className='size-3' />
                       </button>
                     </span>
                   );
