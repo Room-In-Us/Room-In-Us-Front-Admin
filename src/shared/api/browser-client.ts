@@ -74,10 +74,18 @@ export const createBrowserApi = () => {
 
           return api.request(originalRequest);
         } catch (refreshError) {
-          redirectToLogin();
+          const apiError = normalizeApiError(refreshError);
 
-          throw normalizeApiError(refreshError);
+          if (apiError.status === 401 || apiError.status === 403) {
+            redirectToLogin();
+          }
+
+          throw apiError;
         }
+      }
+
+      if (status === 401 && originalRequest?._retry) {
+        redirectToLogin();
       }
 
       throw normalizeApiError(error);
