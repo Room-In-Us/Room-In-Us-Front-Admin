@@ -204,9 +204,15 @@ export const getThemeHistoryList = async ({
     );
 
   return {
-    histories: [...(data.contents ?? [])].sort((first, second) =>
-      (second.commitDateTime ?? '').localeCompare(first.commitDateTime ?? '')
-    ),
+    histories: [...(data.contents ?? [])].sort((first, second) => {
+      const firstTime = Date.parse(first.commitDateTime ?? '');
+      const secondTime = Date.parse(second.commitDateTime ?? '');
+
+      return (
+        (Number.isNaN(secondTime) ? 0 : secondTime) -
+        (Number.isNaN(firstTime) ? 0 : firstTime)
+      );
+    }),
     page: data.page ?? page,
     size: data.size ?? size,
     totalElements: data.totalElements ?? 0,

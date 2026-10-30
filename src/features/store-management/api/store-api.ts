@@ -92,11 +92,10 @@ const mapApiStoreStatus = (
 };
 
 const mapApiStore = (
-  store: AdminApiTypes.GetStoreListResponse,
-  index: number
+  store: AdminApiTypes.GetStoreListResponse & {id: number}
 ): Store => {
   return {
-    id: store.id ?? index + 1,
+    id: store.id,
     name: store.name ?? '',
     address: store.address ?? '',
     station: store.station ?? '',
@@ -148,7 +147,11 @@ export const getStoreList = async ({
   return {
     stores:
       data.contents
-        ?.map(mapApiStore)
+        ?.filter(
+          (store): store is AdminApiTypes.GetStoreListResponse & {id: number} =>
+            store.id != null
+        )
+        .map(mapApiStore)
         .sort((first, second) => second.id - first.id) ?? [],
     page: data.page ?? page,
     size: data.size ?? size,
@@ -177,9 +180,15 @@ export const getStoreHistoryList = async ({
     );
 
   return {
-    histories: [...(data.contents ?? [])].sort((first, second) =>
-      (second.commitDateTime ?? '').localeCompare(first.commitDateTime ?? '')
-    ),
+    histories: [...(data.contents ?? [])].sort((first, second) => {
+      const firstTime = Date.parse(first.commitDateTime ?? '');
+      const secondTime = Date.parse(second.commitDateTime ?? '');
+
+      return (
+        (Number.isNaN(secondTime) ? 0 : secondTime) -
+        (Number.isNaN(firstTime) ? 0 : firstTime)
+      );
+    }),
     page: data.page ?? page,
     size: data.size ?? size,
     totalElements: data.totalElements ?? 0,
