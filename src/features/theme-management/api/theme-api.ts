@@ -155,7 +155,7 @@ const isTheme = (theme: Theme | null): theme is Theme => {
 
 const sortThemesById = (themes: Theme[]) => {
   return [...themes].sort((firstTheme, secondTheme) => {
-    return firstTheme.id - secondTheme.id;
+    return secondTheme.id - firstTheme.id;
   });
 };
 
@@ -204,7 +204,15 @@ export const getThemeHistoryList = async ({
     );
 
   return {
-    histories: data.contents ?? [],
+    histories: [...(data.contents ?? [])].sort((first, second) => {
+      const firstTime = Date.parse(first.commitDateTime ?? '');
+      const secondTime = Date.parse(second.commitDateTime ?? '');
+
+      return (
+        (Number.isNaN(secondTime) ? 0 : secondTime) -
+        (Number.isNaN(firstTime) ? 0 : firstTime)
+      );
+    }),
     page: data.page ?? page,
     size: data.size ?? size,
     totalElements: data.totalElements ?? 0,
