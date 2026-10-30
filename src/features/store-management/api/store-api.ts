@@ -146,7 +146,10 @@ export const getStoreList = async ({
     );
 
   return {
-    stores: data.contents?.map(mapApiStore) ?? [],
+    stores:
+      data.contents
+        ?.map(mapApiStore)
+        .sort((first, second) => second.id - first.id) ?? [],
     page: data.page ?? page,
     size: data.size ?? size,
     totalElements: data.totalElements ?? 0,
@@ -174,7 +177,9 @@ export const getStoreHistoryList = async ({
     );
 
   return {
-    histories: data.contents ?? [],
+    histories: [...(data.contents ?? [])].sort((first, second) =>
+      (second.commitDateTime ?? '').localeCompare(first.commitDateTime ?? '')
+    ),
     page: data.page ?? page,
     size: data.size ?? size,
     totalElements: data.totalElements ?? 0,

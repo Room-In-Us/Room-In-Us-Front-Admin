@@ -71,7 +71,15 @@ export const getReviewList = async ({
     );
 
   return {
-    reviews: data.contents?.map(mapApiReview).filter(isReview) ?? [],
+    reviews:
+      data.contents
+        ?.map(mapApiReview)
+        .filter(isReview)
+        .sort(
+          (first, second) =>
+            second.createdAt.localeCompare(first.createdAt) ||
+            second.id - first.id
+        ) ?? [],
     page: data.page ?? page,
     size: data.size ?? size,
     totalElements: data.totalElements ?? 0,
